@@ -1,7 +1,16 @@
 <div align=center>
 <img alt="Tom Hendra logo" src="https://res.cloudinary.com/tomhendra/image/upload/v1567091669/tomhendra-logo/tomhendra-logo-round-1024.png" width="100" />
-<h1>Kiwi</h1>
+<h1>Buho</h1>
 <p>Bug tracking software</p>
 </div>
 
-## Introduction
+A desktop Progressive Web App for tracking bugs in software.
+
+## Tech stack
+
+- **Frontend:** React, TypeScript, Emotion.
+- **Testing:** Jest, React Testing Library.
+- **Backend:** Node JS, Express.
+- **Database:** PostgreSQL, Redis.
+- **Security:** Auth0, Snyk.
+- **Deployment:** AWS, Docker, Circle CI.
