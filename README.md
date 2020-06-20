@@ -13,4 +13,12 @@ A desktop Progressive Web App for tracking bugs in software.
 - **Backend:** Node JS, Express.
 - **Database:** PostgreSQL, Redis.
 - **Security:** Auth0, Snyk.
-- **Deployment:** AWS, Docker, Circle CI.
+- **Deployment:** AWS, Docker, Nginx, Circle CI.
+
+## Notes on project development for upcoming blog post(s)!
+
+CRA setup with TypeScript:
+
+```sh
+npx create-react-app my-app --template typescript
+```
