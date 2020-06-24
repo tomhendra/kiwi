@@ -27,7 +27,7 @@ export function App(): JSX.Element {
           </AccordionItem>
         </Accordion>
         <Button colorScheme="blue" size="sm">
-          Welcome
+          Welcome button
         </Button>
         <chakra.a
           href="https://reactjs.org"
