@@ -1,9 +1,9 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import App from './App';
+import { App } from './App';
 
-test('renders Click Me button', () => {
+test('renders button', () => {
   const { getByText } = render(<App />);
-  const buttonElement = getByText(/Click Me/i);
+  const buttonElement = getByText(/Welcome/i);
   expect(buttonElement).toBeInTheDocument();
 });

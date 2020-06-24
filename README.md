@@ -17,97 +17,104 @@ A desktop Progressive Web App for tracking bugs in software.
 
 ## Notes on project setup for upcoming blog post(s)!
 
-CRA setup with TypeScript & install Ant Design package.
+CRA install with TypeScript.
 
 ```sh
 npx create-react-app buho-app --template typescript
 ```
 
-install Ant Design.
+Install Chakra UI and its peer dependencies.
 
 ```sh
-cd buho-app && yarn add antd
+cd buho-app && yarn add @chakra-ui/core @chakra-ui/theme @emotion/core @emotion/styled emotion-theming
 ```
 
-To enable customization of theme, it's necessary to modify less variables via loader like less-loader. This can be achieved with `craco-less`.
-
-```sh
-yarn add @craco/craco craco-less
-```
-
-Modify the scripts in package.json.
-
-```json
-"start": "craco start",
-"build": "craco build",
-"test": "craco test",
-```
-
-Then create a `craco.config.js` file at root directory of the project for further overriding.
-
-```sh
-touch craco.config.js
-```
+Open `index.tsx` and edit.
 
 ```js
-const CracoLessPlugin = require('craco-less');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { App } from './App';
+import * as serviceWorker from './serviceWorker';
+import { ChakraProvider, CSSReset } from '@chakra-ui/core';
+import theme from '@chakra-ui/theme';
 
-module.exports = {
-  plugins: [
-    {
-      plugin: CracoLessPlugin,
-      options: {
-        lessLoaderOptions: {
-          lessOptions: {
-            modifyVars: { '@primary-color': '#5E81AC' },
-            javascriptEnabled: true,
-          },
-        },
-      },
-    },
-  ],
-};
-```
-
-Change the extension of `App.css` to `App.less` and replace file contents:
-
-```css
-@import '~antd/dist/antd.less';
-```
-
-Replace App.tsx contents.
-
-```js
-import React, { FC } from 'react';
-import { Button } from 'antd';
-import './App.less';
-
-const App: FC = () => (
-  <div className="App">
-    <Button type="primary">Click me</Button>
-  </div>
+ReactDOM.render(
+  <React.StrictMode>
+    <ChakraProvider theme={theme}>
+      <CSSReset />
+      <App />
+    </ChakraProvider>
+  </React.StrictMode>,
+  document.getElementById('root')
 );
 
-export default App;
+serviceWorker.unregister();
+```
+
+Open `App.tsx` and edit.
+
+```js
+import * as React from 'react';
+import logo from './logo.svg';
+import {
+  Button,
+  chakra,
+  Badge,
+  Checkbox,
+  Radio,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+} from '@chakra-ui/core';
+
+export function App() {
+  return (
+    <div>
+      <chakra.header display="flex" flexDir="column" alignItems="center">
+        <chakra.img src={logo} alt="logo" boxSize="200px" />
+        <p>
+          Edit <code>src/App.tsx</code> and save to reload.
+        </p>
+        <Accordion allowToggle>
+          <AccordionItem>
+            <AccordionButton>Accordion 1</AccordionButton>
+            <AccordionPanel>Welcome home</AccordionPanel>
+          </AccordionItem>
+        </Accordion>
+        <Button colorScheme="blue" size="sm">
+          Welcome
+        </Button>
+        <chakra.a
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </chakra.a>
+        <Checkbox>Welcome</Checkbox>
+        <Radio>Welcome</Radio>
+        <Badge colorScheme="red" variant="outline">
+          Welcome home
+        </Badge>
+      </chakra.header>
+    </div>
+  );
+}
 ```
 
 Replace App.test.tsx contents.
 
 ```js
-import React from 'react';
-import { render } from '@testing-library/react';
-import App from './App';
-
-test('renders Click Me button', () => {
+test('renders button', () => {
   const { getByText } = render(<App />);
-  const buttonElement = getByText(/Click Me/i);
+  const buttonElement = getByText(/Welcome/i);
   expect(buttonElement).toBeInTheDocument();
 });
 ```
 
-Delete `index.css` and `logo.svg` files.
-
-Remove `import './index.css';` from `index.tsx`
+Delete `index.css` & `App.css` files.
 
 Run test.
 
