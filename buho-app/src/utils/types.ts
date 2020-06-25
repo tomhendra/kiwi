@@ -1,3 +1,0 @@
-// ....................react....................
-
-export type Children = import('react').ReactNode;

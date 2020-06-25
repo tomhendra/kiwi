@@ -8,7 +8,7 @@ A desktop Progressive Web App for tracking bugs in software.
 
 ## Tech stack
 
-- **Frontend:** React, TypeScript, Emotion.
+- **Frontend:** React, TypeScript, Theme UI.
 - **Testing:** Jest, React Testing Library.
 - **Backend:** Node JS, Express.
 - **Database:** PostgreSQL, Redis.
@@ -23,10 +23,39 @@ CRA install with TypeScript.
 npx create-react-app buho-app --template typescript
 ```
 
-Install Chakra UI and its peer dependencies.
+Install Theme UI & types from Definitely Typed.
 
 ```sh
-cd buho-app && yarn add @chakra-ui/core @chakra-ui/theme @emotion/core @emotion/styled emotion-theming
+cd buho-app && yarn add theme-ui @types/theme-ui
+```
+
+Install Tailwind preset.
+
+```sh
+yarn add @theme-ui/preset-tailwind
+```
+
+Create `theme.js` in `src`.
+
+```js
+import theme from '@theme-ui/preset-tailwind';
+
+export default {
+  ...theme,
+  buttons: {
+    primary: {
+      color: 'background',
+      bg: 'primary',
+      '&:hover': {
+        bg: 'primaryHover',
+      },
+    },
+    secondary: {
+      color: 'background',
+      bg: 'secondary',
+    },
+  },
+};
 ```
 
 Open `index.tsx` and edit.
@@ -34,17 +63,16 @@ Open `index.tsx` and edit.
 ```js
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { ThemeProvider } from 'theme-ui';
+import theme from './theme';
 import { App } from './App';
 import * as serviceWorker from './serviceWorker';
-import { ChakraProvider, CSSReset } from '@chakra-ui/core';
-import theme from '@chakra-ui/theme';
 
 ReactDOM.render(
   <React.StrictMode>
-    <ChakraProvider theme={theme}>
-      <CSSReset />
+    <ThemeProvider theme={theme}>
       <App />
-    </ChakraProvider>
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
@@ -56,65 +84,43 @@ Open `App.tsx` and edit.
 
 ```js
 import * as React from 'react';
-import logo from './logo.svg';
-import {
-  Button,
-  chakra,
-  Badge,
-  Checkbox,
-  Radio,
-  Accordion,
-  AccordionItem,
-  AccordionButton,
-  AccordionPanel,
-} from '@chakra-ui/core';
+import { Box, Button } from 'theme-ui';
 
-export function App() {
+export function App(): JSX.Element {
   return (
-    <div>
-      <chakra.header display="flex" flexDir="column" alignItems="center">
-        <chakra.img src={logo} alt="logo" boxSize="200px" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <Accordion allowToggle>
-          <AccordionItem>
-            <AccordionButton>Accordion 1</AccordionButton>
-            <AccordionPanel>Welcome home</AccordionPanel>
-          </AccordionItem>
-        </Accordion>
-        <Button colorScheme="blue" size="sm">
-          Welcome
-        </Button>
-        <chakra.a
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </chakra.a>
-        <Checkbox>Welcome</Checkbox>
-        <Radio>Welcome</Radio>
-        <Badge colorScheme="red" variant="outline">
-          Welcome home
-        </Badge>
-      </chakra.header>
-    </div>
+    <Box p={4} color="white" bg="primary">
+      <Button variant="primary" mr={2}>
+        Beep
+      </Button>
+      <Button variant="secondary" mr={2}>
+        Boop
+      </Button>
+    </Box>
   );
 }
 ```
 
-Replace App.test.tsx contents.
+Open `App.test.tsx` and edit.
 
 ```js
-test('renders button', () => {
+import React from 'react';
+import { render } from '@testing-library/react';
+import { App } from './App';
+
+test('renders Beep button', () => {
   const { getByText } = render(<App />);
-  const buttonElement = getByText(/Welcome button/i);
+  const buttonElement = getByText(/Beep/i);
+  expect(buttonElement).toBeInTheDocument();
+});
+
+test('renders Boop button', () => {
+  const { getByText } = render(<App />);
+  const buttonElement = getByText(/Boop/i);
   expect(buttonElement).toBeInTheDocument();
 });
 ```
 
-Delete `index.css` & `App.css` files.
+Delete `index.css`, `App.css` & `logo.svg` files.
 
 Run test.
 
