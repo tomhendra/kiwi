@@ -1,15 +1,7 @@
 // Based on https://github.com/tailwindcss/tailwindcss/blob/master/stubs/defaultConfig.stub.js
 // and https://tailwindcss.com/components
 
-export const borderWidths = {
-  px: '1px',
-  '0': '0',
-  '2': '2px',
-  '4': '4px',
-  '8': '8px',
-};
-
-export const breakpoints = ['640px', '768px', '1024px', '1280px'];
+// --------- Colors ---------
 
 export const baseColors = {
   transparent: 'transparent',
@@ -137,6 +129,26 @@ export const baseColors = {
   ],
 };
 
+export const colors = {
+  ...baseColors,
+  grayDark: baseColors.gray[8],
+  text: baseColors.gray[8],
+  background: baseColors.white,
+  primary: baseColors.blue[7],
+  primaryHover: baseColors.blue[8],
+  secondary: baseColors.gray[6],
+  muted: baseColors.gray[3],
+  success: baseColors.green[3],
+  info: baseColors.blue[4],
+  warning: baseColors.yellow[3],
+  danger: baseColors.red[3],
+  light: baseColors.gray[1],
+  dark: baseColors.gray[8],
+  textMuted: baseColors.gray[6],
+};
+
+// --------- Buttons ---------
+
 const commonButtonStyles = {
   py: 2,
   px: 3,
@@ -237,23 +249,7 @@ export const buttons = {
   },
 };
 
-export const colors = {
-  ...baseColors,
-  grayDark: baseColors.gray[8],
-  text: baseColors.gray[8],
-  background: baseColors.white,
-  primary: baseColors.blue[7],
-  primaryHover: baseColors.blue[8],
-  secondary: baseColors.gray[6],
-  muted: baseColors.gray[3],
-  success: baseColors.green[3],
-  info: baseColors.blue[4],
-  warning: baseColors.yellow[3],
-  danger: baseColors.red[3],
-  light: baseColors.gray[1],
-  dark: baseColors.gray[8],
-  textMuted: baseColors.gray[6],
-};
+// --------- Fonts ---------
 
 export const baseFonts = {
   sans:
@@ -299,56 +295,6 @@ export const fontWeights = {
   heading: baseFontWeights.bold,
 };
 
-const commonInputStyles = {
-  py: 2,
-  px: 3,
-  fontSize: `100%`,
-  borderRadius: `default`,
-  appearance: `none`,
-  lineHeight: `tight`,
-};
-
-export const inputs = {
-  shadow: {
-    ...commonInputStyles,
-    border: `none`,
-    color: `gray.7`,
-    boxShadow: `default`,
-    '&:focus': {
-      outline: `none`,
-      boxShadow: `outline`,
-    },
-  },
-  inline: {
-    ...commonInputStyles,
-    backgroundColor: `gray.2`,
-    borderWidth: `2px`,
-    borderStyle: `solid`,
-    borderColor: `gray.2`,
-    color: `gray.7`,
-    '&:focus': {
-      outline: `none`,
-      borderColor: `primary`,
-      backgroundColor: `white`,
-    },
-  },
-  underline: {
-    ...commonInputStyles,
-    backgroundColor: `transparent`,
-    border: `none`,
-    borderBottomWidth: `2px`,
-    borderBottomStyle: `solid`,
-    borderBottomColor: `primary`,
-    borderRadius: `0px`,
-    color: `gray.7`,
-    '&:focus': {
-      outline: `none`,
-      borderColor: `primary`,
-      backgroundColor: `white`,
-    },
-  },
-};
-
 export const letterSpacings = {
   tighter: '-0.05em',
   tight: '-0.025em',
@@ -372,6 +318,75 @@ export const lineHeights = {
   body: baseLineHeights.relaxed,
   heading: baseLineHeights.tight,
 };
+
+// --------- Forms ---------
+
+const commonInputStyles = {
+  py: 2,
+  px: 3,
+  fontSize: `100%`,
+  borderRadius: `default`,
+  appearance: `none`,
+  lineHeight: `tight`,
+};
+
+export const forms = {
+  input: {
+    shadow: {
+      ...commonInputStyles,
+      border: `none`,
+      color: `gray.7`,
+      boxShadow: `default`,
+      '&:focus': {
+        outline: `none`,
+        boxShadow: `outline`,
+      },
+    },
+    inline: {
+      ...commonInputStyles,
+      backgroundColor: `gray.2`,
+      borderWidth: `2px`,
+      borderStyle: `solid`,
+      borderColor: `gray.2`,
+      color: `gray.7`,
+      '&:focus': {
+        outline: `none`,
+        borderColor: `primary`,
+        backgroundColor: `white`,
+      },
+    },
+    underline: {
+      ...commonInputStyles,
+      backgroundColor: `transparent`,
+      border: `none`,
+      borderBottomWidth: `2px`,
+      borderBottomStyle: `solid`,
+      borderBottomColor: `primary`,
+      borderRadius: `0px`,
+      color: `gray.7`,
+      '&:focus': {
+        outline: `none`,
+        borderColor: `primary`,
+        backgroundColor: `white`,
+      },
+    },
+  },
+  checkbox: {
+    light: {
+      color: `gray.6`,
+    },
+  },
+};
+
+export const borderWidths = {
+  px: '1px',
+  '0': '0',
+  '2': '2px',
+  '4': '4px',
+  '8': '8px',
+};
+
+export const breakpoints = ['640px', '768px', '1024px', '1280px'];
 
 export const radii = {
   none: '0',
@@ -646,7 +661,7 @@ export const theme = {
   zIndices,
   styles,
   buttons,
-  inputs,
+  forms,
   transforms,
   transitions,
 };

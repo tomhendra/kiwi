@@ -30,12 +30,18 @@ export const Login = () => (
     >
       <Styled.h2>Login</Styled.h2>
       <Label htmlFor="username">Username</Label>
-      <Input name="username" id="username" mb={3} />
+      <Input variant="input.inline" name="username" id="username" mb={3} />
       <Label htmlFor="password">Password</Label>
-      <Input type="password" name="password" id="password" mb={3} />
+      <Input
+        variant="input.inline"
+        type="password"
+        name="password"
+        id="password"
+        mb={3}
+      />
       <Box>
         <Label mb={3}>
-          <Checkbox />
+          <Checkbox variant="checkbox.light" />
           Remember me
         </Label>
       </Box>
