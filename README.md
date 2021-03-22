@@ -1,135 +1,46 @@
-<div align=center>
-<img alt="Tom Hendra logo" src="https://res.cloudinary.com/tomhendra/image/upload/v1567091669/tomhendra-logo/tomhendra-logo-round-1024.png" width="100" />
-<h1>Buho</h1>
-<p>Bug tracking software</p>
-</div>
+# Getting Started with Create React App
 
-A desktop Progressive Web App for tracking bugs in software.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Tech stack
+## Available Scripts
 
-- **Frontend:** React, TypeScript, Theme UI.
-- **Testing:** Jest, React Testing Library.
-- **Backend:** Node JS, Express.
-- **Database:** PostgreSQL, Redis.
-- **Security:** Auth0, Snyk.
-- **Deployment:** AWS, Docker, Circle CI.
+In the project directory, you can run:
 
-## Notes on project setup for upcoming blog post(s)!
+### `npm start`
 
-CRA install with TypeScript.
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-```sh
-npx create-react-app buho-app --template typescript
-```
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
-Install Theme UI & types from Definitely Typed.
+### `npm test`
 
-```sh
-cd buho-app && yarn add theme-ui @types/theme-ui
-```
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-Install Tailwind preset.
+### `npm run build`
 
-```sh
-yarn add @theme-ui/preset-tailwind
-```
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-Create `theme.js` in `src`.
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-```js
-import theme from '@theme-ui/preset-tailwind';
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-export default {
-  ...theme,
-  buttons: {
-    primary: {
-      color: 'background',
-      bg: 'primary',
-      '&:hover': {
-        bg: 'primaryHover',
-      },
-    },
-    secondary: {
-      color: 'background',
-      bg: 'secondary',
-    },
-  },
-};
-```
+### `npm run eject`
 
-Open `index.tsx` and edit.
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-```js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { ThemeProvider } from 'theme-ui';
-import theme from './theme';
-import { App } from './App';
-import * as serviceWorker from './serviceWorker';
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-ReactDOM.render(
-  <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-serviceWorker.unregister();
-```
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-Open `App.tsx` and edit.
+## Learn More
 
-```js
-import * as React from 'react';
-import { Box, Button } from 'theme-ui';
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-export function App(): JSX.Element {
-  return (
-    <Box p={4} color="white" bg="primary">
-      <Button variant="primary" mr={2}>
-        Beep
-      </Button>
-      <Button variant="secondary" mr={2}>
-        Boop
-      </Button>
-    </Box>
-  );
-}
-```
-
-Open `App.test.tsx` and edit.
-
-```js
-import React from 'react';
-import { render } from '@testing-library/react';
-import { App } from './App';
-
-test('renders Beep button', () => {
-  const { getByText } = render(<App />);
-  const buttonElement = getByText(/Beep/i);
-  expect(buttonElement).toBeInTheDocument();
-});
-
-test('renders Boop button', () => {
-  const { getByText } = render(<App />);
-  const buttonElement = getByText(/Boop/i);
-  expect(buttonElement).toBeInTheDocument();
-});
-```
-
-Delete `index.css`, `App.css` & `logo.svg` files.
-
-Run test.
-
-```sh
-yarn test
-```
-
-Start up dev server.
-
-```sh
-yarn start
-```
+To learn React, check out the [React documentation](https://reactjs.org/).
