@@ -1,24 +1,51 @@
-import { Navbar } from 'components/navbar';
+/** @jsxImportSource @emotion/react */
+import { Navbar } from 'components';
+import { StyledContainer } from './styled';
+import theme from 'theme';
 import { Children } from 'types';
-import styles from './index.module.css';
 
-interface Props {
+interface LayoutProps {
   children?: Children;
 }
 
-export function Layout({ children }: Props) {
+export function Layout({ children }: LayoutProps) {
   return (
-    <div className={styles.wrapper}>
-      <header className={styles.header}>
-        <div className={styles.container}>
+    <div
+      css={{
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh',
+      }}
+    >
+      <header
+        css={{
+          width: '100%',
+          background: 'inherit',
+          boxShadow: theme.shadows.sm,
+        }}
+      >
+        <StyledContainer>
           <Navbar />
-        </div>
+        </StyledContainer>
       </header>
-      <main className={styles.main}>
-        <div className={styles.container}>{children}</div>
+      <main
+        css={{
+          width: '100%',
+          flex: '1 1 auto',
+          paddingTop: theme.space[4],
+        }}
+      >
+        <StyledContainer>{children}</StyledContainer>
       </main>
-      <footer className={styles.footer}>
-        <div className={styles.container}>Footer</div>
+      <footer
+        css={{
+          width: '100%',
+          background: 'inherit',
+        }}
+      >
+        <StyledContainer>
+          <p>Footer Goes Here</p>
+        </StyledContainer>
       </footer>
     </div>
   );

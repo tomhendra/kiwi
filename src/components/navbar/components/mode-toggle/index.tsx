@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Sun, Moon } from './components';
 import { useLocalStorageState } from 'hooks';
-import styles from './index.module.css';
+import { StyledButton } from './styled';
+import { Sun, Moon } from './components';
 
 export function ModeToggle() {
   const [theme, setTheme] = useLocalStorageState('theme', 'light');
@@ -12,12 +12,11 @@ export function ModeToggle() {
   }, [theme]);
 
   return (
-    <button
-      className={styles.button}
+    <StyledButton
       aria-label="Toggle colour mode"
       onClick={() => setTheme(nextTheme)}
     >
       {nextTheme === 'light' ? <Sun /> : <Moon />}
-    </button>
+    </StyledButton>
   );
 }

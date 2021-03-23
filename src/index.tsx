@@ -2,12 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './app';
 import reportWebVitals from './reportWebVitals';
+import { Global } from 'components/global';
 import './styles/remedy.css';
-import './styles/theme.css';
-import './styles/global.css';
+import './styles/colors.css';
+import './styles/fonts.css';
 
 ReactDOM.render(
   <React.StrictMode>
+    <Global />
     <App />
   </React.StrictMode>,
   document.getElementById('root'),

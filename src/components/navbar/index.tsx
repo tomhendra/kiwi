@@ -1,10 +1,12 @@
 import { ModeToggle } from './components';
-import styles from './index.module.css';
+import { StyledContainer, StyledNav } from './styled';
 
 export function Navbar() {
   return (
-    <nav className={styles.nav}>
-      <ModeToggle />
-    </nav>
+    <StyledContainer>
+      <StyledNav>
+        <ModeToggle />
+      </StyledNav>
+    </StyledContainer>
   );
 }
