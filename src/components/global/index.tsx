@@ -1,7 +1,7 @@
 import { Global as EmotionGlobal } from '@emotion/react';
-import theme from 'theme';
+import { theme } from 'core/theme';
 
-export function Global() {
+function Global() {
   return (
     <EmotionGlobal
       styles={{
@@ -38,3 +38,5 @@ export function Global() {
     />
   );
 }
+
+export { Global };

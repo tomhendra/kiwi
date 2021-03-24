@@ -5,6 +5,8 @@
   "dependencies": {
     "@emotion/react": "^11.1.5",
     "@emotion/styled": "^11.1.5",
+    "@reach/dialog": "^0.13.2",
+    "@reach/visually-hidden": "^0.13.2",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.8.3",
@@ -42,5 +44,21 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {}
+  "lint-staged": {
+    "**/*.+(js|json|ts|tsx|css|md|mdx)": [
+      "prettier"
+    ]
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^12.0.1",
+    "@commitlint/config-conventional": "^12.0.1",
+    "husky": "^5.2.0",
+    "lint-staged": "^10.5.4",
+    "prettier": "^2.2.1"
+  }
 }

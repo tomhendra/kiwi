@@ -69,7 +69,7 @@ body[data-theme='light'] {
   --colors-secondary: hsla(var(--red-300), 100%);
   --colors-accent: hsla(var(--pink-600), 100%);
   --colors-highlight: hsla(var(--blue-200), 100%);
-  --colors-muted: hsla(var(--yellow-200), 100%);
+  --colors-muted: hsla(var(--gray-50), 100%);
 
   --colors-text-muted: hsla(var(--gray-700), 100%);
   --colors-primary-hover: hsla(var(--red-400), 100%);
@@ -86,7 +86,7 @@ body[data-theme='dark'] {
   --colors-secondary: hsla(var(--red-300), 100%);
   --colors-accent: hsla(var(--pink-600), 100%);
   --colors-highlight: hsla(var(--blue-200), 100%);
-  --colors-muted: hsla(var(--yellow-200), 100%);
+  --colors-muted: hsla(var(--gray-500), 100%);
 
   --colors-text-muted: hsla(var(--gray-700), 100%);
   --colors-primary-hover: hsla(var(--red-400), 100%);

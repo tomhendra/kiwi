@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { useLocalStorageState } from 'hooks';
+import { useLocalStorageState } from 'core/hooks';
 import { StyledButton } from './styled';
-import { Sun, Moon } from './components';
+import { Sun, Moon } from 'components/icons';
 
-export function ModeToggle() {
+function ModeToggle() {
   const [theme, setTheme] = useLocalStorageState('theme', 'light');
   const nextTheme = theme === 'light' ? 'dark' : 'light';
 
@@ -20,3 +20,5 @@ export function ModeToggle() {
     </StyledButton>
   );
 }
+
+export { ModeToggle };

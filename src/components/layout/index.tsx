@@ -1,14 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import { Navbar } from 'components';
 import { StyledContainer } from './styled';
-import theme from 'theme';
-import { Children } from 'types';
+import { theme } from 'core/theme';
+import { Children } from 'core/types/react';
 
-interface LayoutProps {
+interface Props {
   children?: Children;
 }
 
-export function Layout({ children }: LayoutProps) {
+function Layout({ children }: Props) {
   return (
     <div
       css={{
@@ -50,3 +50,5 @@ export function Layout({ children }: LayoutProps) {
     </div>
   );
 }
+
+export { Layout };

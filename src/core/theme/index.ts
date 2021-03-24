@@ -51,4 +51,4 @@ const theme = {
 // https://dev.theme-ui.com/theme-spec/
 // https://dev.theme-ui.com/sx-prop
 
-export default theme;
+export { theme };

@@ -1,12 +1,29 @@
-import { ModeToggle } from './components';
-import { StyledContainer, StyledNav } from './styled';
+/** @jsxImportSource @emotion/react */
+import { ModeToggle } from 'containers';
+import { theme } from 'core/theme';
 
-export function Navbar() {
+function Navbar() {
   return (
-    <StyledContainer>
-      <StyledNav>
+    <div
+      css={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+      }}
+    >
+      <nav
+        css={{
+          display: 'flex',
+          alignItems: 'center',
+          '&& > * + *': {
+            marginLeft: theme.space[2],
+          },
+        }}
+      >
         <ModeToggle />
-      </StyledNav>
-    </StyledContainer>
+      </nav>
+    </div>
   );
 }
+
+export { Navbar };

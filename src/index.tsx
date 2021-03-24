@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import App from './app';
 import reportWebVitals from './reportWebVitals';
 import { Global } from 'components/global';
-import './styles/remedy.css';
-import './styles/colors.css';
-import './styles/fonts.css';
+import './core/theme/remedy.css';
+import './core/theme/colors.css';
+import './core/theme/fonts.css';
 
 ReactDOM.render(
   <React.StrictMode>
