@@ -9,8 +9,8 @@ const StyledCircleButton = styled.button({
   border: `1px solid ${theme.colors.muted}`,
   borderRadius: theme.radii.md,
   padding: '0',
-  width: theme.sizes[16],
-  height: theme.sizes[16],
+  width: theme.sizes[8],
+  height: theme.sizes[8],
   lineHeight: theme.lineHeights.normal,
   display: 'flex',
   alignItems: 'center',
@@ -25,6 +25,7 @@ const StyledDialog = styled(Dialog as React.FC<DialogProps>)({
   paddingBottom: theme.space[6],
   boxShadow: theme.shadows.default,
   margin: '20vh auto',
+  // background: theme.colors.background,
 });
 
 const StyledContentWrapper = styled.div({

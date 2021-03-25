@@ -60,7 +60,7 @@ function ModalContents({ title, children, ...props }: ModalContentsProps) {
         <ModalDismissButton>
           <StyledCircleButton>
             <VisuallyHidden>Close</VisuallyHidden>
-            <span aria-hidden>×</span>
+            <p aria-hidden>X</p>
           </StyledCircleButton>
         </ModalDismissButton>
       </StyledContentWrapper>
