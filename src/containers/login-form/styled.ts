@@ -14,8 +14,8 @@ const StyledForm = styled.form({
 
 const StyledInput = styled.input({
   borderRadius: theme.radii.md,
-  border: `1px solid ${theme.colors.muted}`,
-  background: theme.colors.muted,
+  border: `1px solid ${theme.colors.white}`,
+  background: theme.colors.white,
   padding: `${theme.space[2]} ${theme.space[3]}`,
   marginTop: theme.space[1],
 });

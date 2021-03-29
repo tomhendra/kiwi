@@ -1,13 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import * as React from 'react';
-import VisuallyHidden from '@reach/visually-hidden';
-import {
-  StyledCircleButton,
-  StyledDialog,
-  StyledContentWrapper,
-} from './styled';
+import * as ReactDOM from 'react-dom';
+import { HideVisually } from 'components';
+import { StyledOverlay, StyledCloseButton, StyledContent } from './styled';
 import { callAll } from 'core/utils';
 import { Children, ReactElement } from 'core/types';
+import FocusTrap from 'focus-trap-react';
 
 type ContextState = [
   isOpen: boolean,
@@ -16,9 +14,8 @@ type ContextState = [
 
 const ModalContext = React.createContext({} as ContextState);
 
-function Modal(props: any) {
+function ModalProvider(props: any) {
   const [isOpen, setIsOpen] = React.useState(false);
-  // Modal acts a context provider
   return <ModalContext.Provider value={[isOpen, setIsOpen]} {...props} />;
 }
 
@@ -36,15 +33,20 @@ function ModalOpenButton({ children: child }: { children: ReactElement }) {
   });
 }
 
-function ModalContentsBase(props: any) {
-  const [isOpen, setIsOpen] = React.useContext(ModalContext);
-  return (
-    <StyledDialog
-      isOpen={isOpen}
-      onDismiss={() => setIsOpen(false)}
-      {...props}
-    />
-  );
+function ModalWrapper(props: any) {
+  const [isOpen] = React.useContext(ModalContext);
+  if (isOpen) {
+    return ReactDOM.createPortal(
+      <StyledOverlay aria-modal={true}>
+        <FocusTrap active={isOpen}>
+          <StyledContent role="dialog" {...props} />
+        </FocusTrap>
+      </StyledOverlay>,
+      document.body,
+    );
+  } else {
+    return null;
+  }
 }
 
 interface ModalContentsProps {
@@ -55,19 +57,17 @@ interface ModalContentsProps {
 
 function ModalContents({ title, children, ...props }: ModalContentsProps) {
   return (
-    <ModalContentsBase {...props}>
-      <StyledContentWrapper>
-        <ModalDismissButton>
-          <StyledCircleButton>
-            <VisuallyHidden>Close</VisuallyHidden>
-            <p aria-hidden>X</p>
-          </StyledCircleButton>
-        </ModalDismissButton>
-      </StyledContentWrapper>
+    <ModalWrapper {...props}>
+      <ModalDismissButton>
+        <StyledCloseButton aria-label="close modal">
+          <HideVisually>Close</HideVisually>
+          <p aria-hidden>X</p>
+        </StyledCloseButton>
+      </ModalDismissButton>
       <h3 css={{ textAlign: 'center', fontSize: '2em' }}>{title}</h3>
       {children}
-    </ModalContentsBase>
+    </ModalWrapper>
   );
 }
 
-export { Modal, ModalDismissButton, ModalOpenButton, ModalContents };
+export { ModalProvider, ModalOpenButton, ModalContents };

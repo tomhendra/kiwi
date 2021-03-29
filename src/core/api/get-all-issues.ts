@@ -1,4 +1,4 @@
-import { client, q } from 'core/services/db-client';
+import { client, q } from 'core/api/db-client';
 
 const getAllIssues = client
   .query(q.Paginate(q.Match(q.Ref('indexes/all_issues'))))

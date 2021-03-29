@@ -1,9 +1,36 @@
 import styled from '@emotion/styled';
-import { Dialog, DialogProps } from '@reach/dialog';
 import { theme } from 'core/theme';
 import '@reach/dialog/styles.css';
 
-const StyledCircleButton = styled.button({
+const StyledOverlay = styled.aside({
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  width: '100vw',
+  height: '100vh',
+  backgroundColor: theme.colors.overlay,
+  zIndex: theme.zIndices[40],
+  transform: `translateZ(0)`,
+});
+
+const StyledContent = styled.div({
+  position: 'relative',
+  overflowX: 'hidden',
+  overflowY: 'auto',
+  outline: 0,
+  maxWidth: theme.sizes.lg,
+  borderRadius: theme.radii.md,
+  padding: `${theme.space[5]} ${theme.space[5]} ${theme.space[6]} ${theme.space[5]}`,
+  boxShadow: theme.shadows.default,
+  margin: '20vh auto',
+  background: theme.colors.background,
+  zIndex: theme.zIndices[50],
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-end',
+});
+
+const StyledCloseButton = styled.button({
   background: theme.colors.background,
   color: theme.colors.text,
   border: `1px solid ${theme.colors.muted}`,
@@ -18,19 +45,4 @@ const StyledCircleButton = styled.button({
   cursor: 'pointer',
 });
 
-// TODO: Fix dark theme background not being applied
-const StyledDialog = styled(Dialog as React.FC<DialogProps>)({
-  maxWidth: theme.sizes['3xl'],
-  borderRadius: theme.radii.md,
-  paddingBottom: theme.space[6],
-  boxShadow: theme.shadows.default,
-  margin: '20vh auto',
-  // background: theme.colors.background,
-});
-
-const StyledContentWrapper = styled.div({
-  display: 'flex',
-  justifyContent: 'flex-end',
-});
-
-export { StyledCircleButton, StyledDialog, StyledContentWrapper };
+export { StyledCloseButton, StyledOverlay, StyledContent };

@@ -1,4 +1,4 @@
-import { client, q } from 'core/services/db-client';
+import { client, q } from 'core/api/db-client';
 
 const deleteIssue = (issueRef: string) =>
   client

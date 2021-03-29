@@ -1,18 +1,19 @@
 import * as React from 'react';
-import { getAllIssues, deleteIssue, editIssue } from 'core/services';
+import { getAllIssues, deleteIssue, editIssue } from 'core/api';
 
 function Dashboard() {
-  const [issues, setIssues] = React.useState([]);
+  // const [issues, setIssues] = React.useState([]);
 
-  React.useEffect(() => {
-    getAllIssues.then(response => setIssues(response));
-  }, []);
+  // React.useEffect(() => {
+  //   getAllIssues.then(response => setIssues(response));
+  // }, []);
 
   return (
     <div>
-      {issues.map(issue => (
+      {/* {issues.map(issue => (
         <pre>{issue}</pre>
-      ))}
+      ))} */}
+      dashboard
     </div>
   );
 }

@@ -1,6 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { Layout, Button } from 'components';
-import { Modal, ModalOpenButton, ModalContents, LoginForm } from 'containers';
+import {
+  ModalProvider,
+  ModalOpenButton,
+  ModalContents,
+  LoginForm,
+} from 'containers';
 import { Auth } from 'core/types/user';
 import { Dashboard } from 'screens';
 
@@ -24,7 +29,7 @@ function App() {
           maxWidth: '20rem',
         }}
       >
-        <Modal>
+        <ModalProvider>
           <ModalOpenButton>
             <Button variant="primary">Login</Button>
           </ModalOpenButton>
@@ -34,8 +39,8 @@ function App() {
               submitButton={<Button variant="primary">Login</Button>}
             />
           </ModalContents>
-        </Modal>
-        <Modal>
+        </ModalProvider>
+        <ModalProvider>
           <ModalOpenButton>
             <Button variant="secondary">Register</Button>
           </ModalOpenButton>
@@ -45,7 +50,7 @@ function App() {
               submitButton={<Button variant="secondary">Register</Button>}
             />
           </ModalContents>
-        </Modal>
+        </ModalProvider>
       </div>
       <Dashboard />
     </Layout>

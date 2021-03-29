@@ -74,6 +74,7 @@ const defaultColors = {
   highlight: 'var(--colors-highlight)',
   muted: 'var(--colors-muted)',
   // additional colors
+  overlay: 'var(--colors-overlay)',
   textMuted: 'var(--colors-text-muted)',
   primaryHover: 'var(--colors-primary-hover)',
   success: 'var(--colors-success)',
