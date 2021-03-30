@@ -33,13 +33,17 @@ function ModalOpenButton({ children: child }: { children: ReactElement }) {
   });
 }
 
+/**
+ * TODO: fix close on escape for FocusTrap - doesn't work out of the box as it should
+ * implement own? https://www.notion.so/tomhendra/Accessible-Modal-Plan-of-attack-33925cd1d8c9452b93ecf2a59de5df9d
+ * */
 function ModalWrapper(props: any) {
   const [isOpen] = React.useContext(ModalContext);
   if (isOpen) {
     return ReactDOM.createPortal(
-      <StyledOverlay aria-modal={true}>
+      <StyledOverlay>
         <FocusTrap active={isOpen}>
-          <StyledContent role="dialog" {...props} />
+          <StyledContent role="dialog" aria-modal={true} {...props} />
         </FocusTrap>
       </StyledOverlay>,
       document.body,
