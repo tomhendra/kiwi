@@ -1,5 +1,7 @@
+/** @jsxImportSource @emotion/react */
+import { theme } from 'core/theme';
 import * as React from 'react';
-import { getAllIssues, deleteIssue, editIssue } from 'core/api';
+// import { getAllIssues, deleteIssue, editIssue } from 'core/api/queries';
 
 function Dashboard() {
   // const [issues, setIssues] = React.useState([]);
@@ -9,11 +11,18 @@ function Dashboard() {
   // }, []);
 
   return (
-    <div>
+    <div
+      css={{
+        padding: '3rem',
+        borderRadius: theme.radii.md,
+        background: theme.colors.white,
+        marginTop: theme.space[5],
+      }}
+    >
       {/* {issues.map(issue => (
         <pre>{issue}</pre>
       ))} */}
-      dashboard
+      Dashboard content goes here.
     </div>
   );
 }
