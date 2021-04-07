@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Navbar } from 'components';
+import { Navbar } from 'containers';
 import { StyledContainer } from './styled';
 import { theme } from 'core/theme';
 import { Children } from 'core/types/react';

@@ -3,6 +3,11 @@ export interface Auth {
   password: string;
 }
 
+export interface AuthInput {
+  username: { value: string };
+  password: { value: string };
+}
+
 export interface User {
   username: string;
   password: string;

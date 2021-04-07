@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Auth, ReactElement } from 'core/types';
-import { StyledInput, StyledForm, StyledFormGroup } from './styled';
+import { Auth, AuthInput, ReactElement } from 'core/types';
+import { StyledInput, StyledForm, StyledFormGroup } from 'components';
 
 interface Props {
   onSubmit: ({ username, password }: Auth) => void;
@@ -10,20 +10,15 @@ interface Props {
 function LoginForm({ onSubmit, submitButton }: Props) {
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    // Type widening
-    const target = event.target as typeof event.target & {
-      username: { value: string };
-      password: { value: string };
-    };
 
-    const username = target.username;
-    const password = target.password;
+    const target = event.target as typeof event.target & AuthInput;
 
     onSubmit({
-      username: username.value,
-      password: password.value,
+      username: target.username.value,
+      password: target.password.value,
     });
   }
+
   return (
     <StyledForm onSubmit={handleSubmit}>
       <StyledFormGroup>

@@ -2,7 +2,13 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { HideVisually } from 'components';
-import { StyledOverlay, StyledCloseButton, StyledContent } from './styled';
+import {
+  StyledOverlay,
+  StyledCloseButton,
+  StyledContent,
+  StyledWrapper,
+  StyledTitle,
+} from './styled';
 import { callAll } from 'core/utils';
 import { Children, ReactElement } from 'core/types';
 import FocusTrap from 'focus-trap-react';
@@ -34,16 +40,34 @@ function ModalOpenButton({ children: child }: { children: ReactElement }) {
 }
 
 /**
- * TODO: fix close on escape for FocusTrap - doesn't work out of the box as it should
- * implement own? https://www.notion.so/tomhendra/Accessible-Modal-Plan-of-attack-33925cd1d8c9452b93ecf2a59de5df9d
+ * TODO: fix close on escape for FocusTrap - doesn't work out-of-the-box as it should
  * */
-function ModalWrapper(props: any) {
+
+interface ModalProps {
+  title: string;
+  children: Children;
+  props?: any;
+}
+
+function Modal({ title, children }: ModalProps) {
   const [isOpen] = React.useContext(ModalContext);
+
   if (isOpen) {
     return ReactDOM.createPortal(
       <StyledOverlay>
         <FocusTrap active={isOpen}>
-          <StyledContent role="dialog" aria-modal={true} {...props} />
+          <StyledWrapper>
+            <ModalDismissButton>
+              <StyledCloseButton aria-label="close modal">
+                <HideVisually>Close</HideVisually>
+                <p aria-hidden>X</p>
+              </StyledCloseButton>
+            </ModalDismissButton>
+            <StyledTitle>{title}</StyledTitle>
+            <StyledContent role="dialog" aria-modal={true}>
+              {children}
+            </StyledContent>
+          </StyledWrapper>
         </FocusTrap>
       </StyledOverlay>,
       document.body,
@@ -53,25 +77,4 @@ function ModalWrapper(props: any) {
   }
 }
 
-interface ModalContentsProps {
-  title: string;
-  children: Children;
-  props?: any;
-}
-
-function ModalContents({ title, children, ...props }: ModalContentsProps) {
-  return (
-    <ModalWrapper {...props}>
-      <ModalDismissButton>
-        <StyledCloseButton aria-label="close modal">
-          <HideVisually>Close</HideVisually>
-          <p aria-hidden>X</p>
-        </StyledCloseButton>
-      </ModalDismissButton>
-      <h3 css={{ textAlign: 'center', fontSize: '2em' }}>{title}</h3>
-      {children}
-    </ModalWrapper>
-  );
-}
-
-export { ModalProvider, ModalOpenButton, ModalContents };
+export { ModalProvider, ModalOpenButton, Modal };

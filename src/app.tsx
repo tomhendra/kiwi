@@ -1,11 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Layout, Button } from 'components';
-import {
-  ModalProvider,
-  ModalOpenButton,
-  ModalContents,
-  LoginForm,
-} from 'containers';
+import { ModalProvider, ModalOpenButton, Modal, LoginForm } from 'containers';
 import { Auth } from 'core/types/user';
 import { Dashboard } from 'screens';
 
@@ -33,23 +28,23 @@ function App() {
           <ModalOpenButton>
             <Button variant="primary">Login</Button>
           </ModalOpenButton>
-          <ModalContents aria-label="Login form" title="Login">
+          <Modal aria-label="Login form" title="Login">
             <LoginForm
               onSubmit={login}
               submitButton={<Button variant="primary">Login</Button>}
             />
-          </ModalContents>
+          </Modal>
         </ModalProvider>
         <ModalProvider>
           <ModalOpenButton>
             <Button variant="secondary">Register</Button>
           </ModalOpenButton>
-          <ModalContents aria-label="Registration form" title="Register">
+          <Modal aria-label="Registration form" title="Register">
             <LoginForm
               onSubmit={register}
               submitButton={<Button variant="secondary">Register</Button>}
             />
-          </ModalContents>
+          </Modal>
         </ModalProvider>
       </div>
       <Dashboard />
