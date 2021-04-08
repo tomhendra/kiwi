@@ -1,7 +1,7 @@
 import faunadb from 'faunadb';
 
 const client = new faunadb.Client({
-  secret: process.env.FAUNADB_ADMIN_KEY || 'KEY NOT FOUND',
+  secret: process.env.REACT_APP_LOCAL___ADMIN || 'KEY NOT FOUND',
 });
 
 const q = faunadb.query;

@@ -6,18 +6,15 @@ import {
   DeleteIssueUDF,
   GetIssuesUDF,
 } from './functions';
-
 import {
-  CreateBootstrapRole,
   CreateFnRoleRegister,
   CreateFnRoleLogin,
-  CreateLoggedInRole,
   CreateFnRoleManipulateIssue,
+  CreateBootstrapRole,
+  CreateLoggedInRole,
 } from './roles';
-
 import { createUsersCollection } from './users';
 import { createIssuesCollection } from './issues';
-
 import { handleSetupError } from '../helpers/errors';
 
 async function setupDatabase(client) {
@@ -29,12 +26,12 @@ async function setupDatabase(client) {
     '4a. -- Roles                   -- Creating security roles to be assumed by the functions',
   );
   await handleSetupError(
-    client.query(CreateFnRoleLogin),
-    'function role - login',
-  );
-  await handleSetupError(
     client.query(CreateFnRoleRegister),
     'function role - register',
+  );
+  await handleSetupError(
+    client.query(CreateFnRoleLogin),
+    'function role - login',
   );
   await handleSetupError(
     client.query(CreateFnRoleManipulateIssue),

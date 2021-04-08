@@ -1,25 +1,53 @@
-/**
- * Fetching all documents in a database to check if each document fits a particular criteria would be very slow.
- * In the relational world, this would be comparable in concept to a full table scan.
- * To solve this problem, Fauna implements indexes.
- * These are database entities that organize your data in such a way that they allow for efficient lookup of multiple documents.
- * Whenever you create new documents, the indexes that cover those documents are automatically updated.
- 
-    CreateIndex({
-    name: "all_Pilots",
-    source: Collection("Pilots")
-    })
+import { handlePromiseError } from '../helpers/errors';
+import faunadb from 'faunadb';
+const q = faunadb.query;
+const {
+  CreateCollection,
+  CreateIndex,
+  If,
+  Exists,
+  Index,
+  Collection,
+  Paginate,
+  Match,
+  Lambda,
+  Var,
+  Delete,
+} = q;
 
-    Paginate(Match(Index("all_Pilots")))
+/* collection */
+const CreateIssuesCollection = CreateCollection({ name: 'issues' });
 
- * Index returns a reference to an index.
- * Match accepts the index reference and returns a set, which is sort of like an abstract representation of the documents covered by the index. 
- * At this point, no data has been fetched yet.
- * Paginate takes the set returned by Match, reads the matching index entries, and returns a Page of results. 
- * In this case, this is simply an array of references. 
- * ----------------------
- * CreateCollection
- * CreateIndex
- */
+/* indexes */
+const CreateIndexAllIssues = CreateIndex({
+  name: 'all_issues',
+  source: Collection('issues'),
+  // this is the default collection index, no terms or values are provided
+  // which means the index will sort by reference and return only the reference.
+  serialized: true,
+});
 
-export {};
+/* deletion */
+const DeleteAllIssues = If(
+  Exists(Index('all_issues')),
+  q.Map(
+    Paginate(Match(Index('all_issues'))),
+    Lambda('ref', Delete(Var('ref'))),
+  ),
+  true,
+);
+
+async function createIssuesCollection(client) {
+  await handlePromiseError(
+    client.query(
+      If(Exists(Collection('issues')), true, CreateIssuesCollection), // should the second argument be false??
+    ),
+    'Creating issues collection',
+  );
+  await handlePromiseError(
+    client.query(If(Exists(Index('all_issues')), true, CreateIndexAllIssues)), // should the second argument be false??
+    'Creating all_issues index',
+  );
+}
+
+export { createIssuesCollection, DeleteAllIssues };
