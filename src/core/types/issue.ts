@@ -15,7 +15,7 @@ export interface Issue {
   type: 'TASK' | 'BUG';
 }
 
-export interface IssueFormInput {
+export interface IssueForm {
   assignee: { value: User };
   attachments: { value: unknown[] };
   date: { value: Date };

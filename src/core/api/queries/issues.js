@@ -4,38 +4,35 @@ const q = faunadb.query;
 const { Call } = q;
 
 /*
- * CreateIssue will be used to create a user defined function
+ * create
  */
-function CreateIssue(client, data) {
+function CreateIssue(client, issue) {
   return client
-    .query(Call(q.Function('create_issue'), data))
+    .query(Call(q.Function('create_issue'), issue))
     .then(res => flattenDataKeys(res));
 }
 
 /*
  * update........................................................
  */
-
-function UpdateIssue(client, data) {
+function UpdateIssue(client, issue) {
   return client
-    .query(Call(q.Function('update_issue'), data))
+    .query(Call(q.Function('update_issue'), issue))
     .then(res => flattenDataKeys(res));
 }
 
 /*
  * delete........................................................
  */
-
-function DeleteIssue(client, data) {
+function DeleteIssue(client, archive) {
   return client
-    .query(Call(q.Function('delete_issue'), data))
+    .query(Call(q.Function('delete_a'), archive))
     .then(res => flattenDataKeys(res));
 }
 
 /*
  * read..........................................................
  */
-
 function GetIssues(client) {
   return client
     .query(Call(q.Function('get_issues')))

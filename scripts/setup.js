@@ -3,8 +3,8 @@ var fs = require('fs');
 const envfile = require('envfile');
 const sourcePath = '.env.local';
 
-const { setupDatabase } = require('../src/core/api/setup/database');
-const { handleSetupError } = require('../src/core/api/helpers/errors');
+const { setupDatabase } = require('./../src/core/api/setup/database');
+const { handleSetupError } = require('./../src/core/api/helpers/errors');
 
 const faunadb = require('faunadb');
 const q = faunadb.query;

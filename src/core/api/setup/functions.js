@@ -14,6 +14,7 @@ const { Var, Query, Lambda, Exists, If, Update, CreateFunction, Role } = q;
  * A convenience function to either create or update a function.
  * We use a wrapper helper to make sure that we override a function with 'Update' in case it already exists
  * and Create it with 'CreateFunction' if it did not exist yet.
+ * This allows us to iterate on the setup without having to nuke everything each time we make changes.
  */
 function CreateOrUpdateFunction(obj) {
   return If(
@@ -23,6 +24,7 @@ function CreateOrUpdateFunction(obj) {
   );
 }
 
+// ----------------- REGISTER ----------------- //
 const CreateAccountUDF = CreateOrUpdateFunction({
   name: 'register',
   // Note that 'Lambda' requires two parameters to be provided when you call the User Defined Function.
@@ -37,6 +39,7 @@ const CreateAccountUDF = CreateOrUpdateFunction({
   role: Role('functionrole_register'),
 });
 
+// ----------------- LOGIN ----------------- //
 const CreateLoginUDF = CreateOrUpdateFunction({
   name: 'login',
   body: Query(
@@ -45,21 +48,22 @@ const CreateLoginUDF = CreateOrUpdateFunction({
   role: Role('functionrole_login'),
 });
 
+// TODO: ----------------- CRUD ISSUES ----------------- //
 const CreateIssueUDF = CreateOrUpdateFunction({
   name: 'create_issue',
-  body: Query(Lambda([], CreateIssue())),
+  body: Query(Lambda(['issue'], CreateIssue(Var('issue')))),
   role: Role('functionrole_manipulate_issues'),
 });
 
 const UpdateIssueUDF = CreateOrUpdateFunction({
   name: 'update_issue',
-  body: Query(Lambda([], UpdateIssue())),
+  body: Query(Lambda(['issue'], UpdateIssue(Var('issue')))),
   role: Role('functionrole_manipulate_issues'),
 });
 
 const DeleteIssueUDF = CreateOrUpdateFunction({
   name: 'create_issue',
-  body: Query(Lambda([], DeleteIssue())),
+  body: Query(Lambda(['archive'], DeleteIssue(Var('archive')))),
   role: Role('functionrole_manipulate_issues'),
 });
 

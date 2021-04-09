@@ -51,7 +51,7 @@ async function setupDatabase(client) {
   );
   await handleSetupError(
     client.query(CreateIssueUDF),
-    'user defined function - create issue (rate limited)',
+    'user defined function - create issue',
   );
   await handleSetupError(
     client.query(UpdateIssueUDF),
