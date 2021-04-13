@@ -47,8 +47,9 @@ async function setup() {
   try {
     await setupDatabase(client);
 
+    // TODO: validation failed during setup! error: [BadRequest: validation failed] description: 'document data is not valid.',
     console.log(
-      '6.  -- Keys                    -- Bootstrap key to start the app',
+      '4.  -- Keys                    -- Bootstrap key to start the app',
     );
 
     const clientKey = await handleSetupError(

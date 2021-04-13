@@ -1,14 +1,30 @@
+const green = '\x1b[32m';
+const yellow = '\x1b[33m';
+const red = '\x1b[31m';
+const reset = '\x1b[0m';
+
 function handleSetupError(promise, entity) {
   return promise
     .then(data => {
-      console.log(`   [ Executed ] '${entity}'`);
+      console.log(green, '   [ Success ]', reset, `'${entity}'`);
       return data;
     })
     .catch(error => {
       if (error && error.message === 'instance already exists') {
-        console.warn(`   [ Skipped ] '${entity}', it already exists`);
+        console.warn(
+          yellow,
+          '   [ Skipped ]',
+          reset,
+          `'${entity}', it already exists`,
+        );
       } else {
-        console.error(`   [ Failed ] '${entity}', with error:`, error);
+        console.error(
+          red,
+          '   [ Failed ]',
+          reset,
+          `'${entity}', with error:`,
+          error,
+        );
       }
     });
 }
@@ -16,14 +32,25 @@ function handleSetupError(promise, entity) {
 function handlePromiseError(promise, entity) {
   return promise
     .then(data => {
-      console.log(`   [ Query Success ] '${entity}'`);
+      console.log(green, '   [ Query Success ]', reset, `'${entity}'`);
       return data;
     })
     .catch(error => {
       if (error && error.message === 'instance already exists') {
-        console.warn(`   [ Query Skipped ] '${entity}', it already exists`);
+        console.warn(
+          yellow,
+          '  [ Query Skipped ]',
+          reset,
+          `'${entity}', it already exists`,
+        );
       } else {
-        console.error(`   [ Query Failed  ] '${entity}', with error:`, error);
+        console.error(
+          red,
+          '   [ Query Failed  ]',
+          reset,
+          `'${entity}', with error:`,
+          error,
+        );
       }
     });
 }

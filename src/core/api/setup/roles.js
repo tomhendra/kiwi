@@ -1,6 +1,15 @@
 import faunadb from 'faunadb';
 const q = faunadb.query;
-const { CreateRole, Role, Collection, Index, If, Exists, Update } = q;
+const {
+  CreateRole,
+  Role,
+  Collection,
+  Index,
+  If,
+  Exists,
+  Update,
+  Function: Fn,
+} = q;
 
 // A convenience function to either create or update a role.
 function CreateOrUpdateRole(obj) {
@@ -21,16 +30,12 @@ const CreateBootstrapRole = CreateOrUpdateRole({
   name: 'keyrole_calludfs',
   privileges: [
     {
-      resource: q.Function('login'),
-      actions: {
-        call: true,
-      },
+      resource: Fn('login'),
+      actions: { call: true },
     },
     {
-      resource: q.Function('register'),
-      actions: {
-        call: true,
-      },
+      resource: Fn('register'),
+      actions: { call: true },
     },
   ],
 });
@@ -54,10 +59,6 @@ const CreateFnRoleLogin = CreateOrUpdateRole({
   name: 'functionrole_login',
   privileges: [
     {
-      resource: Index('users_by_email'),
-      actions: { read: true },
-    },
-    {
       resource: Collection('users'),
       actions: { read: true },
     },
@@ -73,14 +74,12 @@ const CreateLoggedInRole = CreateOrUpdateRole({
     // are encapsulated in User Defined Functions which makes it easier
     // to limit what data and how a user can adapt data.
     {
-      resource: q.Function('create_issue'),
-      actions: {
-        call: true,
-      },
+      resource: Fn('create_issue'),
+      actions: { call: true },
     },
     {
       // To search
-      resource: Index('issues'),
+      resource: Index('all_issues'),
       actions: { read: true },
     },
   ],
@@ -90,7 +89,7 @@ const CreateFnRoleManipulateIssue = CreateOrUpdateRole({
   name: 'functionrole_manipulate_issues',
   privileges: [
     /************************ WRITE AND UPDATE PRIVILEGES *************************/
-    // Of course the role needs to create, update * delete an issue
+    // Of course the role needs to create, update & delete an issue
     {
       resource: Collection('issues'),
       actions: { create: true, write: true },

@@ -1,14 +1,46 @@
 import { flattenDataKeys } from '../helpers/utils';
 import faunadb from 'faunadb';
 const q = faunadb.query;
-const { Call } = q;
+const { Call, Function: Fn } = q;
 
 /*
  * create
  */
-function CreateIssue(client, issue) {
+function CreateIssue(
+  client,
+  message,
+  assignee,
+  attachments,
+  date,
+  description,
+  tags,
+  name,
+  priority,
+  project,
+  reporter,
+  estimate,
+  status,
+  type,
+) {
   return client
-    .query(Call(q.Function('create_issue'), issue))
+    .query(
+      Call(
+        Fn('create_issue'),
+        message,
+        assignee,
+        attachments,
+        date,
+        description,
+        tags,
+        name,
+        priority,
+        project,
+        reporter,
+        estimate,
+        status,
+        type,
+      ),
+    )
     .then(res => flattenDataKeys(res));
 }
 
@@ -17,7 +49,7 @@ function CreateIssue(client, issue) {
  */
 function UpdateIssue(client, issue) {
   return client
-    .query(Call(q.Function('update_issue'), issue))
+    .query(Call(Fn('update_issue'), issue))
     .then(res => flattenDataKeys(res));
 }
 
@@ -26,7 +58,7 @@ function UpdateIssue(client, issue) {
  */
 function DeleteIssue(client, archive) {
   return client
-    .query(Call(q.Function('delete_a'), archive))
+    .query(Call(Fn('delete_issue'), archive))
     .then(res => flattenDataKeys(res));
 }
 
@@ -34,9 +66,7 @@ function DeleteIssue(client, archive) {
  * read..........................................................
  */
 function GetIssues(client) {
-  return client
-    .query(Call(q.Function('get_issues')))
-    .then(res => flattenDataKeys(res));
+  return client.query(Call(Fn('get_issues'))).then(res => flattenDataKeys(res));
 }
 
 export { CreateIssue, UpdateIssue, DeleteIssue, GetIssues };

@@ -1,3 +1,13 @@
+import { handleSetupError } from '../helpers/errors';
+import { createUsersCollection } from './users';
+import { createIssuesCollection } from './issues';
+import {
+  CreateFnRoleRegister,
+  CreateFnRoleLogin,
+  CreateFnRoleManipulateIssue,
+  CreateBootstrapRole,
+  CreateLoggedInRole,
+} from './roles';
 import {
   CreateAccountUDF,
   CreateLoginUDF,
@@ -6,24 +16,16 @@ import {
   DeleteIssueUDF,
   GetIssuesUDF,
 } from './functions';
-import {
-  CreateFnRoleRegister,
-  CreateFnRoleLogin,
-  CreateFnRoleManipulateIssue,
-  CreateBootstrapRole,
-  CreateLoggedInRole,
-} from './roles';
-import { createUsersCollection } from './users';
-import { createIssuesCollection } from './issues';
-import { handleSetupError } from '../helpers/errors';
 
 async function setupDatabase(client) {
-  console.log('1.  -- Collections and Indexes -- Creating collections');
+  console.log(
+    '1.  -- Collections and indices -- Creating collections and indices',
+  );
   await handleSetupError(createUsersCollection(client), 'users');
   await handleSetupError(createIssuesCollection(client), 'issues');
 
   console.log(
-    '4a. -- Roles                   -- Creating security roles to be assumed by the functions',
+    '2a. -- Roles                   -- Creating security roles to define permissions for functions',
   );
   await handleSetupError(
     client.query(CreateFnRoleRegister),
@@ -39,7 +41,7 @@ async function setupDatabase(client) {
   );
 
   console.log(
-    '5.  -- Functions               -- Creating User Defined Functions (UDF)',
+    '3.  -- Functions               -- Creating User Defined Functions (UDFs)',
   );
   await handleSetupError(
     client.query(CreateAccountUDF),
@@ -67,7 +69,7 @@ async function setupDatabase(client) {
   );
 
   console.log(
-    '4b. -- Roles                   -- Creating security role that can call the functions',
+    '2b. -- Roles                   -- Creating security role to call functions',
   );
   await handleSetupError(
     client.query(CreateBootstrapRole),
@@ -75,7 +77,7 @@ async function setupDatabase(client) {
   );
 
   console.log(
-    '4c. -- Roles                   -- Give logged in accounts access to their data',
+    '2c. -- Roles                   -- Creating role to provide access to data for logged in users',
   );
   await handleSetupError(
     client.query(CreateLoggedInRole),

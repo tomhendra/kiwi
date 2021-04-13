@@ -13,12 +13,13 @@ const {
   Lambda,
   Var,
   Delete,
+  Map: Mp,
 } = q;
 
-/* collection */
+/* collections */
 const CreateIssuesCollection = CreateCollection({ name: 'issues' });
 
-/* indexes */
+/* indices */
 const CreateIndexAllIssues = CreateIndex({
   name: 'all_issues',
   source: Collection('issues'),
@@ -30,10 +31,7 @@ const CreateIndexAllIssues = CreateIndex({
 /* deletion */
 const DeleteAllIssues = If(
   Exists(Index('all_issues')),
-  q.Map(
-    Paginate(Match(Index('all_issues'))),
-    Lambda('ref', Delete(Var('ref'))),
-  ),
+  Mp(Paginate(Match(Index('all_issues'))), Lambda('ref', Delete(Var('ref')))),
   true,
 );
 

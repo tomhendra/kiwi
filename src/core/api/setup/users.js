@@ -13,12 +13,13 @@ const {
   Lambda,
   Var,
   Delete,
+  Map: Mp,
 } = q;
 
-// collection
+/* collections */
 const CreateUsersCollection = CreateCollection({ name: 'users' });
 
-// indexes
+/* indices */
 const CreateIndexAllUsers = CreateIndex({
   name: 'all_users',
   source: Collection('users'),
@@ -27,20 +28,20 @@ const CreateIndexAllUsers = CreateIndex({
   serialized: true,
 });
 
-// deletion
+/* deletion */
 const DeleteAllUsers = If(
   Exists(Index('all_users')),
-  q.Map(Paginate(Match(Index('all_users'))), Lambda('ref', Delete(Var('ref')))),
+  Mp(Paginate(Match(Index('all_users'))), Lambda('ref', Delete(Var('ref')))),
   true,
 );
 
 async function createUsersCollection(client) {
   await handlePromiseError(
-    client.query(If(Exists(Collection('users')), true, CreateUsersCollection)),
+    client.query(If(Exists(Collection('users')), true, CreateUsersCollection)), // should the second argument be false??
     'Creating users collection',
   );
   await handlePromiseError(
-    client.query(If(Exists(Index('all_users')), true, CreateIndexAllUsers)),
+    client.query(If(Exists(Index('all_users')), true, CreateIndexAllUsers)), // should the second argument be false??
     'Creating all_users index',
   );
 }
