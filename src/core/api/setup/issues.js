@@ -35,6 +35,7 @@ const DeleteAllIssues = If(
   true,
 );
 
+/* main */
 async function createIssuesCollection(client) {
   await handlePromiseError(
     client.query(

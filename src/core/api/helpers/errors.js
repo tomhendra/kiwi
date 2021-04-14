@@ -32,21 +32,21 @@ function handleSetupError(promise, entity) {
 function handlePromiseError(promise, entity) {
   return promise
     .then(data => {
-      console.log(green, '   [ Query Success ]', reset, `'${entity}'`);
+      console.log(green, '   [ Success: Query ]', reset, `'${entity}'`);
       return data;
     })
     .catch(error => {
       if (error && error.message === 'instance already exists') {
         console.warn(
           yellow,
-          '  [ Query Skipped ]',
+          '  [ Skipped: Query ]',
           reset,
           `'${entity}', it already exists`,
         );
       } else {
         console.error(
           red,
-          '   [ Query Failed  ]',
+          '   [ Failed: Query  ]',
           reset,
           `'${entity}', with error:`,
           error,

@@ -5,6 +5,7 @@ export interface Issue {
   attachments: unknown[]; // ref
   date: Date;
   description: string;
+  deleted: boolean;
   tags: unknown[]; // ref
   name: string;
   priority: 'LOW' | 'MEDIUM' | 'URGENT';

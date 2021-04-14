@@ -28,6 +28,13 @@ const CreateIndexAllUsers = CreateIndex({
   serialized: true,
 });
 
+const CreateIndexUsersByEmail = CreateIndex({
+  name: 'users_by_email',
+  source: Collection('users'),
+  terms: [{ field: ['data', 'email'] }],
+  unique: true,
+});
+
 /* deletion */
 const DeleteAllUsers = If(
   Exists(Index('all_users')),
@@ -43,6 +50,12 @@ async function createUsersCollection(client) {
   await handlePromiseError(
     client.query(If(Exists(Index('all_users')), true, CreateIndexAllUsers)), // should the second argument be false??
     'Creating all_users index',
+  );
+  await handlePromiseError(
+    client.query(
+      If(Exists(Index('users_by_email')), true, CreateIndexUsersByEmail),
+    ), // should the second argument be false??
+    'Creating users_by_email index',
   );
 }
 

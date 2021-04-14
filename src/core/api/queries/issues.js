@@ -3,9 +3,6 @@ import faunadb from 'faunadb';
 const q = faunadb.query;
 const { Call, Function: Fn } = q;
 
-/*
- * create
- */
 function CreateIssue(
   client,
   message,
@@ -44,27 +41,50 @@ function CreateIssue(
     .then(res => flattenDataKeys(res));
 }
 
-/*
- * update........................................................
- */
-function UpdateIssue(client, issue) {
+function UpdateIssue(
+  client,
+  message,
+  assignee,
+  attachments,
+  date,
+  description,
+  tags,
+  name,
+  priority,
+  project,
+  reporter,
+  estimate,
+  status,
+  type,
+) {
   return client
-    .query(Call(Fn('update_issue'), issue))
+    .query(
+      Call(
+        Fn('update_issue'),
+        message,
+        assignee,
+        attachments,
+        date,
+        description,
+        tags,
+        name,
+        priority,
+        project,
+        reporter,
+        estimate,
+        status,
+        type,
+      ),
+    )
     .then(res => flattenDataKeys(res));
 }
 
-/*
- * delete........................................................
- */
-function DeleteIssue(client, archive) {
+function DeleteIssue(client) {
   return client
-    .query(Call(Fn('delete_issue'), archive))
+    .query(Call(Fn('delete_issue')))
     .then(res => flattenDataKeys(res));
 }
 
-/*
- * read..........................................................
- */
 function GetIssues(client) {
   return client.query(Call(Fn('get_issues'))).then(res => flattenDataKeys(res));
 }

@@ -1,7 +1,8 @@
 require('dotenv').config({ path: '.env.' + process.argv[2] });
 var fs = require('fs');
-const envfile = require('envfile');
-const sourcePath = '.env.local';
+const path = require('path');
+const sourcePath = path.resolve(__dirname, '../.env.local');
+const { parse, stringify } = require('envfile');
 
 const { setupDatabase } = require('./../src/core/api/setup/database');
 const { handleSetupError } = require('./../src/core/api/helpers/errors');
@@ -11,12 +12,8 @@ const q = faunadb.query;
 const { CreateKey, Role, Exists, Database, CreateDatabase, If } = q;
 
 async function setup() {
-  // In order to set up a database, we need a admin key
-  let adminKey = process.env.REACT_APP_LOCAL___ADMIN;
-  // If this option is provided, the db will be created as a child db of the database
-  // that the above admin key belongs to. This is useful to destroy/recreate a database
-  // easily without having to wait for cache invalidation of collection/index names.
   const childDbName = process.env.REACT_APP_LOCAL___CHILD_DB_NAME;
+  let adminKey = process.env.REACT_APP_LOCAL___ADMIN;
 
   let client = new faunadb.Client({ secret: adminKey });
 
@@ -47,7 +44,6 @@ async function setup() {
   try {
     await setupDatabase(client);
 
-    // TODO: validation failed during setup! error: [BadRequest: validation failed] description: 'document data is not valid.',
     console.log(
       '4.  -- Keys                    -- Bootstrap key to start the app',
     );
@@ -58,20 +54,21 @@ async function setup() {
     );
     if (clientKey) {
       console.log(
-        '\x1b[32m',
-        `The client token to bootstrap your application will be automatically installed 
-         in .env.local with the key REACT_APP_LOCAL___BOOTSTRAP_FAUNADB_KEY. 
-         React will load the .env vars on restart: Don't forget to restart!`,
+        `The client token to bootstrap the application will be automatically installed in .env.local with the key
+         REACT_APP_LOCAL___BOOTSTRAP_FAUNADB_KEY. React will load the .env vars on restart: Don't forget to restart!`,
       );
 
-      const json = envfile.parseFileSync(sourcePath);
-
+      const json = parse(fs.readFileSync(sourcePath));
       json.REACT_APP_LOCAL___BOOTSTRAP_FAUNADB_KEY = clientKey.secret;
-      fs.writeFileSync(sourcePath, envfile.stringifySync(json));
-      console.log('\x1b[33m%s\x1b[0m', clientKey.secret);
+      fs.writeFileSync(sourcePath, stringify(json));
+
+      console.log(
+        '\x1b[33m%s\x1b[0m',
+        `REACT_APP_LOCAL___BOOTSTRAP_FAUNADB_KEY=${clientKey.secret}`,
+      );
     }
   } catch (err) {
-    console.error('Unexpected error', err);
+    console.error('\x1b[31m', 'Unexpected error:', err);
   }
 }
 

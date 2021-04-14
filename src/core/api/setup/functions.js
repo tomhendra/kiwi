@@ -1,4 +1,3 @@
-import { RegisterUser, LoginUser } from '../queries/auth';
 import faunadb from 'faunadb';
 const q = faunadb.query;
 const {
@@ -13,6 +12,12 @@ const {
   CreateFunction,
   Role,
   Function: Fn,
+  Login,
+  Match,
+  Index,
+  TimeAdd,
+  Now,
+  Paginate,
 } = q;
 
 /*
@@ -29,7 +34,7 @@ function CreateOrUpdateFunction(obj) {
   );
 }
 
-// ----------------- REGISTER ----------------- //
+// ----------------- AUTH ----------------- //
 const CreateAccountUDF = CreateOrUpdateFunction({
   name: 'register',
   // Note that 'Lambda' requires two parameters to be provided when you call the User Defined Function.
@@ -37,16 +42,27 @@ const CreateAccountUDF = CreateOrUpdateFunction({
   // Since these functions are in the scope of this lambda, they can access these variables.
   // TODO - simple email format and password verification.
   body: Query(
-    Lambda(['email', 'password'], RegisterUser(Var('email'), Var('password'))),
+    Lambda(
+      ['email', 'password'],
+      Create(Collection('users'), {
+        data: { email: Var('email') },
+        credentials: { password: Var('password') },
+      }),
+    ),
   ),
   role: Role('functionrole_register'),
 });
 
-// ----------------- LOGIN ----------------- //
 const CreateLoginUDF = CreateOrUpdateFunction({
   name: 'login',
   body: Query(
-    Lambda(['email', 'password'], LoginUser(Var('email'), Var('password'))),
+    Lambda(
+      ['email', 'password'],
+      Login(Match(Index('users_by_email'), Var('email')), {
+        password: Var('password'),
+        ttl: TimeAdd(Now(), 3, 'hour'),
+      }),
+    ),
   ),
   role: Role('functionrole_login'),
 });
@@ -80,7 +96,7 @@ const CreateIssueUDF = CreateOrUpdateFunction({
           description: Var('description'),
           tags: Var('tags'),
           name: Var('name'),
-          priority: Var('Priority'),
+          priority: Var('priority'),
           project: Var('project'),
           reporter: Var('reporter'),
           estimate: Var('estimate'),
@@ -93,22 +109,65 @@ const CreateIssueUDF = CreateOrUpdateFunction({
   role: Role('functionrole_manipulate_issues'),
 });
 
-// TODO: Function logic
 const UpdateIssueUDF = CreateOrUpdateFunction({
   name: 'update_issue',
-  body: Query(Lambda([])),
+  body: Query(
+    Lambda(
+      [
+        'message',
+        'assignee',
+        'attachments',
+        'date',
+        'description',
+        'tags',
+        'name',
+        'priority',
+        'project',
+        'reporter',
+        'estimate',
+        'status',
+        'type',
+      ],
+      Update(Collection('issues'), {
+        data: {
+          message: Var('message'),
+          assignee: Var('assignee'),
+          attachments: Var('attachments'),
+          date: Var('date'),
+          description: Var('description'),
+          tags: Var('tags'),
+          name: Var('name'),
+          priority: Var('priority'),
+          project: Var('project'),
+          reporter: Var('reporter'),
+          estimate: Var('estimate'),
+          status: Var('status'),
+          type: Var('type'),
+        },
+      }),
+    ),
+  ),
   role: Role('functionrole_manipulate_issues'),
 });
 
 const DeleteIssueUDF = CreateOrUpdateFunction({
   name: 'delete_issue',
-  body: Query(Lambda([])),
+  body: Query(
+    Lambda(
+      [],
+      Update(Collection('issues'), {
+        data: {
+          deleted: true,
+        },
+      }),
+    ),
+  ),
   role: Role('functionrole_manipulate_issues'),
 });
 
 const GetIssuesUDF = CreateOrUpdateFunction({
   name: 'get_issues',
-  body: Query(Lambda([])),
+  body: Query(Lambda([], Paginate(Match(Index('all_issues'))))),
   role: Role('functionrole_manipulate_issues'),
 });
 
