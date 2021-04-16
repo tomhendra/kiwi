@@ -10,7 +10,7 @@ import {
   StyledTitle,
 } from './styled';
 import { callAll } from 'core/utils';
-import { Children, ReactElement } from 'core/types';
+import { Children, ReactElement } from 'core/models';
 import FocusTrap from 'focus-trap-react';
 
 type ContextState = [

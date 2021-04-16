@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import { theme } from 'core/theme';
-import '@reach/dialog/styles.css';
 
 const StyledOverlay = styled.aside({
   position: 'fixed',

@@ -6,13 +6,13 @@ import {
   ModalProvider,
   ModalOpenButton,
   Modal,
-  IssueForm,
+  ItemForm,
 } from 'containers';
-import { Issue } from 'core/types';
+import { CreateItemInput } from 'core/models';
 
 function Navbar() {
-  function createIssue(formData: Issue) {
-    console.log('issue', formData);
+  function createItem(formData: CreateItemInput) {
+    console.log('item', formData);
   }
 
   return (
@@ -38,9 +38,9 @@ function Navbar() {
             <ModalOpenButton>
               <Button variant="primary">Create</Button>
             </ModalOpenButton>
-            <Modal aria-label="Create issue form" title="Create Issue">
-              <IssueForm
-                onSubmit={createIssue}
+            <Modal aria-label="Create item form" title="Create Item">
+              <ItemForm
+                onSubmit={createItem}
                 submitButton={<Button variant="primary">Create</Button>}
               />
             </Modal>

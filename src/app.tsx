@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Layout, Button } from 'components';
 import { ModalProvider, ModalOpenButton, Modal, LoginForm } from 'containers';
-import { Auth } from 'core/types/user';
+import { Auth } from 'core/models/user';
 import { Dashboard } from 'screens';
 
 function App() {

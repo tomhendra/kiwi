@@ -1,0 +1,20 @@
+type Project @model {
+  id: ID!
+  title: String!
+  description: String!
+  startAt: Int!
+  endAt: Int!
+  items: [Item] @connection(keyName: "byProject", fields: ["id"])
+}
+
+type Item @model @key(name: "byProject", fields: ["projectID"]) {
+  id: ID!
+  title: String!
+  description: String
+  doDate: Int!
+  priority: String!
+  status: String!
+  estimate: String
+  projectID: ID!
+  project: Project @connection(fields: ["projectID"])
+}

@@ -1,16 +1,15 @@
 /** @jsxImportSource @emotion/react */
 import * as React from 'react';
-import { getAllIssues } from 'core/api/queries';
-import { useAsync } from 'core/hooks/use-async';
+// import { useAsync } from 'core/hooks/use-async';
 import { theme } from 'core/theme';
-import { Issue } from 'core/types';
+// import { Item } from 'core/types';
 
 function Dashboard() {
-  const { data, error, run, isLoading, isError, isSuccess } = useAsync();
+  // const { data, error, run, isLoading, isError, isSuccess } = useAsync();
 
-  React.useEffect(() => {
-    run(getAllIssues);
-  }, [run]);
+  // React.useEffect(() => {
+  //   run(GetItems(client));
+  // }, [run]);
 
   return (
     <div
@@ -21,9 +20,10 @@ function Dashboard() {
         marginTop: theme.space[5],
       }}
     >
-      {isLoading && <p>Loading...</p>}
+      Dashboard woot!
+      {/* {isLoading && <p>Loading...</p>}
       {isError && <pre>{error}</pre>}
-      {isSuccess && data.map((issue: Issue) => <pre>{issue}</pre>)}
+      {isSuccess && data.map((item: Item) => <pre>{item}</pre>)} */}
     </div>
   );
 }
