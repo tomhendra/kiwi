@@ -15,10 +15,6 @@ export const getProject = /* GraphQL */ `
           id
           title
           description
-          doDate
-          priority
-          status
-          estimate
           projectID
           createdAt
           updatedAt
@@ -59,10 +55,6 @@ export const getItem = /* GraphQL */ `
       id
       title
       description
-      doDate
-      priority
-      status
-      estimate
       projectID
       project {
         id
@@ -92,10 +84,6 @@ export const listItems = /* GraphQL */ `
         id
         title
         description
-        doDate
-        priority
-        status
-        estimate
         projectID
         project {
           id

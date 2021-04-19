@@ -18,10 +18,6 @@ export const createProject = /* GraphQL */ `
           id
           title
           description
-          doDate
-          priority
-          status
-          estimate
           projectID
           createdAt
           updatedAt
@@ -49,10 +45,6 @@ export const updateProject = /* GraphQL */ `
           id
           title
           description
-          doDate
-          priority
-          status
-          estimate
           projectID
           createdAt
           updatedAt
@@ -80,10 +72,6 @@ export const deleteProject = /* GraphQL */ `
           id
           title
           description
-          doDate
-          priority
-          status
-          estimate
           projectID
           createdAt
           updatedAt
@@ -104,10 +92,6 @@ export const createItem = /* GraphQL */ `
       id
       title
       description
-      doDate
-      priority
-      status
-      estimate
       projectID
       project {
         id
@@ -135,10 +119,6 @@ export const updateItem = /* GraphQL */ `
       id
       title
       description
-      doDate
-      priority
-      status
-      estimate
       projectID
       project {
         id
@@ -166,10 +146,6 @@ export const deleteItem = /* GraphQL */ `
       id
       title
       description
-      doDate
-      priority
-      status
-      estimate
       projectID
       project {
         id

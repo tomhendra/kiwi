@@ -5,7 +5,7 @@ import {
   StyledForm,
   StyledFormGroup,
   StyledTextarea,
-  StyledSelect,
+  // StyledSelect,
 } from 'components';
 
 interface Props {
@@ -30,10 +30,10 @@ function ItemForm({ onSubmit, submitButton }: Props) {
     onSubmit({
       title: target.title.value,
       description: target.description.value,
-      doDate: target.doDate.value,
-      priority: target.priority.value,
-      status: target.status.value,
-      estimate: target.estimate.value,
+      // doDate: target.doDate.value,
+      // priority: target.priority.value,
+      // status: target.status.value,
+      // estimate: target.estimate.value,
       projectID: target.project.value,
     });
   }
@@ -48,7 +48,7 @@ function ItemForm({ onSubmit, submitButton }: Props) {
         <label htmlFor="description">Description</label>
         <StyledTextarea id="description" />
       </StyledFormGroup>
-      <StyledFormGroup>
+      {/* <StyledFormGroup>
         <label htmlFor="date">Do Date</label>
         <StyledInput id="doDate" type="date" />
       </StyledFormGroup>
@@ -63,10 +63,10 @@ function ItemForm({ onSubmit, submitButton }: Props) {
       <StyledFormGroup>
         <label htmlFor="estimate">estimate</label>
         <StyledInput id="estimate" type="time" />
-      </StyledFormGroup>
+      </StyledFormGroup> */}
       <StyledFormGroup>
         <label htmlFor="project">project</label>
-        <StyledSelect id="project" />
+        <StyledInput id="project" type="text" />
       </StyledFormGroup>
       <div>{React.cloneElement(submitButton, { type: 'submit' })}</div>
     </StyledForm>

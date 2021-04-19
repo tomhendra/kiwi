@@ -21,6 +21,7 @@ function useSafeDispatch(dispatch: React.Dispatch<any>) {
     run(fetchPokemon(pokemonName))
   }, [pokemonName, run])
 */
+
 const defaultInitialState = { status: 'idle', data: null, error: null };
 
 function useAsync(initialState?: any) {
@@ -28,6 +29,7 @@ function useAsync(initialState?: any) {
     ...defaultInitialState,
     ...initialState,
   });
+
   const [{ status, data, error }, setState] = React.useReducer(
     (s: any, a: any) => ({ ...s, ...a }),
     initialStateRef.current,

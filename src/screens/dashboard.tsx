@@ -1,15 +1,67 @@
 /** @jsxImportSource @emotion/react */
 import * as React from 'react';
-// import { useAsync } from 'core/hooks/use-async';
+import { useAsync } from 'core/hooks/use-async';
+import { API, graphqlOperation } from 'aws-amplify';
+import { listItems } from 'core/graphql';
+import { Item, ListItemsQuery } from 'core/models';
 import { theme } from 'core/theme';
-// import { Item } from 'core/types';
 
 function Dashboard() {
-  // const { data, error, run, isLoading, isError, isSuccess } = useAsync();
+  const {
+    isLoading,
+    isError,
+    isSuccess,
+    error,
+    status,
+    data,
+    run,
+  } = useAsync();
 
-  // React.useEffect(() => {
-  //   run(GetItems(client));
-  // }, [run]);
+  React.useEffect(() => {
+    run(API.graphql(graphqlOperation(listItems)));
+    // fetchItems();
+  }, [run]);
+
+  console.log({ data, error, status, run, isLoading, isError, isSuccess });
+
+  // async function fetchItems() {
+  //   try {
+  //     const itemData: any = await API.graphql(graphqlOperation(listItems));
+  //     setItems(itemData.data.listItems.items);
+  //   } catch (err) {
+  //     console.log('error fetching items');
+  //   }
+  // }
+
+  // if (isLoading) {
+  //   return (
+  //     <div
+  //       css={{
+  //         padding: '3rem',
+  //         borderRadius: theme.radii.md,
+  //         background: theme.colors.white,
+  //         marginTop: theme.space[5],
+  //       }}
+  //     >
+  //       <p>Loading...</p>
+  //     </div>
+  //   );
+  // }
+
+  // if (isError) {
+  //   return (
+  //     <div
+  //       css={{
+  //         padding: '3rem',
+  //         borderRadius: theme.radii.md,
+  //         background: theme.colors.white,
+  //         marginTop: theme.space[5],
+  //       }}
+  //     >
+  //       <pre>{error}</pre>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div
@@ -20,10 +72,11 @@ function Dashboard() {
         marginTop: theme.space[5],
       }}
     >
-      Dashboard woot!
-      {/* {isLoading && <p>Loading...</p>}
-      {isError && <pre>{error}</pre>}
-      {isSuccess && data.map((item: Item) => <pre>{item}</pre>)} */}
+      {isSuccess
+        ? data?.data?.listItems?.items?.map((item: Item) => (
+            <p key={item.id}>{item.title}</p>
+          ))
+        : null}
     </div>
   );
 }

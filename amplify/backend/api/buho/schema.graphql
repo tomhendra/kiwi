@@ -11,10 +11,10 @@ type Item @model @key(name: "byProject", fields: ["projectID"]) {
   id: ID!
   title: String!
   description: String
-  doDate: Int!
-  priority: String!
-  status: String!
-  estimate: String
+  # doDate: String!
+  # priority: String!
+  # status: String!
+  # estimate: String
   projectID: ID!
   project: Project @connection(fields: ["projectID"])
 }
