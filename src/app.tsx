@@ -3,6 +3,7 @@ import { Layout, Button } from 'components';
 import { ModalProvider, ModalOpenButton, Modal, LoginForm } from 'containers';
 import { Auth } from 'core/models/user';
 import { Dashboard } from 'screens';
+import { withAuthenticator } from '@aws-amplify/ui-react';
 
 function App() {
   function login(formData: Auth) {
@@ -52,4 +53,4 @@ function App() {
   );
 }
 
-export default App;
+export default withAuthenticator(App);

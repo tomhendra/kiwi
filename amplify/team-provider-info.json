@@ -10,6 +10,11 @@
       "StackName": "amplify-buho-dev-165542",
       "StackId": "arn:aws:cloudformation:eu-west-2:537321681108:stack/amplify-buho-dev-165542/a875a840-9dfa-11eb-8c50-0247ccc3324c",
       "AmplifyAppId": "d3cm6j4nhyk3hn"
+    },
+    "categories": {
+      "auth": {
+        "buho28d8f098": {}
+      }
     }
   }
 }
