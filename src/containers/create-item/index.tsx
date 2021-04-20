@@ -27,7 +27,7 @@ function CreateItem({ modalOpenButton }: Props) {
         )}
         {isLoading && <p>Loading...</p>}
         {isError && <pre>{error}</pre>}
-        {isSuccess && <p>Success!</p>}
+        {isSuccess && <p>Success! Woohoo!</p>}
       </Modal>
     </ModalProvider>
   );
