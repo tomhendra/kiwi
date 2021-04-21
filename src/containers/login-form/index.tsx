@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { Auth, AuthInput, ReactElement } from 'core/models';
+import { SignIn, CredentialsInput, ReactElement } from 'core/models';
 import { StyledInput, StyledForm, StyledFormGroup } from 'components';
 
 interface Props {
-  onSubmit: ({ email, password }: Auth) => void;
+  onSubmit: ({ username, password }: SignIn) => Promise<void>;
   submitButton: ReactElement;
 }
 
@@ -11,10 +11,10 @@ function LoginForm({ onSubmit, submitButton }: Props) {
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const target = event.target as typeof event.target & AuthInput;
+    const target = event.target as typeof event.target & CredentialsInput;
 
     onSubmit({
-      email: target.email.value,
+      username: target.username.value,
       password: target.password.value,
     });
   }
@@ -22,8 +22,8 @@ function LoginForm({ onSubmit, submitButton }: Props) {
   return (
     <StyledForm onSubmit={handleSubmit}>
       <StyledFormGroup>
-        <label htmlFor="email">email</label>
-        <StyledInput id="email" type="text" />
+        <label htmlFor="username">username</label>
+        <StyledInput id="username" type="text" />
       </StyledFormGroup>
       <StyledFormGroup>
         <label htmlFor="password">Password</label>

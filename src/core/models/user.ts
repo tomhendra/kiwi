@@ -1,12 +1,16 @@
 import { Item, Project } from './api';
 
-export interface Auth {
-  email: string;
+export interface SignIn {
+  username: string;
   password: string;
 }
 
-export interface AuthInput {
-  email: { value: string };
+export interface SignUp extends SignIn {
+  email: string;
+}
+
+export interface CredentialsInput {
+  username: { value: string };
   password: { value: string };
 }
 
