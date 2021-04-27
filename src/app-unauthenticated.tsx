@@ -11,6 +11,7 @@ import {
 } from 'components';
 import { useAsync } from 'core/hooks';
 import { CredentialsInput } from 'core/models';
+import { theme } from 'core/theme';
 
 // interface AuthState {
 //   username: string;
@@ -80,50 +81,59 @@ function UnauthenticatedApp({ signIn, signUp, confirmSignUp }: Props) {
     }
   }
 
-  function toggleAuthState() {
+  function toggleAuthState(event: any) {
+    event.preventDefault();
     setAuthState(() => (authState === 'signIn' ? 'signUp' : 'signIn'));
   }
 
   return (
     <Layout>
-      <h1>Búho</h1>
-      <StyledForm onSubmit={handleAuth}>
-        <StyledFormGroup>
-          <label htmlFor="username">username</label>
-          <StyledInput id="username" type="text" />
-        </StyledFormGroup>
-        <StyledFormGroup>
-          <label htmlFor="password">Password</label>
-          <StyledInput id="password" type="password" />
-        </StyledFormGroup>
-        {/* render input for email if signing up */}
-        {authState === 'signUp' ? (
+      <div css={{ display: 'flex', flexDirection: 'column' }}>
+        <StyledForm onSubmit={handleAuth}>
           <StyledFormGroup>
-            <label htmlFor="email">Email</label>
-            <StyledInput id="email" type="email" />
+            <h1 css={{ marginBottom: theme.space[4] }}>Búho</h1>
+            <label htmlFor="username">username</label>
+            <StyledInput id="username" type="text" />
           </StyledFormGroup>
-        ) : null}
-        {/* render input for confirmation if confirming sign up */}
-        {authState === 'confirm' ? (
           <StyledFormGroup>
-            <label htmlFor="code">confirmation code</label>
-            <StyledInput id="code" type="text" />
+            <label htmlFor="password">Password</label>
+            <StyledInput id="password" type="password" />
           </StyledFormGroup>
-        ) : null}
-        <div>
-          <Button variant="primary" type="submit">
-            {isLoading ? <Spinner css={{ marginLeft: 5 }} /> : null}
-            {authState === 'signIn' ? 'Sign in' : null}
-            {authState === 'signUp' ? 'Sign up' : null}
-            {authState === 'confirm' ? 'confirm sign up' : null}
-          </Button>
-        </div>
-        {isError ? <ErrorMessage error={error} /> : null}
-      </StyledForm>
-      <Button variant="secondary" onClick={() => toggleAuthState()}>
-        {authState === 'signIn' ? 'Sign up for an account' : null}
-        {authState === 'signUp' ? 'Sign into an existing account' : null}
-      </Button>
+          {/* render input for email if signing up */}
+          {authState === 'signUp' ? (
+            <StyledFormGroup>
+              <label htmlFor="email">Email</label>
+              <StyledInput id="email" type="email" />
+            </StyledFormGroup>
+          ) : null}
+          {/* render input for confirmation if confirming sign up */}
+          {authState === 'confirm' ? (
+            <StyledFormGroup>
+              <label htmlFor="code">confirmation code</label>
+              <StyledInput id="code" type="text" />
+            </StyledFormGroup>
+          ) : null}
+          <div>
+            <Button variant="primary" type="submit">
+              {isLoading ? (
+                <Spinner css={{ marginLeft: theme.space[2] }} />
+              ) : null}
+              {authState === 'signIn' ? 'Sign in' : null}
+              {authState === 'signUp' ? 'Sign up' : null}
+              {authState === 'confirm' ? 'confirm sign up' : null}
+            </Button>
+            <Button
+              variant="secondary"
+              onClick={toggleAuthState}
+              css={{ marginLeft: theme.space[2] }}
+            >
+              {authState === 'signIn' ? 'Sign up for an account' : null}
+              {authState === 'signUp' ? 'Sign into an existing account' : null}
+            </Button>
+          </div>
+          {isError ? <ErrorMessage error={error} /> : null}
+        </StyledForm>
+      </div>
     </Layout>
   );
 }
