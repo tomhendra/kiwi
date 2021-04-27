@@ -22,12 +22,15 @@ function Dashboard() {
         marginTop: theme.space[5],
       }}
     >
-      {isLoading && <p>Loading...</p>}
-      {isError && <pre>{error}</pre>}
-      {isSuccess &&
-        data?.data?.listItems?.items?.map((item: Item) => (
-          <p key={item.id}>{item.title}</p>
-        ))}
+      {isLoading ? <p>Loading...</p> : null}
+      {isError ? <pre>{error}</pre> : null}
+      {
+        isSuccess ? console.log(data) : null
+
+        // data?.data?.listItems?.items?.map((item: Item) => (
+        //   <p key={item.id}>{item.title}</p>
+        // ))
+      }
     </div>
   );
 }

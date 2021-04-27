@@ -12,9 +12,12 @@ export interface SignUp extends SignIn {
 export interface CredentialsInput {
   username: { value: string };
   password: { value: string };
+  email: { value: string };
+  code: { value: string };
 }
 
 export interface User {
+  username: string;
   email: string;
   password: string;
   projects: Project[];
