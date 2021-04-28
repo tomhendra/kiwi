@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { User } from 'core/models';
+import { User } from 'models';
 import { Button, Layout } from 'components';
 
 interface Props {

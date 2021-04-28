@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import * as React from 'react';
-import { useAsync } from 'core/hooks';
+import { useAsync } from 'hooks';
 import { UnauthenticatedApp } from './app-unauthenticated';
 import { AuthenticatedApp } from './app-authenticated';
 import { Auth } from 'aws-amplify';

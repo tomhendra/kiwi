@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { CreateItemInput, ReactElement } from 'core/models';
+import { CreateItemInput, ReactElement } from 'models';
 import {
   StyledInput,
   StyledForm,

@@ -1,38 +1,46 @@
-/** @jsxImportSource @emotion/react */
-import * as React from 'react';
-import { useAsync } from 'core/hooks/use-async';
-import { API, graphqlOperation } from 'aws-amplify';
-import { listItems } from 'core/graphql';
-import { Item } from 'core/models';
-import { theme } from 'core/theme';
+// import { DataStore } from 'aws-amplify';
+// import { ErrorMessage, FullPageSpinner } from 'components';
+// import { useAsync } from 'hooks';
+// import { Item } from 'models';
+import React from 'react';
 
 function Dashboard() {
-  const { isLoading, isError, isSuccess, error, data, run } = useAsync();
+  // const {
+  //   isIdle,
+  //   isLoading,
+  //   isError,
+  //   isSuccess,
+  //   run,
+  //   data: items,
+  //   error,
+  // } = useAsync();
 
-  React.useEffect(() => {
-    run(API.graphql(graphqlOperation(listItems)));
-  }, [run]);
+  // React.useEffect(() => {
+  //   run(DataStore.query(Item));
+  // });
 
+  // if (isIdle) {
+  //   return <p>I am idling</p>;
+  // }
+
+  // if (isLoading) {
+  //   return <FullPageSpinner />;
+  // }
+
+  // if (isError) {
+  //   return <ErrorMessage error={error} />;
+  // }
+
+  // if (isSuccess) {
   return (
-    <div
-      css={{
-        padding: '3rem',
-        borderRadius: theme.radii.md,
-        background: theme.colors.white,
-        marginTop: theme.space[5],
-      }}
-    >
-      {isLoading ? <p>Loading...</p> : null}
-      {isError ? <pre>{error}</pre> : null}
-      {
-        isSuccess ? console.log(data) : null
-
-        // data?.data?.listItems?.items?.map((item: Item) => (
-        //   <p key={item.id}>{item.title}</p>
-        // ))
-      }
-    </div>
+    <>
+      <h2>I am the Dashboard screen</h2>
+      {/* {items.map((item: Item) => (
+          <div>{item.title}</div>
+        ))} */}
+    </>
   );
+  // }
 }
 
 export { Dashboard };

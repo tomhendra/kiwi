@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { theme } from 'core/theme';
+import { theme } from 'theme';
 import { Button } from 'components';
 import { ModeToggle } from 'containers';
 import { CreateItem } from 'containers/create-item';

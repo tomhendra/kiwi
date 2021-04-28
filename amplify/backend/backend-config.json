@@ -1,24 +1,24 @@
 {
   "api": {
-    "buho": {
+    "amplifyDatasource": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
       "output": {
         "authConfig": {
+          "additionalAuthenticationProviders": [],
           "defaultAuthentication": {
             "authenticationType": "API_KEY",
             "apiKeyConfig": {
-              "apiKeyExpirationDays": 7,
-              "description": "default"
+              "description": "",
+              "apiKeyExpirationDays": 7
             }
-          },
-          "additionalAuthenticationProviders": []
+          }
         }
       }
     }
   },
   "auth": {
-    "buho28d8f098": {
+    "buho13ffa92b": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],

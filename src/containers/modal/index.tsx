@@ -9,8 +9,8 @@ import {
   StyledWrapper,
   StyledTitle,
 } from './styled';
-import { callAll } from 'core/utils';
-import { Children, ReactElement } from 'core/models';
+import { callAll } from 'utils';
+import { Children, ReactElement } from 'models';
 import FocusTrap from 'focus-trap-react';
 
 type ContextState = [

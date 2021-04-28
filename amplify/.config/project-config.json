@@ -1,10 +1,10 @@
 {
-  "providers": [
-    "awscloudformation"
-  ],
   "projectName": "buho",
   "version": "3.1",
   "frontend": "javascript",
+  "providers": [
+    "awscloudformation"
+  ],
   "javascript": {
     "framework": "react",
     "config": {

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { CreateProjectInput, ReactElement } from 'core/models';
+import { CreateProjectInput, ReactElement } from 'models';
 import {
   StyledInput,
   StyledForm,

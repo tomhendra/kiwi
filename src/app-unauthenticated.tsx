@@ -9,9 +9,9 @@ import {
   ErrorMessage,
   Spinner,
 } from 'components';
-import { useAsync } from 'core/hooks';
-import { CredentialsInput } from 'core/models';
-import { theme } from 'core/theme';
+import { useAsync } from 'hooks';
+import { CredentialsInput } from 'models';
+import { theme } from 'theme';
 
 // interface AuthState {
 //   username: string;

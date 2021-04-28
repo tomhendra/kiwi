@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import * as React from 'react';
-import { CredentialsInput, ReactElement } from 'core/models';
+import { CredentialsInput, ReactElement } from 'models';
 import {
   StyledInput,
   StyledForm,
@@ -8,7 +8,7 @@ import {
   ErrorMessage,
   Spinner,
 } from 'components';
-import { useAsync } from 'core/hooks';
+import { useAsync } from 'hooks';
 
 interface Props {
   onSubmit: any;
