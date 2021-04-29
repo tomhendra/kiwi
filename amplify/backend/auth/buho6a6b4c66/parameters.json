@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "buho13ffa92b_identitypool_13ffa92b",
+    "identityPoolName": "buho6a6b4c66_identitypool_6a6b4c66",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "buho13ffa92b",
-    "userPoolName": "buho13ffa92b_userpool_13ffa92b",
+    "resourceNameTruncated": "buho6a6b4c66",
+    "userPoolName": "buho6a6b4c66_userpool_6a6b4c66",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -28,10 +28,10 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "buho1313ffa92b_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "buho6a6a6b4c66_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "13ffa92b",
-    "resourceName": "buho13ffa92b",
+    "sharedId": "6a6b4c66",
+    "resourceName": "buho6a6b4c66",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
@@ -49,5 +49,14 @@
     "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
-    "dependsOn": []
+    "dependsOn": [],
+    "userPoolGroups": false,
+    "adminQueries": false,
+    "triggers": "{}",
+    "hostedUI": false,
+    "parentStack": {
+        "Ref": "AWS::StackId"
+    },
+    "permissions": [],
+    "authProviders": []
 }

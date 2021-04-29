@@ -1,8 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { theme } from 'theme';
-import { Button } from 'components';
 import { ModeToggle } from 'containers';
-import { CreateItem } from 'containers/create-item';
 
 function Navbar() {
   return (
@@ -23,11 +21,6 @@ function Navbar() {
           },
         }}
       >
-        <div>
-          <CreateItem
-            modalOpenButton={<Button variant="primary">Create</Button>}
-          />
-        </div>
         <ModeToggle />
       </nav>
     </div>

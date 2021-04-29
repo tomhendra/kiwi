@@ -27,22 +27,22 @@ export const schema = {
                 "startAt": {
                     "name": "startAt",
                     "isArray": false,
-                    "type": "Int",
+                    "type": "String",
                     "isRequired": true,
                     "attributes": []
                 },
                 "endAt": {
                     "name": "endAt",
                     "isArray": false,
-                    "type": "Int",
+                    "type": "String",
                     "isRequired": true,
                     "attributes": []
                 },
-                "items": {
-                    "name": "items",
+                "tasks": {
+                    "name": "tasks",
                     "isArray": true,
                     "type": {
-                        "model": "Item"
+                        "model": "Task"
                     },
                     "isRequired": false,
                     "attributes": [],
@@ -51,6 +51,13 @@ export const schema = {
                         "connectionType": "HAS_MANY",
                         "associatedWith": "project"
                     }
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": []
                 }
             },
             "syncable": true,
@@ -59,11 +66,30 @@ export const schema = {
                 {
                     "type": "model",
                     "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "provider": "userPools",
+                                "ownerField": "owner",
+                                "allow": "owner",
+                                "identityClaim": "cognito:username",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
                 }
             ]
         },
-        "Item": {
-            "name": "Item",
+        "Task": {
+            "name": "Task",
             "fields": {
                 "id": {
                     "name": "id",
@@ -98,10 +124,17 @@ export const schema = {
                         "connectionType": "BELONGS_TO",
                         "targetName": "projectID"
                     }
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": []
                 }
             },
             "syncable": true,
-            "pluralName": "Items",
+            "pluralName": "Tasks",
             "attributes": [
                 {
                     "type": "model",
@@ -115,11 +148,30 @@ export const schema = {
                             "projectID"
                         ]
                     }
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "provider": "userPools",
+                                "ownerField": "owner",
+                                "allow": "owner",
+                                "identityClaim": "cognito:username",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
                 }
             ]
         }
     },
     "enums": {},
     "nonModels": {},
-    "version": "29787e1cd442f2218ca0101a13573657"
+    "version": "26337abadc8f1404d8d58e51176b5ad1"
 };

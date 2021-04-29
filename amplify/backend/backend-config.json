@@ -7,10 +7,9 @@
         "authConfig": {
           "additionalAuthenticationProviders": [],
           "defaultAuthentication": {
-            "authenticationType": "API_KEY",
-            "apiKeyConfig": {
-              "description": "",
-              "apiKeyExpirationDays": 7
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authbuho6a6b4c66"
             }
           }
         }
@@ -18,7 +17,7 @@
     }
   },
   "auth": {
-    "buho13ffa92b": {
+    "buho6a6b4c66": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],

@@ -1,46 +1,60 @@
-// import { DataStore } from 'aws-amplify';
-// import { ErrorMessage, FullPageSpinner } from 'components';
-// import { useAsync } from 'hooks';
-// import { Item } from 'models';
+/** @jsxImportSource @emotion/react */
 import React from 'react';
+import { DataStore, Predicates } from 'aws-amplify';
+import { ErrorMessage, FullPageSpinner } from 'components';
+import { useAsync } from 'hooks';
+import { Project } from 'models';
+import { theme } from 'theme';
 
 function Dashboard() {
-  // const {
-  //   isIdle,
-  //   isLoading,
-  //   isError,
-  //   isSuccess,
-  //   run,
-  //   data: items,
-  //   error,
-  // } = useAsync();
+  const {
+    isIdle,
+    isLoading,
+    isError,
+    isSuccess,
+    run,
+    data: projects,
+    error,
+  } = useAsync();
 
-  // React.useEffect(() => {
-  //   run(DataStore.query(Item));
-  // });
+  React.useEffect(() => {
+    run(DataStore.query(Project, Predicates.ALL));
+  }, [run]);
 
-  // if (isIdle) {
-  //   return <p>I am idling</p>;
-  // }
+  if (isIdle || isLoading) {
+    return <FullPageSpinner />;
+  }
 
-  // if (isLoading) {
-  //   return <FullPageSpinner />;
-  // }
+  if (isError) {
+    return <ErrorMessage error={error} />;
+  }
 
-  // if (isError) {
-  //   return <ErrorMessage error={error} />;
-  // }
+  if (isSuccess) {
+    return (
+      <>
+        <h2>Dashboard</h2>
+        {projects.map((project: Project) => (
+          <div
+            key={project.id}
+            css={{
+              background: theme.colors.white,
+              padding: theme.space[4],
+              marginBottom: theme.space[3],
+              borderRadius: theme.radii.lg,
+            }}
+          >
+            <p>id: {project.id}</p>
+            <p>title: {project.title}</p>
+            <p>description: {project.description}</p>
+            <p>start: {project.startAt}</p>
+            <p>end: {project.endAt}</p>
+          </div>
+        ))}
+      </>
+    );
+  }
 
-  // if (isSuccess) {
-  return (
-    <>
-      <h2>I am the Dashboard screen</h2>
-      {/* {items.map((item: Item) => (
-          <div>{item.title}</div>
-        ))} */}
-    </>
-  );
-  // }
+  return null;
 }
 
 export { Dashboard };

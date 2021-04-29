@@ -1,13 +1,17 @@
-type Project @model {
+type Project @model @auth(rules: [{ allow: owner }]) {
   id: ID!
   title: String!
   description: String!
-  startAt: Int!
-  endAt: Int!
-  items: [Item] @connection(keyName: "byProject", fields: ["id"])
+  startAt: String!
+  endAt: String!
+  tasks: [Task] @connection(keyName: "byProject", fields: ["id"])
+  createdAt: AWSDateTime
 }
 
-type Item @model @key(name: "byProject", fields: ["projectID"]) {
+type Task
+  @model
+  @auth(rules: [{ allow: owner }])
+  @key(name: "byProject", fields: ["projectID"]) {
   id: ID!
   title: String!
   description: String
@@ -17,4 +21,5 @@ type Item @model @key(name: "byProject", fields: ["projectID"]) {
   # estimate: String
   projectID: ID!
   project: Project @connection(fields: ["projectID"])
+  createdAt: AWSDateTime
 }

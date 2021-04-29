@@ -10,7 +10,7 @@ import {
   Spinner,
 } from 'components';
 import { useAsync } from 'hooks';
-import { CredentialsInput } from 'models';
+import { CredentialsInput } from 'models/user';
 import { theme } from 'theme';
 
 // interface AuthState {

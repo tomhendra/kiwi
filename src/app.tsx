@@ -3,8 +3,13 @@ import * as React from 'react';
 import { useAsync } from 'hooks';
 import { UnauthenticatedApp } from './app-unauthenticated';
 import { AuthenticatedApp } from './app-authenticated';
-import { Auth } from 'aws-amplify';
+import { Auth, DataStore } from 'aws-amplify';
 import { FullPageSpinner } from 'components';
+
+// ------------ DEBUGGER -------------
+import Amplify from 'aws-amplify';
+Amplify.Logger.LOG_LEVEL = 'DEBUG';
+// -----------------------------------
 
 function App() {
   const {
@@ -30,10 +35,11 @@ function App() {
   const confirmSignUp = (username: string, authCode: string) =>
     Auth.confirmSignUp(username, authCode); // TODO: Can user be set from here?
 
-  const signOut = () => {
-    Auth.signOut();
+  async function signOut() {
+    await Auth.signOut();
+    await DataStore.clear();
     setUser(null);
-  };
+  }
 
   if (isLoading || isIdle) {
     return <FullPageSpinner />;

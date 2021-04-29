@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import * as React from 'react';
-import { CredentialsInput, ReactElement } from 'models';
+import { CredentialsInput } from 'models/user';
+import { ReactElement } from 'models/react';
 import {
   StyledInput,
   StyledForm,
