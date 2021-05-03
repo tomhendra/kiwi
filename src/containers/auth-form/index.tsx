@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import * as React from 'react';
-import { CredentialsInput } from 'models/user';
 import { ReactElement } from 'models/react';
 import {
   StyledInput,
@@ -10,23 +9,32 @@ import {
   Spinner,
 } from 'components';
 import { useAsync } from 'hooks';
+// https://epicreact.dev/how-to-type-a-react-form-on-submit-handler/
+interface FormElements extends HTMLFormControlsCollection {
+  usernameInput: HTMLInputElement;
+  passwordInput: HTMLInputElement;
+  emailInput: HTMLInputElement;
+  codeInput: HTMLInputElement;
+}
+
+interface AuthFormElements extends HTMLFormElement {
+  // now we can override the elements type to be an HTMLFormControlsCollection
+  // of our own design...
+  readonly elements: FormElements;
+}
 
 interface Props {
-  onSubmit: any;
+  onSubmit: (username: string, password: string) => void;
   submitButton: ReactElement;
 }
 
 function AuthForm({ onSubmit, submitButton }: Props) {
   const { isLoading, isError, error, run } = useAsync();
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(event: React.FormEvent<AuthFormElements>) {
     event.preventDefault();
-
-    const target = event.target as typeof event.target & CredentialsInput;
-    const username = target.username.value;
-    const password = target.password.value;
-
-    run(onSubmit(username, password));
+    const { usernameInput, passwordInput } = event.currentTarget.elements;
+    run(onSubmit(usernameInput.value, passwordInput.value));
   }
 
   return (

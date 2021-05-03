@@ -8,24 +8,30 @@ import {
   StyledTextarea,
 } from 'components';
 
+interface FormElements extends HTMLFormControlsCollection {
+  titleInput: HTMLInputElement;
+  descriptionInput: HTMLInputElement;
+}
+
+interface TaskFormElements extends HTMLFormElement {
+  readonly elements: FormElements;
+}
+
 interface Props {
   onSubmit: (arg: Task) => void;
   submitButton: ReactElement;
 }
 
 function TaskForm({ onSubmit, submitButton }: Props) {
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(event: React.FormEvent<TaskFormElements>) {
     event.preventDefault();
 
-    const target = event.target as typeof event.target & {
-      title: { value: string };
-      description: { value: string };
-    };
+    const { titleInput, descriptionInput } = event.currentTarget.elements;
 
     onSubmit({
       id: '',
-      title: target.title.value,
-      description: target.description.value,
+      title: titleInput.value,
+      description: descriptionInput.value,
     });
   }
 

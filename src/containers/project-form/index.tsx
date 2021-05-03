@@ -8,28 +8,37 @@ import {
   StyledTextarea,
 } from 'components';
 
+interface FormElements extends HTMLFormControlsCollection {
+  titleInput: HTMLInputElement;
+  descriptionInput: HTMLInputElement;
+  startAtInput: HTMLInputElement;
+  endAtInput: HTMLInputElement;
+}
+
+interface ProjectFormElements extends HTMLFormElement {
+  readonly elements: FormElements;
+}
+
 interface Props {
   onSubmit: (arg: Project) => void;
   submitButton: ReactElement;
 }
 
 function ProjectForm({ onSubmit, submitButton }: Props) {
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(event: React.FormEvent<ProjectFormElements>) {
     event.preventDefault();
-
-    const target = event.target as typeof event.target & {
-      title: { value: string };
-      description: { value: string };
-      startAt: { value: string };
-      endAt: { value: string };
-    };
-
+    const {
+      titleInput,
+      descriptionInput,
+      startAtInput,
+      endAtInput,
+    } = event.currentTarget.elements;
     onSubmit({
       id: '',
-      title: target.title.value,
-      description: target.description.value,
-      startAt: new Date(target.startAt.value).toISOString(),
-      endAt: new Date(target.endAt.value).toISOString(),
+      title: titleInput.value,
+      description: descriptionInput.value,
+      startAt: new Date(startAtInput.value).toISOString(),
+      endAt: new Date(endAtInput.value).toISOString(),
     });
   }
 
