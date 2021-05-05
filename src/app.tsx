@@ -5,11 +5,11 @@ import { UnauthenticatedApp } from './app-unauthenticated';
 import { AuthenticatedApp } from './app-authenticated';
 import { Auth, DataStore } from 'aws-amplify';
 import { FullPageSpinner } from 'components';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 // ------------ DEBUGGER -------------
-import Amplify from 'aws-amplify';
-Amplify.Logger.LOG_LEVEL = 'DEBUG';
-// -----------------------------------
+// import Amplify from 'aws-amplify';
+// Amplify.Logger.LOG_LEVEL = 'DEBUG';
 
 function App() {
   const {
@@ -49,16 +49,15 @@ function App() {
     console.error(error);
   }
 
-  if (user) {
-    return <AuthenticatedApp user={user} signOut={signOut} />;
-  }
+  const AuthenticatedAppProps = { user, signOut };
+  const UnauthenticatedAppProps = { signIn, signUp, confirmSignUp };
 
-  return (
-    <UnauthenticatedApp
-      signIn={signIn}
-      signUp={signUp}
-      confirmSignUp={confirmSignUp}
-    />
+  return user ? (
+    <Router>
+      <AuthenticatedApp {...AuthenticatedAppProps} />
+    </Router>
+  ) : (
+    <UnauthenticatedApp {...UnauthenticatedAppProps} />
   );
 }
 

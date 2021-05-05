@@ -1,29 +1,32 @@
 /** @jsxImportSource @emotion/react */
+import { Routes, Route } from 'react-router-dom';
+import { ProjectsScreen, ProjectScreen, NotFoundScreen } from 'screens';
+import { Layout, Navbar } from 'components';
 import { User } from 'models/user';
-import { Button, Layout } from 'components';
-import { Dashboard } from 'screens';
-import { CreateProject } from 'containers/create-project';
-import { theme } from 'theme';
 
 interface Props {
   user: User;
-  signOut: any;
+  signOut: () => void;
 }
 
 function AuthenticatedApp({ user, signOut }: Props) {
   return (
-    <Layout>
-      <p>Hello, {user.username}</p>
-      <CreateProject />
-      <Button
-        variant="secondary"
-        onClick={signOut}
-        css={{ marginRight: theme.space[2] }}
-      >
-        Sign Out
-      </Button>
-      <Dashboard />
+    <Layout
+      nav={<Navbar user={user} signOut={signOut} />}
+      footer={<p>&copy; Búho 2021</p>}
+    >
+      <AppRoutes />
     </Layout>
+  );
+}
+
+function AppRoutes() {
+  return (
+    <Routes>
+      <Route path="/projects" element={<ProjectsScreen />} />
+      <Route path="/projects/:projectId" element={<ProjectScreen />} />
+      <Route path="*" element={<NotFoundScreen />} />
+    </Routes>
   );
 }
 

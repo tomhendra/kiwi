@@ -1,3 +1,3 @@
-export * from './dashboard';
-export * from './not-found';
+export * from './projects';
 export * from './project';
+export * from './not-found';

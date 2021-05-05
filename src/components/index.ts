@@ -6,3 +6,4 @@ export * from './form';
 export * from './navbar';
 export * from './error-message';
 export * from './spinner';
+export * from './nav-link';

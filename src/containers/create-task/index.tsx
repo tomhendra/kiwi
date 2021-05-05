@@ -1,6 +1,6 @@
 import { DataStore } from 'aws-amplify';
 import { ErrorMessage, Button, Spinner } from 'components';
-import { ModalProvider, ModalOpenButton, Modal, ProjectForm } from 'containers';
+import { ModalProvider, ModalOpenButton, Modal, TaskForm } from 'containers';
 import { useAsync } from 'hooks';
 import { Task } from 'models';
 
@@ -24,7 +24,7 @@ function CreateTask() {
       </ModalOpenButton>
       <Modal aria-label="Create project form" title="Create Project">
         {isIdle && (
-          <ProjectForm
+          <TaskForm
             onSubmit={createTask}
             submitButton={<Button variant="primary">Create Project</Button>}
           />

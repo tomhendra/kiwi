@@ -1,14 +1,16 @@
 /** @jsxImportSource @emotion/react */
-import { Navbar } from 'components';
+
 import { StyledContainer } from './styled';
 import { theme } from 'theme';
-import { Children } from 'models/react';
+import { Children, ReactElement } from 'models/react';
 
 interface Props {
+  nav?: ReactElement;
+  footer?: ReactElement;
   children?: Children;
 }
 
-function Layout({ children }: Props) {
+function Layout({ nav, footer, children }: Props) {
   return (
     <div
       css={{
@@ -24,9 +26,7 @@ function Layout({ children }: Props) {
           boxShadow: theme.shadows.sm,
         }}
       >
-        <StyledContainer>
-          <Navbar />
-        </StyledContainer>
+        <StyledContainer>{nav}</StyledContainer>
       </header>
       <main
         css={{
@@ -43,9 +43,7 @@ function Layout({ children }: Props) {
           background: 'inherit',
         }}
       >
-        <StyledContainer>
-          <p>Footer Goes Here</p>
-        </StyledContainer>
+        <StyledContainer>{footer}</StyledContainer>
       </footer>
     </div>
   );

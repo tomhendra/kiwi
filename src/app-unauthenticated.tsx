@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
+
 import * as React from 'react';
 import {
-  Layout,
   Button,
   StyledInput,
   StyledForm,
@@ -13,23 +13,9 @@ import { useAsync } from 'hooks';
 import { CredentialsInput } from 'models/user';
 import { theme } from 'theme';
 
-// interface AuthState {
-//   username: string;
-//   password: string;
-//   email: string;
-//   code: string;
-//   phase: 'signUp' | 'confirm' | 'signIn'
-// }
-
-// const initialFormState: AuthState = {
-//   username: '',
-//   password: '',
-//   email: '',
-//   code: '',
-//   phase: 'signUp',
-// };
-
+// TODO: Amplify Hub / setAuthListener ??
 // TODO: types for Amplify auth ??
+
 interface Props {
   signIn: any;
   signUp: any;
@@ -37,25 +23,12 @@ interface Props {
 }
 
 function UnauthenticatedApp({ signIn, signUp, confirmSignUp }: Props) {
-  //   React.useEffect(() => {
-  //     setAuthListener();
-  //   }, []);
-
-  //   async function setAuthListener() {
-  //     Hub.listen('auth', data => {
-  //       switch (data.payload.event) {
-  //         case 'signOut':
-  //           console.log({ data });
-  //           updateFormState(() => ({ ...formState, formType: 'signUp' }));
-  //           break;
-  //         default:
-  //           break;
-  //       }
-  //     });
-  //   }
-
   const [authState, setAuthState] = React.useState('signIn');
   const { isLoading, isError, error, run } = useAsync();
+
+  React.useEffect(() => {
+    document.body.dataset.theme = 'light';
+  }, []);
 
   function handleAuth(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -87,54 +60,59 @@ function UnauthenticatedApp({ signIn, signUp, confirmSignUp }: Props) {
   }
 
   return (
-    <Layout>
-      <div css={{ display: 'flex', flexDirection: 'column' }}>
-        <StyledForm onSubmit={handleAuth}>
+    <div css={{ display: 'flex', flexDirection: 'column' }}>
+      <StyledForm onSubmit={handleAuth}>
+        <StyledFormGroup>
+          <h1
+            css={{
+              marginBottom: theme.space[4],
+              color: theme.colors.blue[5],
+            }}
+          >
+            Búho
+          </h1>
+          <label htmlFor="username">username</label>
+          <StyledInput id="username" type="text" />
+        </StyledFormGroup>
+        <StyledFormGroup>
+          <label htmlFor="password">Password</label>
+          <StyledInput id="password" type="password" />
+        </StyledFormGroup>
+        {/* render input for email if signing up */}
+        {authState === 'signUp' ? (
           <StyledFormGroup>
-            <h1 css={{ marginBottom: theme.space[4] }}>Búho</h1>
-            <label htmlFor="username">username</label>
-            <StyledInput id="username" type="text" />
+            <label htmlFor="email">Email</label>
+            <StyledInput id="email" type="email" />
           </StyledFormGroup>
+        ) : null}
+        {/* render input for confirmation if confirming sign up */}
+        {authState === 'confirm' ? (
           <StyledFormGroup>
-            <label htmlFor="password">Password</label>
-            <StyledInput id="password" type="password" />
+            <label htmlFor="code">confirmation code</label>
+            <StyledInput id="code" type="text" />
           </StyledFormGroup>
-          {/* render input for email if signing up */}
-          {authState === 'signUp' ? (
-            <StyledFormGroup>
-              <label htmlFor="email">Email</label>
-              <StyledInput id="email" type="email" />
-            </StyledFormGroup>
-          ) : null}
-          {/* render input for confirmation if confirming sign up */}
-          {authState === 'confirm' ? (
-            <StyledFormGroup>
-              <label htmlFor="code">confirmation code</label>
-              <StyledInput id="code" type="text" />
-            </StyledFormGroup>
-          ) : null}
-          <div>
-            <Button variant="primary" type="submit">
-              {isLoading ? (
-                <Spinner css={{ marginLeft: theme.space[2] }} />
-              ) : null}
-              {authState === 'signIn' ? 'Sign in' : null}
-              {authState === 'signUp' ? 'Sign up' : null}
-              {authState === 'confirm' ? 'confirm sign up' : null}
-            </Button>
-            <Button
-              variant="secondary"
-              onClick={toggleAuthState}
-              css={{ marginLeft: theme.space[2] }}
-            >
-              {authState === 'signIn' ? 'Sign up for an account' : null}
-              {authState === 'signUp' ? 'Sign into an existing account' : null}
-            </Button>
-          </div>
-          {isError ? <ErrorMessage error={error} /> : null}
-        </StyledForm>
-      </div>
-    </Layout>
+        ) : null}
+        <div>
+          <Button variant="primary" type="submit">
+            {isLoading ? (
+              <Spinner css={{ marginLeft: theme.space[2] }} />
+            ) : null}
+            {authState === 'signIn' ? 'Sign in' : null}
+            {authState === 'signUp' ? 'Sign up' : null}
+            {authState === 'confirm' ? 'confirm sign up' : null}
+          </Button>
+          <Button
+            variant="secondary"
+            onClick={toggleAuthState}
+            css={{ marginLeft: theme.space[2] }}
+          >
+            {authState === 'signIn' ? 'Sign up for an account' : null}
+            {authState === 'signUp' ? 'Sign into an existing account' : null}
+          </Button>
+        </div>
+        {isError ? <ErrorMessage error={error} /> : null}
+      </StyledForm>
+    </div>
   );
 }
 

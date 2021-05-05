@@ -6,7 +6,7 @@ import { useAsync } from 'hooks';
 import { Project } from 'models';
 import { theme } from 'theme';
 
-function Dashboard() {
+function ProjectsScreen() {
   const {
     isIdle,
     isLoading,
@@ -16,6 +16,16 @@ function Dashboard() {
     data: projects,
     error,
   } = useAsync();
+
+  console.log({
+    isIdle,
+    isLoading,
+    isError,
+    isSuccess,
+    run,
+    projects,
+    error,
+  });
 
   React.useEffect(() => {
     run(DataStore.query(Project, Predicates.ALL));
@@ -32,8 +42,8 @@ function Dashboard() {
   if (isSuccess) {
     return (
       <>
-        <h2>Dashboard</h2>
-        {projects.map((project: Project) => (
+        <h2>Projects</h2>
+        {projects?.map((project: Project) => (
           <div
             key={project.id}
             css={{
@@ -57,4 +67,4 @@ function Dashboard() {
   return null;
 }
 
-export { Dashboard };
+export { ProjectsScreen };

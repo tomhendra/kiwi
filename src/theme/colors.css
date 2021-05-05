@@ -1,4 +1,4 @@
-:root {
+html {
   --transparent: transparent;
   --white: #fff;
   --gray: 207, 5%;
@@ -62,6 +62,7 @@
   --red-800: var(--red), 20%;
   --red-900: var(--red), 10%;
 }
+
 body[data-theme='light'] {
   --colors-text: hsla(var(--gray-800), 100%);
   --colors-background: hsla(var(--gray-50), 100%);
