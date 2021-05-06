@@ -16,10 +16,15 @@ const buttonVariants = {
 
 const Button = styled.button(
   {
+    display: 'block',
+    cursor: 'pointer',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
     padding: `${theme.space[2]} ${theme.space[3]}`,
     border: '0',
     lineHeight: theme.lineHeights.normal,
     borderRadius: theme.radii.md,
+    width: '100%',
   },
   ({ variant = 'primary' }: { variant: ButtonVariants }) =>
     buttonVariants[variant],

@@ -22,6 +22,7 @@ function Navbar({ user, signOut }: Props) {
           css={{
             display: 'flex',
             alignItems: 'center',
+            width: theme.sizes['1/3'],
           }}
         >
           <NavLink to="/dashboard">Dashboard</NavLink>

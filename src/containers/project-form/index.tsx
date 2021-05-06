@@ -27,12 +27,14 @@ interface Props {
 function ProjectForm({ onSubmit, submitButton }: Props) {
   function handleSubmit(event: React.FormEvent<ProjectFormElements>) {
     event.preventDefault();
+
     const {
       titleInput,
       descriptionInput,
       startAtInput,
       endAtInput,
     } = event.currentTarget.elements;
+
     onSubmit({
       id: '',
       title: titleInput.value,
@@ -45,20 +47,20 @@ function ProjectForm({ onSubmit, submitButton }: Props) {
   return (
     <StyledForm onSubmit={handleSubmit}>
       <StyledFormGroup>
-        <label htmlFor="title">Title</label>
-        <StyledInput id="title" type="text" />
+        <label htmlFor="titleInput">Title</label>
+        <StyledInput id="titleInput" type="text" />
       </StyledFormGroup>
       <StyledFormGroup>
-        <label htmlFor="description">Description</label>
-        <StyledTextarea id="description" />
+        <label htmlFor="descriptionInput">Description</label>
+        <StyledTextarea id="descriptionInput" />
       </StyledFormGroup>
       <StyledFormGroup>
-        <label htmlFor="startAt">Do Date</label>
-        <StyledInput id="startAt" type="date" />
+        <label htmlFor="startAtInput">Do Date</label>
+        <StyledInput id="startAtInput" type="date" />
       </StyledFormGroup>
       <StyledFormGroup>
-        <label htmlFor="endAt">Priority</label>
-        <StyledInput id="endAt" type="date" />
+        <label htmlFor="endAtInput">Priority</label>
+        <StyledInput id="endAtInput" type="date" />
       </StyledFormGroup>
       <div>{React.cloneElement(submitButton, { type: 'submit' })}</div>
     </StyledForm>

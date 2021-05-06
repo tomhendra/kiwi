@@ -38,12 +38,12 @@ function TaskForm({ onSubmit, submitButton }: Props) {
   return (
     <StyledForm onSubmit={handleSubmit}>
       <StyledFormGroup>
-        <label htmlFor="title">Title</label>
-        <StyledInput id="title" type="text" />
+        <label htmlFor="titleInput">Title</label>
+        <StyledInput id="titleInput" type="text" />
       </StyledFormGroup>
       <StyledFormGroup>
-        <label htmlFor="description">Description</label>
-        <StyledTextarea id="description" />
+        <label htmlFor="descriptionInput">Description</label>
+        <StyledTextarea id="descriptionInput" />
       </StyledFormGroup>
       <div>{React.cloneElement(submitButton, { type: 'submit' })}</div>
     </StyledForm>
