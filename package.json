@@ -23,6 +23,7 @@
     "aws-amplify": "^3.3.27",
     "focus-trap-react": "^8.5.0",
     "framer-motion": "^4.1.11",
+    "history": "^5.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^4.2.0",
