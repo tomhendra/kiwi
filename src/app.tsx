@@ -41,6 +41,9 @@ function App() {
     setUser(null);
   }
 
+  const AuthenticatedAppProps = { user, signOut };
+  const UnauthenticatedAppProps = { signIn, signUp, confirmSignUp };
+
   if (isLoading || isIdle) {
     return <FullPageSpinner />;
   }
@@ -48,9 +51,6 @@ function App() {
   if (isError) {
     console.error(error);
   }
-
-  const AuthenticatedAppProps = { user, signOut };
-  const UnauthenticatedAppProps = { signIn, signUp, confirmSignUp };
 
   return user ? (
     <Router>

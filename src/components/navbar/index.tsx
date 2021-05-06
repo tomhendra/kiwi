@@ -24,7 +24,7 @@ function Navbar({ user, signOut }: Props) {
             alignItems: 'center',
           }}
         >
-          <NavLink to="/projects">Projects</NavLink>
+          <NavLink to="/dashboard">Dashboard</NavLink>
           <CreateProject />
         </div>
         <div
