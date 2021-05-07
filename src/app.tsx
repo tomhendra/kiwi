@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import * as React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Auth, DataStore } from 'aws-amplify';
 import { useAsync } from 'hooks';
 import { UnauthenticatedApp } from './app-unauthenticated';
 import { AuthenticatedApp } from './app-authenticated';
-import { Auth, DataStore } from 'aws-amplify';
 import { FullPageSpinner } from 'components';
-import { BrowserRouter as Router } from 'react-router-dom';
 
 // ------------ DEBUGGER -------------
 // import Amplify from 'aws-amplify';
