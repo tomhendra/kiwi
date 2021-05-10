@@ -1,7 +1,7 @@
 {
-  "AppSyncApiName": "amplifyDatasource",
+  "AppSyncApiName": "buho",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
-  "DynamoDBEnableServerSideEncryption": "false",
+  "DynamoDBEnableServerSideEncryption": false,
   "AuthCognitoUserPoolId": {
     "Fn::GetAtt": [
       "authbuho6a6b4c66",

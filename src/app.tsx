@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Auth, DataStore } from 'aws-amplify';
-import { useAsync } from 'hooks';
+import { useAsync } from 'core/hooks';
 import { UnauthenticatedApp } from './app-unauthenticated';
 import { AuthenticatedApp } from './app-authenticated';
 import { FullPageSpinner } from 'components';

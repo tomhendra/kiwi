@@ -1,8 +1,8 @@
 import { DataStore } from 'aws-amplify';
 import { ErrorMessage, Button, Spinner } from 'components';
 import { ModalProvider, ModalOpenButton, Modal, ProjectForm } from 'containers';
-import { useAsync } from 'hooks';
-import { Project } from 'models';
+import { useAsync } from 'core/hooks';
+import { Project } from 'core/models';
 
 function CreateProject() {
   const { error, run, isIdle, isLoading, isError, isSuccess } = useAsync();

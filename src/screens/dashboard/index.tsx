@@ -1,8 +1,8 @@
 import React from 'react';
 import { DataStore, Predicates } from 'aws-amplify';
 import { ErrorMessage, FullPageSpinner } from 'components';
-import { useAsync } from 'hooks';
-import { Project } from 'models';
+import { useAsync } from 'core/hooks';
+import { Project } from 'core/models';
 import { ProjectPreview } from 'components/project-preview';
 
 function DashboardScreen() {

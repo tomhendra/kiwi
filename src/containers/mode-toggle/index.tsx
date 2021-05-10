@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useLocalStorageState } from 'hooks';
+import { useLocalStorageState } from 'core/hooks';
 import { StyledButton } from './styled';
 import { Sun, Moon } from 'components/icons';
 

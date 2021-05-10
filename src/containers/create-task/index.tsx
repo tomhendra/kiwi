@@ -1,8 +1,8 @@
 import { DataStore } from 'aws-amplify';
 import { ErrorMessage, Button, Spinner } from 'components';
 import { ModalProvider, ModalOpenButton, Modal, TaskForm } from 'containers';
-import { useAsync } from 'hooks';
-import { Task } from 'models';
+import { useAsync } from 'core/hooks';
+import { Task } from 'core/models';
 
 function CreateTask() {
   const { error, run, isIdle, isLoading, isError, isSuccess } = useAsync();

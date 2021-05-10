@@ -1,0 +1,12 @@
+projects:
+  buho:
+    schemaPath: src/core/graphql/schema.json
+    includes:
+      - src/core/graphql/**/*.ts
+    excludes:
+      - ./amplify/**
+    extensions:
+      amplify:
+        codeGenTarget: typescript
+        generatedFileName: src/core/models/api.ts
+        docsFilePath: src/core/graphql

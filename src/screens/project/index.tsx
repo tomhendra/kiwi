@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { DataStore } from 'aws-amplify';
 import { useParams } from 'react-router-dom';
-import { useAsync } from 'hooks';
-import { Project } from 'models';
+import { useAsync } from 'core/hooks';
+import { Project } from 'core/models';
 
 const loadingProject = {
   title: 'loading...',

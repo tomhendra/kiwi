@@ -9,9 +9,9 @@ import {
   ErrorMessage,
   Spinner,
 } from 'components';
-import { useAsync } from 'hooks';
-import { CredentialsInput } from 'models/user';
-import { theme } from 'theme';
+import { useAsync } from 'core/hooks';
+import { CredentialsInput } from 'core/models/user';
+import { theme } from 'core/theme';
 
 // TODO: Amplify Hub / setAuthListener ??
 // TODO: types for Amplify auth ??
