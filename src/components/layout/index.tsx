@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 
 import { StyledContainer } from './styled';
-import { theme } from 'theme';
-import { Children, ReactElement } from 'models/react';
+import { theme } from 'core/theme';
+import { Children, ReactElement } from 'core/models';
 
 interface Props {
   nav?: ReactElement;

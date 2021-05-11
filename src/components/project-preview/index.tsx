@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import { Project } from 'models';
+import { Project } from 'core/models';
 import { Link } from 'react-router-dom';
-import { theme } from 'theme';
+import { theme } from 'core/theme';
 
 function ProjectPreview({ project }: { project: Project }) {
   const { id, title, description, startAt, endAt } = project;

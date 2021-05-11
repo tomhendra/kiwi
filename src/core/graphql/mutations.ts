@@ -13,7 +13,7 @@ export const createProject = /* GraphQL */ `
       description
       startAt
       endAt
-      items {
+      tasks {
         items {
           id
           title
@@ -21,11 +21,13 @@ export const createProject = /* GraphQL */ `
           projectID
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -40,7 +42,7 @@ export const updateProject = /* GraphQL */ `
       description
       startAt
       endAt
-      items {
+      tasks {
         items {
           id
           title
@@ -48,11 +50,13 @@ export const updateProject = /* GraphQL */ `
           projectID
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -67,7 +71,7 @@ export const deleteProject = /* GraphQL */ `
       description
       startAt
       endAt
-      items {
+      tasks {
         items {
           id
           title
@@ -75,20 +79,22 @@ export const deleteProject = /* GraphQL */ `
           projectID
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
-export const createItem = /* GraphQL */ `
-  mutation CreateItem(
-    $input: CreateItemInput!
-    $condition: ModelItemConditionInput
+export const createTask = /* GraphQL */ `
+  mutation CreateTask(
+    $input: CreateTaskInput!
+    $condition: ModelTaskConditionInput
   ) {
-    createItem(input: $input, condition: $condition) {
+    createTask(input: $input, condition: $condition) {
       id
       title
       description
@@ -99,23 +105,25 @@ export const createItem = /* GraphQL */ `
         description
         startAt
         endAt
-        items {
+        tasks {
           nextToken
         }
         createdAt
         updatedAt
+        owner
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
-export const updateItem = /* GraphQL */ `
-  mutation UpdateItem(
-    $input: UpdateItemInput!
-    $condition: ModelItemConditionInput
+export const updateTask = /* GraphQL */ `
+  mutation UpdateTask(
+    $input: UpdateTaskInput!
+    $condition: ModelTaskConditionInput
   ) {
-    updateItem(input: $input, condition: $condition) {
+    updateTask(input: $input, condition: $condition) {
       id
       title
       description
@@ -126,23 +134,25 @@ export const updateItem = /* GraphQL */ `
         description
         startAt
         endAt
-        items {
+        tasks {
           nextToken
         }
         createdAt
         updatedAt
+        owner
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
-export const deleteItem = /* GraphQL */ `
-  mutation DeleteItem(
-    $input: DeleteItemInput!
-    $condition: ModelItemConditionInput
+export const deleteTask = /* GraphQL */ `
+  mutation DeleteTask(
+    $input: DeleteTaskInput!
+    $condition: ModelTaskConditionInput
   ) {
-    deleteItem(input: $input, condition: $condition) {
+    deleteTask(input: $input, condition: $condition) {
       id
       title
       description
@@ -153,14 +163,16 @@ export const deleteItem = /* GraphQL */ `
         description
         startAt
         endAt
-        items {
+        tasks {
           nextToken
         }
         createdAt
         updatedAt
+        owner
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;

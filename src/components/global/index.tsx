@@ -1,5 +1,5 @@
 import { Global as EmotionGlobal } from '@emotion/react';
-import { theme } from 'theme';
+import { theme } from 'core/theme';
 
 function Global() {
   return (

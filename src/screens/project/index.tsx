@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { DataStore } from 'aws-amplify';
+import { API, graphqlOperation } from 'aws-amplify';
+import { getProject } from 'core/graphql';
 import { useParams } from 'react-router-dom';
 import { useAsync } from 'core/hooks';
-import { Project } from 'core/models';
 
 const loadingProject = {
   title: 'loading...',
@@ -14,14 +14,15 @@ const loadingProject = {
 
 function ProjectScreen() {
   const { projectId } = useParams();
-  const { data, run } = useAsync();
+  const { data: project, run, isSuccess } = useAsync();
 
   React.useEffect(() => {
-    run(DataStore.query(Project, projectId));
+    run(API.graphql(graphqlOperation(getProject, { id: projectId })));
   }, [run, projectId]);
 
-  const { title, description, startAt, endAt, createdAt } =
-    data ?? loadingProject;
+  const { title, description, startAt, endAt, createdAt } = isSuccess
+    ? project.data.getProject
+    : loadingProject;
 
   return (
     <>

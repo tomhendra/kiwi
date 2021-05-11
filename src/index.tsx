@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import App from './app';
 import reportWebVitals from './reportWebVitals';
 import { Global } from 'components/global';
-import './theme/remedy.css';
-import './theme/colors.css';
-import './theme/fonts.css';
+import './core/theme/remedy.css';
+import './core/theme/colors.css';
+import './core/theme/fonts.css';
 
 import Amplify from 'aws-amplify';
 import awsExports from './aws-exports';

@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { ReactElement } from 'models/react';
-import { Task } from 'models';
+import { ReactElement, CreateTaskInput } from 'core/models';
 import {
   StyledInput,
   StyledForm,
@@ -18,7 +17,7 @@ interface TaskFormElements extends HTMLFormElement {
 }
 
 interface Props {
-  onSubmit: (arg: Task) => void;
+  onSubmit: (arg: CreateTaskInput) => void;
   submitButton: ReactElement;
 }
 
@@ -29,9 +28,9 @@ function TaskForm({ onSubmit, submitButton }: Props) {
     const { titleInput, descriptionInput } = event.currentTarget.elements;
 
     onSubmit({
-      id: '',
       title: titleInput.value,
       description: descriptionInput.value,
+      projectID: '', // TODO: sort out project relationship
     });
   }
 

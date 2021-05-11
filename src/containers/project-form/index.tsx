@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { ReactElement } from 'models/react';
-import { Project } from 'models';
+import { ReactElement, CreateProjectInput } from 'core/models';
 import {
   StyledInput,
   StyledForm,
@@ -20,7 +19,7 @@ interface ProjectFormElements extends HTMLFormElement {
 }
 
 interface Props {
-  onSubmit: (arg: Project) => void;
+  onSubmit: (arg: CreateProjectInput) => void;
   submitButton: ReactElement;
 }
 
@@ -36,7 +35,6 @@ function ProjectForm({ onSubmit, submitButton }: Props) {
     } = event.currentTarget.elements;
 
     onSubmit({
-      id: '',
       title: titleInput.value,
       description: descriptionInput.value,
       startAt: new Date(startAtInput.value).toISOString(),

@@ -1,6 +1,6 @@
 /**@jsxImportSource @emotion/react */
 import { Link, useMatch } from 'react-router-dom';
-import { theme } from 'theme';
+import { theme } from 'core/theme';
 
 function NavLink(props: any) {
   const match = useMatch(props.to);

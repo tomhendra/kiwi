@@ -1,9 +1,10 @@
 import React from 'react';
-import { DataStore, Predicates } from 'aws-amplify';
+import { API, graphqlOperation } from 'aws-amplify';
 import { ErrorMessage, FullPageSpinner } from 'components';
 import { useAsync } from 'core/hooks';
 import { Project } from 'core/models';
 import { ProjectPreview } from 'components/project-preview';
+import { listProjects } from 'core/graphql';
 
 function DashboardScreen() {
   const {
@@ -17,7 +18,7 @@ function DashboardScreen() {
   } = useAsync();
 
   React.useEffect(() => {
-    run(DataStore.query(Project, Predicates.ALL));
+    run(API.graphql(graphqlOperation(listProjects)));
   }, [run]);
 
   if (isIdle || isLoading) {
@@ -29,11 +30,12 @@ function DashboardScreen() {
   }
 
   if (isSuccess) {
+    const allProjects = projects.data.listProjects.items;
     return (
       <>
         <h2>Projects</h2>
-        {projects?.length
-          ? projects.map((project: Project) => (
+        {allProjects.length
+          ? allProjects.map((project: Project) => (
               <ProjectPreview key={project.id} project={project} />
             ))
           : null}

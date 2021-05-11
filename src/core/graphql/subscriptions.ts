@@ -3,14 +3,14 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateProject = /* GraphQL */ `
-  subscription OnCreateProject {
-    onCreateProject {
+  subscription OnCreateProject($owner: String!) {
+    onCreateProject(owner: $owner) {
       id
       title
       description
       startAt
       endAt
-      items {
+      tasks {
         items {
           id
           title
@@ -18,23 +18,25 @@ export const onCreateProject = /* GraphQL */ `
           projectID
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onUpdateProject = /* GraphQL */ `
-  subscription OnUpdateProject {
-    onUpdateProject {
+  subscription OnUpdateProject($owner: String!) {
+    onUpdateProject(owner: $owner) {
       id
       title
       description
       startAt
       endAt
-      items {
+      tasks {
         items {
           id
           title
@@ -42,23 +44,25 @@ export const onUpdateProject = /* GraphQL */ `
           projectID
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onDeleteProject = /* GraphQL */ `
-  subscription OnDeleteProject {
-    onDeleteProject {
+  subscription OnDeleteProject($owner: String!) {
+    onDeleteProject(owner: $owner) {
       id
       title
       description
       startAt
       endAt
-      items {
+      tasks {
         items {
           id
           title
@@ -66,17 +70,19 @@ export const onDeleteProject = /* GraphQL */ `
           projectID
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
-export const onCreateItem = /* GraphQL */ `
-  subscription OnCreateItem {
-    onCreateItem {
+export const onCreateTask = /* GraphQL */ `
+  subscription OnCreateTask($owner: String!) {
+    onCreateTask(owner: $owner) {
       id
       title
       description
@@ -87,20 +93,22 @@ export const onCreateItem = /* GraphQL */ `
         description
         startAt
         endAt
-        items {
+        tasks {
           nextToken
         }
         createdAt
         updatedAt
+        owner
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
-export const onUpdateItem = /* GraphQL */ `
-  subscription OnUpdateItem {
-    onUpdateItem {
+export const onUpdateTask = /* GraphQL */ `
+  subscription OnUpdateTask($owner: String!) {
+    onUpdateTask(owner: $owner) {
       id
       title
       description
@@ -111,20 +119,22 @@ export const onUpdateItem = /* GraphQL */ `
         description
         startAt
         endAt
-        items {
+        tasks {
           nextToken
         }
         createdAt
         updatedAt
+        owner
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
-export const onDeleteItem = /* GraphQL */ `
-  subscription OnDeleteItem {
-    onDeleteItem {
+export const onDeleteTask = /* GraphQL */ `
+  subscription OnDeleteTask($owner: String!) {
+    onDeleteTask(owner: $owner) {
       id
       title
       description
@@ -135,14 +145,16 @@ export const onDeleteItem = /* GraphQL */ `
         description
         startAt
         endAt
-        items {
+        tasks {
           nextToken
         }
         createdAt
         updatedAt
+        owner
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;

@@ -6,15 +6,17 @@ export type CreateProjectInput = {
   id?: string | null,
   title: string,
   description: string,
-  startAt: number,
-  endAt: number,
+  startAt: string,
+  endAt: string,
+  createdAt?: string | null,
 };
 
 export type ModelProjectConditionInput = {
   title?: ModelStringInput | null,
   description?: ModelStringInput | null,
-  startAt?: ModelIntInput | null,
-  endAt?: ModelIntInput | null,
+  startAt?: ModelStringInput | null,
+  endAt?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelProjectConditionInput | null > | null,
   or?: Array< ModelProjectConditionInput | null > | null,
   not?: ModelProjectConditionInput | null,
@@ -60,73 +62,66 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
-export type ModelIntInput = {
-  ne?: number | null,
-  eq?: number | null,
-  le?: number | null,
-  lt?: number | null,
-  ge?: number | null,
-  gt?: number | null,
-  between?: Array< number | null > | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-};
-
 export type Project = {
   __typename: "Project",
   id?: string,
   title?: string,
   description?: string,
-  startAt?: number,
-  endAt?: number,
-  items?: ModelItemConnection,
-  createdAt?: string,
+  startAt?: string,
+  endAt?: string,
+  tasks?: ModelTaskConnection,
+  createdAt?: string | null,
   updatedAt?: string,
+  owner?: string | null,
 };
 
-export type ModelItemConnection = {
-  __typename: "ModelItemConnection",
-  items?:  Array<Item | null > | null,
+export type ModelTaskConnection = {
+  __typename: "ModelTaskConnection",
+  items?:  Array<Task | null > | null,
   nextToken?: string | null,
 };
 
-export type Item = {
-  __typename: "Item",
+export type Task = {
+  __typename: "Task",
   id?: string,
   title?: string,
   description?: string | null,
   projectID?: string,
   project?: Project,
-  createdAt?: string,
+  createdAt?: string | null,
   updatedAt?: string,
+  owner?: string | null,
 };
 
 export type UpdateProjectInput = {
   id: string,
   title?: string | null,
   description?: string | null,
-  startAt?: number | null,
-  endAt?: number | null,
+  startAt?: string | null,
+  endAt?: string | null,
+  createdAt?: string | null,
 };
 
 export type DeleteProjectInput = {
   id?: string | null,
 };
 
-export type CreateItemInput = {
+export type CreateTaskInput = {
   id?: string | null,
   title: string,
   description?: string | null,
   projectID: string,
+  createdAt?: string | null,
 };
 
-export type ModelItemConditionInput = {
+export type ModelTaskConditionInput = {
   title?: ModelStringInput | null,
   description?: ModelStringInput | null,
   projectID?: ModelIDInput | null,
-  and?: Array< ModelItemConditionInput | null > | null,
-  or?: Array< ModelItemConditionInput | null > | null,
-  not?: ModelItemConditionInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelTaskConditionInput | null > | null,
+  or?: Array< ModelTaskConditionInput | null > | null,
+  not?: ModelTaskConditionInput | null,
 };
 
 export type ModelIDInput = {
@@ -145,14 +140,15 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null,
 };
 
-export type UpdateItemInput = {
+export type UpdateTaskInput = {
   id: string,
   title?: string | null,
   description?: string | null,
   projectID?: string | null,
+  createdAt?: string | null,
 };
 
-export type DeleteItemInput = {
+export type DeleteTaskInput = {
   id?: string | null,
 };
 
@@ -160,8 +156,9 @@ export type ModelProjectFilterInput = {
   id?: ModelIDInput | null,
   title?: ModelStringInput | null,
   description?: ModelStringInput | null,
-  startAt?: ModelIntInput | null,
-  endAt?: ModelIntInput | null,
+  startAt?: ModelStringInput | null,
+  endAt?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelProjectFilterInput | null > | null,
   or?: Array< ModelProjectFilterInput | null > | null,
   not?: ModelProjectFilterInput | null,
@@ -173,14 +170,15 @@ export type ModelProjectConnection = {
   nextToken?: string | null,
 };
 
-export type ModelItemFilterInput = {
+export type ModelTaskFilterInput = {
   id?: ModelIDInput | null,
   title?: ModelStringInput | null,
   description?: ModelStringInput | null,
   projectID?: ModelIDInput | null,
-  and?: Array< ModelItemFilterInput | null > | null,
-  or?: Array< ModelItemFilterInput | null > | null,
-  not?: ModelItemFilterInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelTaskFilterInput | null > | null,
+  or?: Array< ModelTaskFilterInput | null > | null,
+  not?: ModelTaskFilterInput | null,
 };
 
 export type CreateProjectMutationVariables = {
@@ -194,23 +192,25 @@ export type CreateProjectMutation = {
     id: string,
     title: string,
     description: string,
-    startAt: number,
-    endAt: number,
-    items?:  {
-      __typename: "ModelItemConnection",
+    startAt: string,
+    endAt: string,
+    tasks?:  {
+      __typename: "ModelTaskConnection",
       items?:  Array< {
-        __typename: "Item",
+        __typename: "Task",
         id: string,
         title: string,
         description?: string | null,
         projectID: string,
-        createdAt: string,
+        createdAt?: string | null,
         updatedAt: string,
+        owner?: string | null,
       } | null > | null,
       nextToken?: string | null,
     } | null,
-    createdAt: string,
+    createdAt?: string | null,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -225,23 +225,25 @@ export type UpdateProjectMutation = {
     id: string,
     title: string,
     description: string,
-    startAt: number,
-    endAt: number,
-    items?:  {
-      __typename: "ModelItemConnection",
+    startAt: string,
+    endAt: string,
+    tasks?:  {
+      __typename: "ModelTaskConnection",
       items?:  Array< {
-        __typename: "Item",
+        __typename: "Task",
         id: string,
         title: string,
         description?: string | null,
         projectID: string,
-        createdAt: string,
+        createdAt?: string | null,
         updatedAt: string,
+        owner?: string | null,
       } | null > | null,
       nextToken?: string | null,
     } | null,
-    createdAt: string,
+    createdAt?: string | null,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -256,34 +258,36 @@ export type DeleteProjectMutation = {
     id: string,
     title: string,
     description: string,
-    startAt: number,
-    endAt: number,
-    items?:  {
-      __typename: "ModelItemConnection",
+    startAt: string,
+    endAt: string,
+    tasks?:  {
+      __typename: "ModelTaskConnection",
       items?:  Array< {
-        __typename: "Item",
+        __typename: "Task",
         id: string,
         title: string,
         description?: string | null,
         projectID: string,
-        createdAt: string,
+        createdAt?: string | null,
         updatedAt: string,
+        owner?: string | null,
       } | null > | null,
       nextToken?: string | null,
     } | null,
-    createdAt: string,
+    createdAt?: string | null,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
-export type CreateItemMutationVariables = {
-  input?: CreateItemInput,
-  condition?: ModelItemConditionInput | null,
+export type CreateTaskMutationVariables = {
+  input?: CreateTaskInput,
+  condition?: ModelTaskConditionInput | null,
 };
 
-export type CreateItemMutation = {
-  createItem?:  {
-    __typename: "Item",
+export type CreateTaskMutation = {
+  createTask?:  {
+    __typename: "Task",
     id: string,
     title: string,
     description?: string | null,
@@ -293,28 +297,30 @@ export type CreateItemMutation = {
       id: string,
       title: string,
       description: string,
-      startAt: number,
-      endAt: number,
-      items?:  {
-        __typename: "ModelItemConnection",
+      startAt: string,
+      endAt: string,
+      tasks?:  {
+        __typename: "ModelTaskConnection",
         nextToken?: string | null,
       } | null,
-      createdAt: string,
+      createdAt?: string | null,
       updatedAt: string,
+      owner?: string | null,
     } | null,
-    createdAt: string,
+    createdAt?: string | null,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
-export type UpdateItemMutationVariables = {
-  input?: UpdateItemInput,
-  condition?: ModelItemConditionInput | null,
+export type UpdateTaskMutationVariables = {
+  input?: UpdateTaskInput,
+  condition?: ModelTaskConditionInput | null,
 };
 
-export type UpdateItemMutation = {
-  updateItem?:  {
-    __typename: "Item",
+export type UpdateTaskMutation = {
+  updateTask?:  {
+    __typename: "Task",
     id: string,
     title: string,
     description?: string | null,
@@ -324,28 +330,30 @@ export type UpdateItemMutation = {
       id: string,
       title: string,
       description: string,
-      startAt: number,
-      endAt: number,
-      items?:  {
-        __typename: "ModelItemConnection",
+      startAt: string,
+      endAt: string,
+      tasks?:  {
+        __typename: "ModelTaskConnection",
         nextToken?: string | null,
       } | null,
-      createdAt: string,
+      createdAt?: string | null,
       updatedAt: string,
+      owner?: string | null,
     } | null,
-    createdAt: string,
+    createdAt?: string | null,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
-export type DeleteItemMutationVariables = {
-  input?: DeleteItemInput,
-  condition?: ModelItemConditionInput | null,
+export type DeleteTaskMutationVariables = {
+  input?: DeleteTaskInput,
+  condition?: ModelTaskConditionInput | null,
 };
 
-export type DeleteItemMutation = {
-  deleteItem?:  {
-    __typename: "Item",
+export type DeleteTaskMutation = {
+  deleteTask?:  {
+    __typename: "Task",
     id: string,
     title: string,
     description?: string | null,
@@ -355,17 +363,19 @@ export type DeleteItemMutation = {
       id: string,
       title: string,
       description: string,
-      startAt: number,
-      endAt: number,
-      items?:  {
-        __typename: "ModelItemConnection",
+      startAt: string,
+      endAt: string,
+      tasks?:  {
+        __typename: "ModelTaskConnection",
         nextToken?: string | null,
       } | null,
-      createdAt: string,
+      createdAt?: string | null,
       updatedAt: string,
+      owner?: string | null,
     } | null,
-    createdAt: string,
+    createdAt?: string | null,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -379,23 +389,25 @@ export type GetProjectQuery = {
     id: string,
     title: string,
     description: string,
-    startAt: number,
-    endAt: number,
-    items?:  {
-      __typename: "ModelItemConnection",
+    startAt: string,
+    endAt: string,
+    tasks?:  {
+      __typename: "ModelTaskConnection",
       items?:  Array< {
-        __typename: "Item",
+        __typename: "Task",
         id: string,
         title: string,
         description?: string | null,
         projectID: string,
-        createdAt: string,
+        createdAt?: string | null,
         updatedAt: string,
+        owner?: string | null,
       } | null > | null,
       nextToken?: string | null,
     } | null,
-    createdAt: string,
+    createdAt?: string | null,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -413,26 +425,27 @@ export type ListProjectsQuery = {
       id: string,
       title: string,
       description: string,
-      startAt: number,
-      endAt: number,
-      items?:  {
-        __typename: "ModelItemConnection",
+      startAt: string,
+      endAt: string,
+      tasks?:  {
+        __typename: "ModelTaskConnection",
         nextToken?: string | null,
       } | null,
-      createdAt: string,
+      createdAt?: string | null,
       updatedAt: string,
+      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
 };
 
-export type GetItemQueryVariables = {
+export type GetTaskQueryVariables = {
   id?: string,
 };
 
-export type GetItemQuery = {
-  getItem?:  {
-    __typename: "Item",
+export type GetTaskQuery = {
+  getTask?:  {
+    __typename: "Task",
     id: string,
     title: string,
     description?: string | null,
@@ -442,31 +455,33 @@ export type GetItemQuery = {
       id: string,
       title: string,
       description: string,
-      startAt: number,
-      endAt: number,
-      items?:  {
-        __typename: "ModelItemConnection",
+      startAt: string,
+      endAt: string,
+      tasks?:  {
+        __typename: "ModelTaskConnection",
         nextToken?: string | null,
       } | null,
-      createdAt: string,
+      createdAt?: string | null,
       updatedAt: string,
+      owner?: string | null,
     } | null,
-    createdAt: string,
+    createdAt?: string | null,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
-export type ListItemsQueryVariables = {
-  filter?: ModelItemFilterInput | null,
+export type ListTasksQueryVariables = {
+  filter?: ModelTaskFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListItemsQuery = {
-  listItems?:  {
-    __typename: "ModelItemConnection",
+export type ListTasksQuery = {
+  listTasks?:  {
+    __typename: "ModelTaskConnection",
     items?:  Array< {
-      __typename: "Item",
+      __typename: "Task",
       id: string,
       title: string,
       description?: string | null,
@@ -476,16 +491,22 @@ export type ListItemsQuery = {
         id: string,
         title: string,
         description: string,
-        startAt: number,
-        endAt: number,
-        createdAt: string,
+        startAt: string,
+        endAt: string,
+        createdAt?: string | null,
         updatedAt: string,
+        owner?: string | null,
       } | null,
-      createdAt: string,
+      createdAt?: string | null,
       updatedAt: string,
+      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
+};
+
+export type OnCreateProjectSubscriptionVariables = {
+  owner?: string,
 };
 
 export type OnCreateProjectSubscription = {
@@ -494,24 +515,30 @@ export type OnCreateProjectSubscription = {
     id: string,
     title: string,
     description: string,
-    startAt: number,
-    endAt: number,
-    items?:  {
-      __typename: "ModelItemConnection",
+    startAt: string,
+    endAt: string,
+    tasks?:  {
+      __typename: "ModelTaskConnection",
       items?:  Array< {
-        __typename: "Item",
+        __typename: "Task",
         id: string,
         title: string,
         description?: string | null,
         projectID: string,
-        createdAt: string,
+        createdAt?: string | null,
         updatedAt: string,
+        owner?: string | null,
       } | null > | null,
       nextToken?: string | null,
     } | null,
-    createdAt: string,
+    createdAt?: string | null,
     updatedAt: string,
+    owner?: string | null,
   } | null,
+};
+
+export type OnUpdateProjectSubscriptionVariables = {
+  owner?: string,
 };
 
 export type OnUpdateProjectSubscription = {
@@ -520,24 +547,30 @@ export type OnUpdateProjectSubscription = {
     id: string,
     title: string,
     description: string,
-    startAt: number,
-    endAt: number,
-    items?:  {
-      __typename: "ModelItemConnection",
+    startAt: string,
+    endAt: string,
+    tasks?:  {
+      __typename: "ModelTaskConnection",
       items?:  Array< {
-        __typename: "Item",
+        __typename: "Task",
         id: string,
         title: string,
         description?: string | null,
         projectID: string,
-        createdAt: string,
+        createdAt?: string | null,
         updatedAt: string,
+        owner?: string | null,
       } | null > | null,
       nextToken?: string | null,
     } | null,
-    createdAt: string,
+    createdAt?: string | null,
     updatedAt: string,
+    owner?: string | null,
   } | null,
+};
+
+export type OnDeleteProjectSubscriptionVariables = {
+  owner?: string,
 };
 
 export type OnDeleteProjectSubscription = {
@@ -546,29 +579,35 @@ export type OnDeleteProjectSubscription = {
     id: string,
     title: string,
     description: string,
-    startAt: number,
-    endAt: number,
-    items?:  {
-      __typename: "ModelItemConnection",
+    startAt: string,
+    endAt: string,
+    tasks?:  {
+      __typename: "ModelTaskConnection",
       items?:  Array< {
-        __typename: "Item",
+        __typename: "Task",
         id: string,
         title: string,
         description?: string | null,
         projectID: string,
-        createdAt: string,
+        createdAt?: string | null,
         updatedAt: string,
+        owner?: string | null,
       } | null > | null,
       nextToken?: string | null,
     } | null,
-    createdAt: string,
+    createdAt?: string | null,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
-export type OnCreateItemSubscription = {
-  onCreateItem?:  {
-    __typename: "Item",
+export type OnCreateTaskSubscriptionVariables = {
+  owner?: string,
+};
+
+export type OnCreateTaskSubscription = {
+  onCreateTask?:  {
+    __typename: "Task",
     id: string,
     title: string,
     description?: string | null,
@@ -578,23 +617,29 @@ export type OnCreateItemSubscription = {
       id: string,
       title: string,
       description: string,
-      startAt: number,
-      endAt: number,
-      items?:  {
-        __typename: "ModelItemConnection",
+      startAt: string,
+      endAt: string,
+      tasks?:  {
+        __typename: "ModelTaskConnection",
         nextToken?: string | null,
       } | null,
-      createdAt: string,
+      createdAt?: string | null,
       updatedAt: string,
+      owner?: string | null,
     } | null,
-    createdAt: string,
+    createdAt?: string | null,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
-export type OnUpdateItemSubscription = {
-  onUpdateItem?:  {
-    __typename: "Item",
+export type OnUpdateTaskSubscriptionVariables = {
+  owner?: string,
+};
+
+export type OnUpdateTaskSubscription = {
+  onUpdateTask?:  {
+    __typename: "Task",
     id: string,
     title: string,
     description?: string | null,
@@ -604,23 +649,29 @@ export type OnUpdateItemSubscription = {
       id: string,
       title: string,
       description: string,
-      startAt: number,
-      endAt: number,
-      items?:  {
-        __typename: "ModelItemConnection",
+      startAt: string,
+      endAt: string,
+      tasks?:  {
+        __typename: "ModelTaskConnection",
         nextToken?: string | null,
       } | null,
-      createdAt: string,
+      createdAt?: string | null,
       updatedAt: string,
+      owner?: string | null,
     } | null,
-    createdAt: string,
+    createdAt?: string | null,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
-export type OnDeleteItemSubscription = {
-  onDeleteItem?:  {
-    __typename: "Item",
+export type OnDeleteTaskSubscriptionVariables = {
+  owner?: string,
+};
+
+export type OnDeleteTaskSubscription = {
+  onDeleteTask?:  {
+    __typename: "Task",
     id: string,
     title: string,
     description?: string | null,
@@ -630,16 +681,18 @@ export type OnDeleteItemSubscription = {
       id: string,
       title: string,
       description: string,
-      startAt: number,
-      endAt: number,
-      items?:  {
-        __typename: "ModelItemConnection",
+      startAt: string,
+      endAt: string,
+      tasks?:  {
+        __typename: "ModelTaskConnection",
         nextToken?: string | null,
       } | null,
-      createdAt: string,
+      createdAt?: string | null,
       updatedAt: string,
+      owner?: string | null,
     } | null,
-    createdAt: string,
+    createdAt?: string | null,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };

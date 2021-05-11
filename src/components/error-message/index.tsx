@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { theme } from 'theme';
+import { theme } from 'core/theme';
 
 const errorMessageVariants = {
   stacked: { display: 'block' },

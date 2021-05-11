@@ -1,19 +1,16 @@
-import { DataStore } from 'aws-amplify';
+import { API, graphqlOperation } from 'aws-amplify';
 import { ErrorMessage, Button, Spinner } from 'components';
 import { ModalProvider, ModalOpenButton, Modal, TaskForm } from 'containers';
 import { useAsync } from 'core/hooks';
-import { Task } from 'core/models';
+import { CreateTaskInput } from 'core/models';
 
 function CreateTask() {
   const { error, run, isIdle, isLoading, isError, isSuccess } = useAsync();
 
-  const createTask = ({ title, description }: Task) =>
+  const createTask = ({ title, description }: CreateTaskInput) =>
     run(
-      DataStore.save(
-        new Task({
-          title,
-          description,
-        }),
+      API.graphql(
+        graphqlOperation(createTask, { input: { title, description } }),
       ),
     );
 

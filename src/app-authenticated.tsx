@@ -2,7 +2,7 @@
 import { Routes, Route } from 'react-router-dom';
 import { DashboardScreen, ProjectScreen, NotFoundScreen } from 'screens';
 import { Layout, Navbar } from 'components';
-import { User } from 'models/user';
+import { User } from 'core/models';
 
 interface Props {
   user: User;

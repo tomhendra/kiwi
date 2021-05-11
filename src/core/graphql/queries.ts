@@ -10,7 +10,7 @@ export const getProject = /* GraphQL */ `
       description
       startAt
       endAt
-      items {
+      tasks {
         items {
           id
           title
@@ -18,11 +18,13 @@ export const getProject = /* GraphQL */ `
           projectID
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -39,19 +41,20 @@ export const listProjects = /* GraphQL */ `
         description
         startAt
         endAt
-        items {
+        tasks {
           nextToken
         }
         createdAt
         updatedAt
+        owner
       }
       nextToken
     }
   }
 `;
-export const getItem = /* GraphQL */ `
-  query GetItem($id: ID!) {
-    getItem(id: $id) {
+export const getTask = /* GraphQL */ `
+  query GetTask($id: ID!) {
+    getTask(id: $id) {
       id
       title
       description
@@ -62,24 +65,26 @@ export const getItem = /* GraphQL */ `
         description
         startAt
         endAt
-        items {
+        tasks {
           nextToken
         }
         createdAt
         updatedAt
+        owner
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
-export const listItems = /* GraphQL */ `
-  query ListItems(
-    $filter: ModelItemFilterInput
+export const listTasks = /* GraphQL */ `
+  query ListTasks(
+    $filter: ModelTaskFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listItems(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listTasks(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         title
@@ -93,9 +98,11 @@ export const listItems = /* GraphQL */ `
           endAt
           createdAt
           updatedAt
+          owner
         }
         createdAt
         updatedAt
+        owner
       }
       nextToken
     }

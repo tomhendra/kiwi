@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { theme } from 'theme';
+import { theme } from 'core/theme';
 
 const StyledForm = styled.form({
   maxHeight: theme.sizes.sm,

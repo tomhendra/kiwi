@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { ModeToggle, CreateProject } from 'containers';
 import { NavLink, Button } from 'components';
-import { User } from 'models/user';
-import { theme } from 'theme';
+import { User } from 'core/models';
+import { theme } from 'core/theme';
 
 interface Props {
   user: User;

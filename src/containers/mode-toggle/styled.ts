@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { theme } from 'theme';
+import { theme } from 'core/theme';
 
 export const StyledButton = styled.button({
   width: theme.sizes[8],

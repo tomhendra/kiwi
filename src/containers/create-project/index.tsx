@@ -1,20 +1,23 @@
-import { DataStore } from 'aws-amplify';
+import { API, graphqlOperation } from 'aws-amplify';
 import { ErrorMessage, Button, Spinner } from 'components';
 import { ModalProvider, ModalOpenButton, Modal, ProjectForm } from 'containers';
 import { useAsync } from 'core/hooks';
-import { Project } from 'core/models';
+import { CreateProjectInput } from 'core/models';
+import * as mutations from 'core/graphql/mutations';
 
 function CreateProject() {
   const { error, run, isIdle, isLoading, isError, isSuccess } = useAsync();
 
-  const createProject = ({ title, description, startAt, endAt }: Project) =>
+  const createProject = ({
+    title,
+    description,
+    startAt,
+    endAt,
+  }: CreateProjectInput) =>
     run(
-      DataStore.save(
-        new Project({
-          title,
-          description,
-          startAt,
-          endAt,
+      API.graphql(
+        graphqlOperation(mutations.createProject, {
+          input: { title, description, startAt, endAt },
         }),
       ),
     );
