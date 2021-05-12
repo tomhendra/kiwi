@@ -1,11 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import * as React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { Auth, DataStore } from 'aws-amplify';
+import { Auth } from 'aws-amplify';
 import { useAsync } from 'core/hooks';
 import { UnauthenticatedApp } from './app-unauthenticated';
 import { AuthenticatedApp } from './app-authenticated';
 import { FullPageSpinner } from 'components';
+import { QueryCache } from 'react-query';
 
 // ------------ DEBUGGER -------------
 // import Amplify from 'aws-amplify';
@@ -22,6 +23,12 @@ function App() {
     run,
   } = useAsync();
 
+  const queryCache = new QueryCache({
+    onError: error => {
+      console.log(error);
+    },
+  });
+
   React.useEffect(() => {
     run(Auth.currentAuthenticatedUser());
   }, [run]);
@@ -37,7 +44,7 @@ function App() {
 
   async function signOut() {
     await Auth.signOut();
-    await DataStore.clear();
+    queryCache.clear();
     setUser(null);
   }
 
