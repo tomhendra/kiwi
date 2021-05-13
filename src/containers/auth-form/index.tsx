@@ -9,7 +9,7 @@ import {
   Spinner,
 } from 'components';
 import { useAsync } from 'core/hooks';
-// https://epicreact.dev/how-to-type-a-react-form-on-submit-handler/
+// ? https://epicreact.dev/how-to-type-a-react-form-on-submit-handler/
 interface FormElements extends HTMLFormControlsCollection {
   usernameInput: HTMLInputElement;
   passwordInput: HTMLInputElement;
@@ -57,7 +57,7 @@ function AuthForm({ onSubmit, submitButton }: Props) {
           isLoading ? <Spinner css={{ marginLeft: 5 }} /> : null,
         )}
       </div>
-      {isError ? <ErrorMessage error={error} /> : null}
+      {isError ? <ErrorMessage error={error as Error} /> : null}
     </StyledForm>
   );
 }

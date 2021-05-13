@@ -109,7 +109,7 @@ function UnauthenticatedApp({ signIn, signUp, confirmSignUp }: Props) {
             {authState === 'signUp' ? 'Sign into an existing account' : null}
           </Button>
         </div>
-        {isError ? <ErrorMessage error={error} /> : null}
+        {isError ? <ErrorMessage error={error as Error} /> : null}
       </StyledForm>
     </div>
   );
