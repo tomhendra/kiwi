@@ -16,7 +16,9 @@ const buttonVariants = {
 
 const Button = styled.button(
   {
-    display: 'block',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     cursor: 'pointer',
     overflow: 'hidden',
     whiteSpace: 'nowrap',

@@ -3,9 +3,10 @@ import { ModalProvider, ModalOpenButton, Modal, ProjectForm } from 'containers';
 import { useCreateProject } from 'core/hooks';
 
 function CreateProject() {
-  const { create, data, isIdle, isLoading, isError, isSuccess, error } =
+  const { create, isIdle, isLoading, isError, isSuccess, error } =
     useCreateProject();
-  console.log({ data });
+
+  console.log('create:', { isIdle, isLoading, isError, isSuccess });
 
   return (
     <ModalProvider>
@@ -13,12 +14,12 @@ function CreateProject() {
         <Button variant="primary">Create Project</Button>
       </ModalOpenButton>
       <Modal aria-label="Create project form" title="Create Project">
-        {isIdle && (
+        {isIdle ? (
           <ProjectForm
             onSubmit={create}
             submitButton={<Button variant="primary">Create Project</Button>}
           />
-        )}
+        ) : null}
         {isLoading ? <Spinner /> : null}
         {isError ? <ErrorMessage error={error as Error} /> : null}
         {isSuccess ? (

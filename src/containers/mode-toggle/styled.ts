@@ -2,8 +2,9 @@ import styled from '@emotion/styled';
 import { theme } from 'core/theme';
 
 export const StyledButton = styled.button({
-  width: theme.sizes[8],
-  height: theme.sizes[8],
+  cursor: 'pointer',
+  width: theme.sizes[10],
+  height: theme.sizes[10],
   background: 'inherit',
   color: 'inherit',
   border: 'none',

@@ -1,17 +1,12 @@
 import * as React from 'react';
-import { ReactElement, CreateProjectInput } from 'core/models';
-import {
-  StyledInput,
-  StyledForm,
-  StyledFormGroup,
-  StyledTextarea,
-} from 'components';
+import { ReactElement, Project } from 'core/models';
+import { StyledInput, StyledForm, StyledFormGroup } from 'components';
 
 interface FormElements extends HTMLFormControlsCollection {
-  titleInput: HTMLInputElement;
-  descriptionInput: HTMLInputElement;
-  startAtInput: HTMLInputElement;
-  endAtInput: HTMLInputElement;
+  title: HTMLInputElement;
+  description: HTMLInputElement;
+  startAt: HTMLInputElement;
+  endAt: HTMLInputElement;
 }
 
 interface ProjectFormElements extends HTMLFormElement {
@@ -19,46 +14,70 @@ interface ProjectFormElements extends HTMLFormElement {
 }
 
 interface Props {
-  onSubmit: (arg: CreateProjectInput) => void;
+  onSubmit: any; // TODO: work out the correct type for this
   submitButton: ReactElement;
+  project?: Project;
 }
 
-function ProjectForm({ onSubmit, submitButton }: Props) {
+function ProjectForm({ onSubmit, submitButton, project }: Props) {
+  const initialFormState = {
+    id: project?.id ?? null,
+    title: project?.title ?? '',
+    description: project?.description ?? '',
+    startAt: project?.startAt ?? '',
+    endAt: project?.endAt ?? '',
+  };
+
+  const [formState, setFormState] = React.useState(initialFormState);
+
   function handleSubmit(event: React.FormEvent<ProjectFormElements>) {
     event.preventDefault();
-
-    const {
-      titleInput,
-      descriptionInput,
-      startAtInput,
-      endAtInput,
-    } = event.currentTarget.elements;
-
-    onSubmit({
-      title: titleInput.value,
-      description: descriptionInput.value,
-      startAt: new Date(startAtInput.value).toISOString(),
-      endAt: new Date(endAtInput.value).toISOString(),
-    });
+    onSubmit(formState);
   }
+
+  function handleChange(event: React.FormEvent<HTMLInputElement>) {
+    const { id, value } = event.currentTarget;
+    setFormState({ ...formState, [id]: value });
+  }
+
+  const { title, description, startAt, endAt } = formState;
 
   return (
     <StyledForm onSubmit={handleSubmit}>
       <StyledFormGroup>
-        <label htmlFor="titleInput">Title</label>
-        <StyledInput id="titleInput" type="text" />
+        <label htmlFor="title">Title</label>
+        <StyledInput
+          id="title"
+          type="text"
+          onChange={handleChange}
+          value={title}
+        />
       </StyledFormGroup>
       <StyledFormGroup>
-        <label htmlFor="descriptionInput">Description</label>
-        <StyledTextarea id="descriptionInput" />
+        <label htmlFor="description">Description</label>
+        <StyledInput
+          id="description"
+          onChange={handleChange}
+          value={description}
+        />
       </StyledFormGroup>
       <StyledFormGroup>
-        <label htmlFor="startAtInput">Do Date</label>
-        <StyledInput id="startAtInput" type="date" />
+        <label htmlFor="startAt">Do Date</label>
+        <StyledInput
+          id="startAt"
+          type="date"
+          onChange={handleChange}
+          value={startAt}
+        />
       </StyledFormGroup>
       <StyledFormGroup>
-        <label htmlFor="endAtInput">Priority</label>
-        <StyledInput id="endAtInput" type="date" />
+        <label htmlFor="endAt">Priority</label>
+        <StyledInput
+          id="endAt"
+          type="date"
+          onChange={handleChange}
+          value={endAt}
+        />
       </StyledFormGroup>
       <div>{React.cloneElement(submitButton, { type: 'submit' })}</div>
     </StyledForm>

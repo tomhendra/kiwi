@@ -5,11 +5,23 @@ import * as queries from 'core/graphql/queries';
 import {
   CreateProjectInput,
   CreateProjectMutation,
+  DeleteProjectInput,
+  DeleteProjectMutation,
   GetProjectQuery,
   GetProjectQueryVariables,
   ListProjectsQuery,
   Project,
+  UpdateProjectInput,
+  UpdateProjectMutation,
 } from 'core/models';
+
+/**
+ * Composing custom hooks from the hooks that are provided by react-query is
+ * a powerful pattern which brings several benefits:
+ * 1. We avoid the risk of using the incorrect queryKey or queryFn.
+ * 2. We can hide away some implementation details for specific data.
+ * 3. We can customize the return value to suit our specific use case.
+ */
 
 const loadingProject = {
   title: 'loading...',
@@ -19,19 +31,26 @@ const loadingProject = {
   createdAt: 'loading...',
 };
 
-function useCreateProject() {
-  const queryClient = useQueryClient();
-  const result = useMutation(
-    (projectInput: CreateProjectInput) =>
-      API.graphql(
-        graphqlOperation(mutations.createProject, {
-          input: projectInput,
-        }),
-      ) as Promise<CreateProjectMutation>,
-    { onSettled: () => queryClient.invalidateQueries('projects') },
-  );
+interface ListProjectsResult {
+  data: ListProjectsQuery | null;
+  error?: Error;
+}
 
-  return { ...result, create: result.mutate };
+function useListProjects() {
+  const result = useQuery({
+    queryKey: ['projects'],
+    queryFn: () =>
+      API.graphql(
+        graphqlOperation(queries.listProjects),
+      ) as Promise<ListProjectsResult>,
+  });
+
+  const projects = result?.data?.data?.listProjects?.items as Project[];
+
+  return {
+    ...result,
+    projects: projects ?? [],
+  };
 }
 
 interface GetProjectResult {
@@ -56,26 +75,53 @@ function useGetProject({ id }: GetProjectQueryVariables) {
   };
 }
 
-interface ListProjectsResult {
-  data: ListProjectsQuery | null;
-  error?: Error;
-}
-
-function useListProjects() {
-  const result = useQuery({
-    queryKey: ['projects'],
-    queryFn: () =>
+function useCreateProject() {
+  const queryClient = useQueryClient();
+  const result = useMutation(
+    (project: CreateProjectInput) =>
       API.graphql(
-        graphqlOperation(queries.listProjects),
-      ) as Promise<ListProjectsResult>,
-  });
+        graphqlOperation(mutations.createProject, {
+          input: project,
+        }),
+      ) as Promise<CreateProjectMutation>,
+    { onSettled: () => queryClient.invalidateQueries('projects') },
+  );
 
-  const projects = result?.data?.data?.listProjects?.items as Project[];
-
-  return {
-    ...result,
-    projects: projects ?? null,
-  };
+  return { ...result, create: result.mutate };
 }
 
-export { useCreateProject, useGetProject, useListProjects };
+function useUpdateProject() {
+  const queryClient = useQueryClient();
+  const result = useMutation(
+    (project: UpdateProjectInput) =>
+      API.graphql(
+        graphqlOperation(mutations.updateProject, {
+          input: project,
+        }),
+      ) as Promise<UpdateProjectMutation>,
+    { onSettled: () => queryClient.invalidateQueries('projects') },
+  );
+
+  return { ...result, update: result.mutate };
+}
+
+function useDeleteProject() {
+  const queryClient = useQueryClient();
+  const result = useMutation(
+    (idObj: DeleteProjectInput) =>
+      API.graphql(
+        graphqlOperation(mutations.deleteProject, { input: idObj }),
+      ) as Promise<DeleteProjectMutation>,
+    { onSettled: () => queryClient.invalidateQueries('projects') },
+  );
+
+  return { ...result, deleteProject: result.mutate };
+}
+
+export {
+  useListProjects,
+  useGetProject,
+  useCreateProject,
+  useUpdateProject,
+  useDeleteProject,
+};

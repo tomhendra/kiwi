@@ -93,12 +93,12 @@ function UnauthenticatedApp({ signIn, signUp, confirmSignUp }: Props) {
         ) : null}
         <div>
           <Button variant="primary" type="submit">
-            {isLoading ? (
-              <Spinner css={{ marginLeft: theme.space[2] }} />
-            ) : null}
             {authState === 'signIn' ? 'Sign in' : null}
             {authState === 'signUp' ? 'Sign up' : null}
             {authState === 'confirm' ? 'confirm sign up' : null}
+            {isLoading ? (
+              <Spinner css={{ marginLeft: theme.space[2] }} />
+            ) : null}
           </Button>
           <Button
             variant="secondary"
