@@ -1,7 +1,21 @@
 import * as React from 'react';
+import styled from '@emotion/styled';
+import { theme } from 'core/theme';
 import { useLocalStorageState } from 'core/hooks';
-import { StyledButton } from './styled';
 import { Sun, Moon } from 'components/icons';
+
+const StyledButton = styled.button`
+  cursor: pointer;
+  width: ${theme.sizes[10]};
+  height: ${theme.sizes[10]};
+  background: inherit;
+  color: inherit;
+  border: none;
+  padding: ${theme.space[1]};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 function ModeToggle() {
   const [theme, setTheme] = useLocalStorageState('theme', 'light');

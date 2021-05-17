@@ -1,33 +1,31 @@
 /** @jsxImportSource @emotion/react */
+import styled from '@emotion/styled';
 import { theme } from 'core/theme';
+
+type ErrorMessageVariants = 'stacked' | 'inline';
 
 const errorMessageVariants = {
   stacked: { display: 'block' },
   inline: { display: 'inline-block' },
 };
 
+const StyledPre = styled.pre`
+  color: ${theme.colors.danger};
+  ${({ variant }: { variant: ErrorMessageVariants }) =>
+    errorMessageVariants[variant]}
+`;
+
 interface Props {
   error: Error | null;
-  variant?: 'stacked' | 'inline';
+  variant?: ErrorMessageVariants;
 }
 
 function ErrorMessage({ error, variant = 'stacked', ...props }: Props) {
   return (
-    <div
-      role="alert"
-      css={[{ color: theme.colors.danger }, errorMessageVariants[variant]]}
-      {...props}
-    >
+    <StyledPre variant={variant}>
       <span>There was an error: </span>
-      <pre
-        css={[
-          { whiteSpace: 'break-spaces', margin: '0', marginBottom: -5 },
-          errorMessageVariants[variant],
-        ]}
-      >
-        {error ? error.message : null}
-      </pre>
-    </div>
+      <pre>{error ? error.message : null}</pre>
+    </StyledPre>
   );
 }
 

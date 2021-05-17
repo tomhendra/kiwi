@@ -1,40 +1,40 @@
-import { Global as EmotionGlobal } from '@emotion/react';
+import { Global as EmotionGlobal, css } from '@emotion/react';
 import { theme } from 'core/theme';
 
 function Global() {
   return (
     <EmotionGlobal
-      styles={{
-        '::selection': {
-          backgroundColor: theme.colors.muted,
-          color: theme.colors.primary,
-        },
+      styles={css`
+        ::selection {
+          background-color: ${theme.colors.muted};
+          color: ${theme.colors.primary};
+        }
 
-        body: {
-          background: theme.colors.background,
-          color: theme.colors.text,
-          fontFamily: theme.fonts.body,
-          textRendering: 'optimizeLegibility',
-          margin: '0',
-        },
+        body {
+          background: ${theme.colors.background};
+          color: ${theme.colors.text};
+          font-family: ${theme.fonts.body};
+          text-rendering: optimizeLegibility;
+          margin: 0;
+        }
 
-        a: {
-          color: theme.colors.primary,
-          textDecoration: 'underline',
-        },
+        a {
+          color: ${theme.colors.primary};
+          text-decoration: underline;
+        }
 
-        '.hidden': {
-          display: 'none',
-        },
+        .hidden {
+          display: none;
+        }
 
-        'span[aria-hidden="true"]': {
-          display: 'none',
-        },
+        span[aria-hidden='true'] {
+          display: none;
+        }
 
-        'span[aria-hidden="false"]': {
-          display: 'block',
-        },
-      }}
+        span[aria-hidden='false'] {
+          display: block;
+        }
+      `}
     />
   );
 }

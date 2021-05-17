@@ -1,8 +1,35 @@
-/** @jsxImportSource @emotion/react */
-
-import { StyledContainer } from './styled';
+import styled from '@emotion/styled';
 import { theme } from 'core/theme';
 import { Children, ReactElement } from 'core/models';
+
+const StyledWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+`;
+
+const StyledContainer = styled.div`
+  max-width: ${theme.sizes.container};
+  margin: 0 auto;
+  padding: ${theme.space[4]};
+`;
+
+const StyledHeader = styled.div`
+  width: 100%;
+  background: inherit;
+  box-shadow: ${theme.shadows.sm};
+`;
+
+const StyledMain = styled.main`
+  width: 100%;
+  flex: 1 1 auto;
+  padding-top: ${theme.space[4]};
+`;
+
+const StyledFooter = styled.footer`
+  width: 100%;
+  background: inherit;
+`;
 
 interface Props {
   nav?: ReactElement;
@@ -12,40 +39,17 @@ interface Props {
 
 function Layout({ nav, footer, children }: Props) {
   return (
-    <div
-      css={{
-        display: 'flex',
-        flexDirection: 'column',
-        minHeight: '100vh',
-      }}
-    >
-      <header
-        css={{
-          width: '100%',
-          background: 'inherit',
-          boxShadow: theme.shadows.sm,
-        }}
-      >
+    <StyledWrapper>
+      <StyledHeader>
         <StyledContainer>{nav}</StyledContainer>
-      </header>
-      <main
-        css={{
-          width: '100%',
-          flex: '1 1 auto',
-          paddingTop: theme.space[4],
-        }}
-      >
+      </StyledHeader>
+      <StyledMain>
         <StyledContainer>{children}</StyledContainer>
-      </main>
-      <footer
-        css={{
-          width: '100%',
-          background: 'inherit',
-        }}
-      >
+      </StyledMain>
+      <StyledFooter>
         <StyledContainer>{footer}</StyledContainer>
-      </footer>
-    </div>
+      </StyledFooter>
+    </StyledWrapper>
   );
 }
 

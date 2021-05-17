@@ -3,6 +3,17 @@ import { ModeToggle, CreateProject } from 'containers';
 import { NavLink, Button } from 'components';
 import { User } from 'core/models';
 import { theme } from 'core/theme';
+import styled from '@emotion/styled';
+
+const StyledNav = styled.nav`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const StyledNavLinksGroup = styled.div`
+  display: flex;
+  align-items: center;
+`;
 
 interface Props {
   user: User;
@@ -12,28 +23,12 @@ interface Props {
 function Navbar({ user, signOut }: Props) {
   return (
     <div>
-      <nav
-        css={{
-          display: 'flex',
-          justifyContent: 'space-between',
-        }}
-      >
-        <div
-          css={{
-            display: 'flex',
-            alignItems: 'center',
-            width: theme.sizes['1/3'],
-          }}
-        >
+      <StyledNav>
+        <StyledNavLinksGroup css={{ width: theme.sizes['1/3'] }}>
           <NavLink to="/dashboard">Dashboard</NavLink>
           <CreateProject />
-        </div>
-        <div
-          css={{
-            display: 'flex',
-            alignItems: 'center',
-          }}
-        >
+        </StyledNavLinksGroup>
+        <StyledNavLinksGroup>
           <p>{user.username}</p>
           <Button
             variant="secondary"
@@ -43,8 +38,8 @@ function Navbar({ user, signOut }: Props) {
             Sign Out
           </Button>
           <ModeToggle />
-        </div>
-      </nav>
+        </StyledNavLinksGroup>
+      </StyledNav>
     </div>
   );
 }
