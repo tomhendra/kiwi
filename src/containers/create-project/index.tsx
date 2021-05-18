@@ -1,12 +1,15 @@
+import * as React from 'react';
 import { ErrorMessage, Button, Spinner } from 'components';
 import { ModalProvider, ModalOpenButton, Modal, ProjectForm } from 'containers';
 import { useCreateProject } from 'core/hooks';
 
 function CreateProject() {
-  const { create, isIdle, isLoading, isError, isSuccess, error } =
+  const { create, isIdle, isLoading, isError, isSuccess, error, reset } =
     useCreateProject();
 
-  console.log('create:', { isIdle, isLoading, isError, isSuccess });
+  React.useEffect(() => {
+    if (isSuccess) reset(); // TODO: build this into Modal close button onClick
+  }, [isSuccess, reset]);
 
   return (
     <ModalProvider>

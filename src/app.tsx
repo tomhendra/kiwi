@@ -7,13 +7,10 @@ import { UnauthenticatedApp } from './app-unauthenticated';
 import { AuthenticatedApp } from './app-authenticated';
 import { FullPageSpinner } from 'components';
 import { QueryCache } from 'react-query';
-import { QueryClient, QueryClientProvider } from 'react-query';
 
 // ------------ DEBUGGER -------------
 // import Amplify from 'aws-amplify';
 // Amplify.Logger.LOG_LEVEL = 'DEBUG';
-
-const queryClient = new QueryClient();
 
 function App() {
   const {
@@ -63,11 +60,9 @@ function App() {
   }
 
   return user ? (
-    <QueryClientProvider client={queryClient}>
-      <Router>
-        <AuthenticatedApp {...AuthenticatedAppProps} />
-      </Router>
-    </QueryClientProvider>
+    <Router>
+      <AuthenticatedApp {...AuthenticatedAppProps} />
+    </Router>
   ) : (
     <UnauthenticatedApp {...UnauthenticatedAppProps} />
   );

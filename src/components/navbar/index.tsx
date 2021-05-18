@@ -5,15 +5,15 @@ import { User } from 'core/models';
 import { theme } from 'core/theme';
 import styled from '@emotion/styled';
 
-const StyledNav = styled.nav`
-  display: flex;
-  justify-content: space-between;
-`;
+const StyledNav = styled.nav({
+  display: 'flex',
+  justifyContent: 'space-between',
+});
 
-const StyledNavLinksGroup = styled.div`
-  display: flex;
-  align-items: center;
-`;
+const StyledNavLinksGroup = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+});
 
 interface Props {
   user: User;

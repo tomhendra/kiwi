@@ -1,15 +1,15 @@
 import styled from '@emotion/styled';
 
-const HideVisually = styled.span`
-  border: 0 !important;
-  clip: rect(0 0 0 0) !important;
-  height: 1px !important;
-  margin: -1px !important;
-  overflow: hidden !important;
-  padding: 0 !important;
-  position: absolute !important;
-  width: 1px !important;
-  white-space: nowrap !important;
-`;
+const HideVisually = styled.span({
+  display: 'inline-block',
+  position: 'absolute',
+  overflow: 'hidden',
+  clip: 'rect(0 0 0 0)',
+  height: 1,
+  width: 1,
+  margin: -1,
+  padding: 0,
+  border: 0,
+});
 
 export { HideVisually };
