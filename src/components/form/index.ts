@@ -7,7 +7,7 @@ const StyledForm = styled.form({
   flexDirection: 'column',
   alignItems: 'stretch',
   '> div': {
-    margin: `${theme.space[3]} auto}`,
+    margin: `${theme.space[3]} auto`,
     width: '100%',
     maxWidth: theme.sizes.md,
   },

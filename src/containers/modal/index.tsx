@@ -46,10 +46,11 @@ function ModalOpenButton({ children: child }: { children: ReactElement }) {
 interface ModalProps {
   title: string;
   children: Children;
+  onClose?: () => void;
   props?: any;
 }
 
-function Modal({ title, children }: ModalProps) {
+function Modal({ title, children, onClose }: ModalProps) {
   const [isOpen] = React.useContext(ModalContext);
 
   if (isOpen) {
@@ -58,7 +59,7 @@ function Modal({ title, children }: ModalProps) {
         <FocusTrap active={isOpen}>
           <StyledWrapper>
             <ModalDismissButton>
-              <StyledCloseButton aria-label="close modal">
+              <StyledCloseButton aria-label="close modal" onClick={onClose}>
                 <HideVisually>Close</HideVisually>
                 <p aria-hidden>X</p>
               </StyledCloseButton>

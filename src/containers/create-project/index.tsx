@@ -7,16 +7,16 @@ function CreateProject() {
   const { create, isIdle, isLoading, isError, isSuccess, error, reset } =
     useCreateProject();
 
-  React.useEffect(() => {
-    if (isSuccess) reset(); // TODO: build this into Modal close button onClick
-  }, [isSuccess, reset]);
-
   return (
     <ModalProvider>
       <ModalOpenButton>
         <Button variant="primary">Create Project</Button>
       </ModalOpenButton>
-      <Modal aria-label="Create project form" title="Create Project">
+      <Modal
+        aria-label="Create project form"
+        title="Create Project"
+        onClose={reset}
+      >
         {isIdle ? (
           <ProjectForm
             onSubmit={create}

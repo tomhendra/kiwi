@@ -18,14 +18,11 @@ const queryClient = new QueryClient({
       useErrorBoundary: true,
       refetchOnWindowFocus: false,
       retry: (failureCount, error) => {
-        // if (error.status === 404) return false;
-        if (error) console.log('error from queryClient config: ', error);
+        // @ts-ignore
+        if (error.status === 404) return false;
         if (failureCount < 2) return true;
         return false;
       },
-    },
-    mutations: {
-      useErrorBoundary: true,
     },
   },
 });

@@ -1,7 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { Routes, Route } from 'react-router-dom';
 import { DashboardScreen, ProjectScreen, NotFoundScreen } from 'screens';
-import { Layout, Navbar, FullPageErrorFallback } from 'components';
+import {
+  Layout,
+  Navbar,
+  ErrorFallback,
+  FullPageErrorFallback,
+} from 'components';
 import { User } from 'core/models';
 import { ErrorBoundary } from 'react-error-boundary';
 
@@ -17,7 +22,7 @@ function AuthenticatedApp({ user, signOut }: Props) {
         nav={<Navbar user={user} signOut={signOut} />}
         footer={<p>&copy; Búho 2021</p>}
       >
-        <ErrorBoundary FallbackComponent={FullPageErrorFallback}>
+        <ErrorBoundary FallbackComponent={ErrorFallback}>
           <AppRoutes />
         </ErrorBoundary>
       </Layout>
