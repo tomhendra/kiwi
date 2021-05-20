@@ -11,8 +11,6 @@ function UpdateProject({ project }: props) {
   const { update, isIdle, isLoading, isError, isSuccess, error } =
     useUpdateProject();
 
-  console.log('update:', { isIdle, isLoading, isError, isSuccess });
-
   return (
     <ModalProvider>
       <ModalOpenButton>

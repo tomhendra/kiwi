@@ -1,6 +1,22 @@
 /** @jsxImportSource @emotion/react */
 import { theme } from 'core/theme';
 
+/*
+const errorMessageVariants = {
+  stacked: `display: block`,
+  inline: `display: inline-block`,
+};
+
+interface Variant {
+  variant: 'stacked' | 'inline';
+}
+
+const StyledPre = styled.pre<Variant>`
+  color: ${theme.colors.danger};
+  ${props => errorMessageVariants[props.variant]};
+`;
+*/
+
 const errorMessageVariants = {
   stacked: { display: 'block' },
   inline: { display: 'inline-block' },
@@ -20,7 +36,6 @@ function ErrorMessage({ error, variant = 'stacked', ...props }: Props) {
         },
         errorMessageVariants[variant],
       ]}
-      {...props}
     >
       <span>There was an error: </span>
       <pre>{error ? error.message : null}</pre>

@@ -1,38 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './app';
-import { QueryClient, QueryClientProvider } from 'react-query';
 import reportWebVitals from './reportWebVitals';
-import { Global } from 'components/global';
 import './core/theme/remedy.css';
 import './core/theme/colors.css';
 import './core/theme/fonts.css';
 
 import Amplify from 'aws-amplify';
 import awsExports from './aws-exports';
+import { AppProviders } from 'core/context';
 Amplify.configure(awsExports);
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      useErrorBoundary: true,
-      refetchOnWindowFocus: false,
-      retry: (failureCount, error) => {
-        // @ts-ignore
-        if (error.status === 404) return false;
-        if (failureCount < 2) return true;
-        return false;
-      },
-    },
-  },
-});
 
 ReactDOM.render(
   <React.StrictMode>
-    <Global />
-    <QueryClientProvider client={queryClient}>
+    <AppProviders>
       <App />
-    </QueryClientProvider>
+    </AppProviders>
   </React.StrictMode>,
   document.getElementById('root'),
 );

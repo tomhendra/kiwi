@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import * as React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
 import { useAsync } from 'core/hooks';
 import { UnauthenticatedApp } from './app-unauthenticated';
@@ -24,9 +23,7 @@ function App() {
   } = useAsync();
 
   const queryCache = new QueryCache({
-    onError: error => {
-      console.log(error);
-    },
+    onError: error => console.log({ error }),
   });
 
   React.useEffect(() => {
@@ -60,9 +57,7 @@ function App() {
   }
 
   return user ? (
-    <Router>
-      <AuthenticatedApp {...AuthenticatedAppProps} />
-    </Router>
+    <AuthenticatedApp {...AuthenticatedAppProps} />
   ) : (
     <UnauthenticatedApp {...UnauthenticatedAppProps} />
   );

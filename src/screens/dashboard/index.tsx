@@ -1,11 +1,18 @@
+import * as React from 'react';
 import { ErrorMessage, FullPageSpinner } from 'components';
-import { useListProjects } from 'core/hooks';
+import { useListProjects, useRefetchListProjects } from 'core/hooks';
 import { Project } from 'core/models';
 import { ProjectPreview } from 'components/project-preview';
 
 function DashboardScreen() {
   const { projects, isIdle, isLoading, isError, isSuccess, error } =
     useListProjects();
+  const refetchListProjects = useRefetchListProjects();
+
+  // @ts-ignore
+  React.useEffect(() => {
+    return () => refetchListProjects();
+  }, [refetchListProjects]);
 
   if (isIdle || isLoading) {
     return <FullPageSpinner />;
