@@ -7,21 +7,12 @@ import {
   ErrorFallback,
   FullPageErrorFallback,
 } from 'components';
-import { User } from 'core/models';
 import { ErrorBoundary } from 'react-error-boundary';
 
-interface Props {
-  user: User;
-  signOut: () => void;
-}
-
-function AuthenticatedApp({ user, signOut }: Props) {
+function AuthenticatedApp() {
   return (
     <ErrorBoundary FallbackComponent={FullPageErrorFallback}>
-      <Layout
-        nav={<Navbar user={user} signOut={signOut} />}
-        footer={<p>&copy; Búho 2021</p>}
-      >
+      <Layout nav={<Navbar />} footer={<p>&copy; Búho 2021</p>}>
         <ErrorBoundary FallbackComponent={ErrorFallback}>
           <AppRoutes />
         </ErrorBoundary>

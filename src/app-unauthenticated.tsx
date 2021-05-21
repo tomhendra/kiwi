@@ -11,18 +11,11 @@ import {
 import { useAsync } from 'core/hooks';
 import { CredentialsInput } from 'core/models/user';
 import { theme } from 'core/theme';
+import { useAuth } from 'core/context/auth';
 
-// TODO: Amplify Hub / setAuthListener ??
-// TODO: types for Amplify auth ??
-
-interface Props {
-  signIn: any;
-  signUp: any;
-  confirmSignUp: any;
-}
-
-function UnauthenticatedApp({ signIn, signUp, confirmSignUp }: Props) {
+function UnauthenticatedApp() {
   const [authState, setAuthState] = React.useState('signIn');
+  const { signIn, signUp, confirmSignUp } = useAuth();
   const { isLoading, isError, error, run } = useAsync();
 
   React.useEffect(() => {

@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { ModeToggle, CreateProject } from 'containers';
 import { NavLink, Button } from 'components';
-import { User } from 'core/models';
 import { theme } from 'core/theme';
 import styled from '@emotion/styled';
+import { useAuth } from 'core/context/auth';
 
 const StyledNav = styled.nav({
   display: 'flex',
@@ -15,12 +15,8 @@ const StyledNavLinksGroup = styled.div({
   alignItems: 'center',
 });
 
-interface Props {
-  user: User;
-  signOut: () => void;
-}
-
-function Navbar({ user, signOut }: Props) {
+function Navbar() {
+  const { user, signOut } = useAuth();
   return (
     <div>
       <StyledNav>
