@@ -9,7 +9,9 @@ import {
   Spinner,
 } from 'components';
 import { useAsync } from 'core/hooks';
+
 // ? https://epicreact.dev/how-to-type-a-react-form-on-submit-handler/
+
 interface FormElements extends HTMLFormControlsCollection {
   usernameInput: HTMLInputElement;
   passwordInput: HTMLInputElement;

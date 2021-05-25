@@ -1,15 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './app';
+import { AppProviders } from 'core/context';
 import reportWebVitals from './reportWebVitals';
 import './core/theme/remedy.css';
 import './core/theme/colors.css';
 import './core/theme/fonts.css';
 
 import Amplify from 'aws-amplify';
-import awsExports from './aws-exports';
-import { AppProviders } from 'core/context';
-Amplify.configure(awsExports);
+import config from './aws-exports';
+Amplify.configure(config);
 
 ReactDOM.render(
   <React.StrictMode>

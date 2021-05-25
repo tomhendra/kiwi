@@ -72,8 +72,8 @@ function FullPageErrorFallback({ error }: { error: Error }) {
         alignItems: 'center',
       }}
     >
-      <p>Uh oh... There's a problem. Try refreshing the app.</p>
-      <pre>{error.message}</pre>
+      <p>Uh oh... There's a problem.</p>
+      <pre>{error}</pre>
     </div>
   );
 }

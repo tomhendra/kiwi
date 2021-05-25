@@ -8,15 +8,16 @@ import {
   ErrorMessage,
   Spinner,
 } from 'components';
-import { useAsync } from 'core/hooks';
 import { CredentialsInput } from 'core/models/user';
 import { theme } from 'core/theme';
 import { useAuth } from 'core/context/auth';
+import { useAsync } from 'core/hooks';
 
 function UnauthenticatedApp() {
   const [authState, setAuthState] = React.useState('signIn');
-  const { signIn, signUp, confirmSignUp } = useAuth();
-  const { isLoading, isError, error, run } = useAsync();
+
+  const { user, signIn, signUp, confirmSignUp } = useAuth();
+  const { run, isLoading, isError, error } = useAsync();
 
   React.useEffect(() => {
     document.body.dataset.theme = 'light';
@@ -78,7 +79,7 @@ function UnauthenticatedApp() {
           </StyledFormGroup>
         ) : null}
         {/* render input for confirmation if confirming sign up */}
-        {authState === 'confirm' ? (
+        {user?.userConfirmed === false ? (
           <StyledFormGroup>
             <label htmlFor="code">confirmation code</label>
             <StyledInput id="code" type="text" />

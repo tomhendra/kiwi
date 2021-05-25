@@ -4,12 +4,17 @@ import { AuthenticatedApp } from './app-authenticated';
 import { useAuth } from 'core/context/auth';
 
 // ------------ DEBUGGER -------------
-// import Amplify from 'aws-amplify';
-// Amplify.Logger.LOG_LEVEL = 'DEBUG';
+import Amplify from 'aws-amplify';
+Amplify.Logger.LOG_LEVEL = 'DEBUG';
 
 function App() {
   const { user } = useAuth();
-  return user ? <AuthenticatedApp /> : <UnauthenticatedApp />;
+
+  return user?.signInUserSession ? (
+    <AuthenticatedApp />
+  ) : (
+    <UnauthenticatedApp />
+  );
 }
 
 export default App;
