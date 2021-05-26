@@ -5,23 +5,6 @@ import { QueryCache } from 'react-query';
 import { FullPageSpinner } from 'components';
 // import { Hub } from 'aws-amplify';
 
-// TODO: types for Amplify auth ??
-interface AuthContextTypes {
-  user: any;
-  signIn: any;
-  signUp: any;
-  confirmSignUp: any;
-  signOut: any;
-}
-
-const defaultAuthContext: AuthContextTypes = {
-  user: null,
-  signIn: null,
-  signUp: null,
-  confirmSignUp: null,
-  signOut: null,
-};
-
 /*
 Hub.listen('auth', (data: any) => {
   switch (data.payload.event) {
@@ -49,6 +32,23 @@ Hub.listen('auth', (data: any) => {
 });
 */
 
+// TODO: types for Amplify auth ??
+interface AuthContextTypes {
+  user: any;
+  signIn: any;
+  signUp: any;
+  confirmSignUp: any;
+  signOut: any;
+}
+
+const defaultAuthContext: AuthContextTypes = {
+  user: null,
+  signIn: null,
+  signUp: null,
+  confirmSignUp: null,
+  signOut: null,
+};
+
 const AuthContext = React.createContext(defaultAuthContext);
 AuthContext.displayName = 'AuthContext';
 
@@ -72,68 +72,61 @@ function AuthProvider(props: any) {
   );
 
   React.useEffect(() => {
-    /**
-     * Auth.currentAuthenticatedUser returns a promise which resolves to a
-     * CognitoUser (same as signIn)
-     **/
+    // currentAuthenticatedUser resolves CognitoUser (same as signIn)
     run(Auth.currentAuthenticatedUser());
   }, [run]);
   /**
-   * signIn / signUp / confirmSignUp / signOut functions are run where they are
-   * needed using separate instances of run via useAsync. this makes it easier
-   * to feedback errors to the user tidily within the relevant form fields.
-   **/
+   * signIn, signUp, confirmSignUp & signOut are 'run' where they are needed
+   * using separate, memoized instances of run via useAsync. this makes it
+   * easier to feedback errors tidily within the relevant form fields.
+   */
   const signIn = React.useCallback(
-    (username: string, password: string) =>
-      Auth.signIn(username, password).then(user => {
-        console.log('signIn promise result: ', user);
-        // promise resolves to CognitoUser
-        // we use setUser as we are not making use of useAsync (run) here.
-        setUser(user);
-      }),
+    async (username: string, password: string) => {
+      const user = await Auth.signIn(username, password);
+      // we use setUser as we are not making use of useAsync (run) here.
+      setUser(user);
+    },
     [setUser],
   );
 
   const signUp = React.useCallback(
-    (username: string, password: string, email: string) =>
-      Auth.signUp({ username, password, attributes: { email } }).then(data => {
-        console.log('signUp promise result: ', data);
-        /**
-         * Auth.signUp resolves to an object with four properties...
-         *
-         * codeDeliveryDetails: {AttributeName: "email", DeliveryMedium: "EMAIL", Destination: "t***@o***.com"},
-         * user: CognitoUser: {...},
-         * userConfirmed: false,
-         * userSub: "83d6bf86-db7f-43da-8306-e931511fb580",
-         *
-         * ...we spread data and crucially expose userConfirmed as part of
-         * the user data for reasoning about in the confirmation form.
-         * we use setUser as we are not making use of useAsync (run) here.
-         */
-        setUser({ ...data });
-      }),
+    async (username: string, password: string, email: string) => {
+      const { codeDeliveryDetails, user, userConfirmed, userSub } =
+        await Auth.signUp({
+          username,
+          password,
+          attributes: { email },
+        });
+      // we expose userConfirmed as part of the user data for reasoning about.
+      // we use setUser as we are not making use of useAsync (run) here.
+      setUser({
+        codeDeliveryDetails,
+        userConfirmed,
+        userSub,
+        ...user,
+      });
+    },
     [setUser],
   );
 
   const confirmSignUp = React.useCallback(
-    (username: string, authCode: string) => {
-      Auth.confirmSignUp(username, authCode).then(
-        data => console.log('confirmSignUp promise result: ', data),
-        // successfully resolves to: SUCCESS
-      );
+    async (username: string, authCode: string) => {
+      const result = await Auth.confirmSignUp(username, authCode);
+      if (result === 'SUCCESS') {
+        setUser({ ...user, userConfirmed: true });
+      }
     },
-    [],
+    [setUser, user],
   );
 
   const signOut = React.useCallback(async () => {
-    await Auth.signOut().then(
-      data => console.log('signOut promise result: ', data),
-      // successfully resolves to: undefined
-    );
+    // successfully resolves to: undefined... WTF Amazon ??
+    await Auth.signOut();
     queryCache.clear();
     setUser(null);
   }, [queryCache, setUser]);
 
+  // memoize the value for context
   const value = React.useMemo(
     () => ({
       user,
