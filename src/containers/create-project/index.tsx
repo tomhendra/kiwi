@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ErrorMessage, Button, Spinner } from 'components';
-import { ModalProvider, ModalOpenButton, Modal, ProjectForm } from 'containers';
+import { Modal, ModalOpenButton, ModalContents, ProjectForm } from 'containers';
 import { useCreateProject } from 'core/hooks';
 
 function CreateProject() {
@@ -8,11 +8,11 @@ function CreateProject() {
     useCreateProject();
 
   return (
-    <ModalProvider>
+    <Modal>
       <ModalOpenButton>
         <Button variant="primary">Create Project</Button>
       </ModalOpenButton>
-      <Modal
+      <ModalContents
         aria-label="Create project form"
         title="Create Project"
         onClose={reset}
@@ -31,8 +31,8 @@ function CreateProject() {
             <p>Go back to Dashboard</p>
           </>
         ) : null}
-      </Modal>
-    </ModalProvider>
+      </ModalContents>
+    </Modal>
   );
 }
 

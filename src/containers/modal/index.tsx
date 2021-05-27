@@ -6,7 +6,7 @@ import {
   StyledOverlay,
   StyledCloseButton,
   StyledContent,
-  StyledWrapper,
+  StyledContainer,
   StyledTitle,
 } from './styled';
 import { callAll } from 'core/utils';
@@ -20,7 +20,7 @@ type ContextState = [
 
 const ModalContext = React.createContext({} as ContextState);
 
-function ModalProvider(props: any) {
+function Modal(props: any) {
   const [isOpen, setIsOpen] = React.useState(false);
   return <ModalContext.Provider value={[isOpen, setIsOpen]} {...props} />;
 }
@@ -39,9 +39,7 @@ function ModalOpenButton({ children: child }: { children: ReactElement }) {
   });
 }
 
-/**
- * TODO: fix close on escape for FocusTrap - doesn't work out-of-the-box as it should
- * */
+// TODO: fix close on escape for FocusTrap - doesn't work out-of-the-box
 
 interface ModalProps {
   title: string;
@@ -50,14 +48,14 @@ interface ModalProps {
   props?: any;
 }
 
-function Modal({ title, children, onClose }: ModalProps) {
+function ModalContents({ title, children, onClose }: ModalProps) {
   const [isOpen] = React.useContext(ModalContext);
 
   if (isOpen) {
     return ReactDOM.createPortal(
       <StyledOverlay>
         <FocusTrap active={isOpen}>
-          <StyledWrapper>
+          <StyledContainer>
             <ModalDismissButton>
               <StyledCloseButton aria-label="close modal" onClick={onClose}>
                 <HideVisually>Close</HideVisually>
@@ -68,7 +66,7 @@ function Modal({ title, children, onClose }: ModalProps) {
             <StyledContent role="dialog" aria-modal={true}>
               {children}
             </StyledContent>
-          </StyledWrapper>
+          </StyledContainer>
         </FocusTrap>
       </StyledOverlay>,
       document.body,
@@ -78,4 +76,4 @@ function Modal({ title, children, onClose }: ModalProps) {
   }
 }
 
-export { ModalProvider, ModalOpenButton, Modal };
+export { Modal, ModalOpenButton, ModalDismissButton, ModalContents };

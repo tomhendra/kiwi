@@ -1,5 +1,5 @@
 import { ErrorMessage, Button, Spinner } from 'components';
-import { ModalProvider, ModalOpenButton, Modal, ProjectForm } from 'containers';
+import { Modal, ModalOpenButton, ModalContents, ProjectForm } from 'containers';
 import { useUpdateProject } from 'core/hooks';
 import { Project } from 'core/models';
 
@@ -12,11 +12,11 @@ function UpdateProject({ project }: props) {
     useUpdateProject();
 
   return (
-    <ModalProvider>
+    <Modal>
       <ModalOpenButton>
         <Button variant="primary">Update</Button>
       </ModalOpenButton>
-      <Modal aria-label="Update project form" title="Update Project">
+      <ModalContents aria-label="Update project form" title="Update Project">
         {isIdle ? (
           <ProjectForm
             onSubmit={update}
@@ -32,8 +32,8 @@ function UpdateProject({ project }: props) {
             <p>Go back to Dashboard</p>
           </>
         ) : null}
-      </Modal>
-    </ModalProvider>
+      </ModalContents>
+    </Modal>
   );
 }
 

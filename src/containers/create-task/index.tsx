@@ -1,5 +1,5 @@
 import { ErrorMessage, Button, Spinner } from 'components';
-import { ModalProvider, ModalOpenButton, Modal, TaskForm } from 'containers';
+import { Modal, ModalOpenButton, ModalContents, TaskForm } from 'containers';
 import { useCreateTask } from 'core/hooks';
 
 function CreateTask() {
@@ -7,15 +7,15 @@ function CreateTask() {
     useCreateTask();
 
   return (
-    <ModalProvider>
+    <Modal>
       <ModalOpenButton>
         <Button variant="primary">Create Project</Button>
       </ModalOpenButton>
-      <Modal aria-label="Create project form" title="Create Project">
+      <ModalContents aria-label="Create project form" title="Create Project">
         {isIdle && (
           <TaskForm
             onSubmit={create}
-            submitButton={<Button variant="primary">Create Project</Button>}
+            submitButton={<Button variant="primary">Create Task</Button>}
           />
         )}
         {isLoading ? <Spinner /> : null}
@@ -26,8 +26,8 @@ function CreateTask() {
             <p>Go back to Dashboard</p>
           </>
         ) : null}
-      </Modal>
-    </ModalProvider>
+      </ModalContents>
+    </Modal>
   );
 }
 
