@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './app';
 import { AppProviders } from 'core/context';
 import reportWebVitals from './reportWebVitals';
+import 'stop-runaway-react-effects/hijack';
 import './core/theme/remedy.css';
 import './core/theme/colors.css';
 import './core/theme/fonts.css';

@@ -47,7 +47,8 @@
     "inquirer": "^8.1.0",
     "lint-staged": "^11.0.0",
     "prettier": "^2.3.0",
-    "serve": "^11.3.2"
+    "serve": "^11.3.2",
+    "stop-runaway-react-effects": "^2.0.0"
   },
   "eslintConfig": {
     "extends": [

@@ -72,16 +72,14 @@ function AuthProvider(props: any) {
   );
 
   React.useEffect(() => {
-    // currentAuthenticatedUser resolves CognitoUser (same as signIn)
+    // currentAuthenticatedUser resolves to CognitoUser (same as signIn)
     run(Auth.currentAuthenticatedUser());
   }, [run]);
-  /**
-   * signIn, signUp, confirmSignUp & signOut are 'run' where they are needed
-   * using separate, memoized instances of run via useAsync. this makes it
-   * easier to feedback errors tidily within the relevant form fields.
-   */
+  // signIn, signUp, confirmSignUp & signOut are 'run' where they are needed
+  // using separate, memoized instances of run via useAsync. this makes it
+  // easier to feedback errors tidily within the relevant form fields.
   const signIn = React.useCallback(
-    async (username: string, password: string) => {
+    async function signIn(username: string, password: string) {
       const user = await Auth.signIn(username, password);
       // we use setUser as we are not making use of useAsync (run) here.
       setUser(user);
@@ -90,7 +88,7 @@ function AuthProvider(props: any) {
   );
 
   const signUp = React.useCallback(
-    async (username: string, password: string, email: string) => {
+    async function signUp(username: string, password: string, email: string) {
       const { codeDeliveryDetails, user, userConfirmed, userSub } =
         await Auth.signUp({
           username,
@@ -110,7 +108,7 @@ function AuthProvider(props: any) {
   );
 
   const confirmSignUp = React.useCallback(
-    async (username: string, authCode: string) => {
+    async function confirmSignUp(username: string, authCode: string) {
       const result = await Auth.confirmSignUp(username, authCode);
       if (result === 'SUCCESS') {
         setUser({ ...user, userConfirmed: true });
@@ -119,13 +117,15 @@ function AuthProvider(props: any) {
     [setUser, user],
   );
 
-  const signOut = React.useCallback(async () => {
-    // successfully resolves to: undefined... WTF Amazon ??
-    await Auth.signOut();
-    queryCache.clear();
-    setUser(null);
-  }, [queryCache, setUser]);
-
+  const signOut = React.useCallback(
+    async function signOut() {
+      // successfully resolves to: undefined... ¯\_(ツ)_/¯
+      await Auth.signOut();
+      queryCache.clear();
+      setUser(null);
+    },
+    [queryCache, setUser],
+  );
   // memoize the value for context
   const value = React.useMemo(
     () => ({

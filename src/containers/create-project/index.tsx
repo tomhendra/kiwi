@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { ErrorMessage, Button, Spinner } from 'components';
 import { Modal, ModalOpenButton, ModalContents, ProjectForm } from 'containers';
 import { useCreateProject } from 'core/hooks';
