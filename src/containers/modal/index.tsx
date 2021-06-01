@@ -42,13 +42,10 @@ type ContextState = [
 ];
 
 const ModalContext = React.createContext({} as ContextState);
-// the parent component creates a React portal with context
+// the parent component provides context only
 function Modal(props: any) {
   const [isOpen, setIsOpen] = React.useState(false);
-  return ReactDOM.createPortal(
-    <ModalContext.Provider value={[isOpen, setIsOpen]} {...props} />,
-    document.body,
-  );
+  return <ModalContext.Provider value={[isOpen, setIsOpen]} {...props} />;
 }
 // we use callAll to ensure any onClick passed to a child button is not
 // overwritten by onClick: () => setIsOpen()
@@ -70,13 +67,19 @@ function ModalOpenButton({ children: child }: { children: ReactElement }) {
 // accessibility: FocusTrap tabs between focusable elements + closes on escape.
 function ModalContentsBase(props: any) {
   const [isOpen] = React.useContext(ModalContext);
-  return isOpen ? (
-    <StyledOverlay>
-      <StyledContainer role="dialog" aria-modal={true}>
-        <FocusTrap active={isOpen} {...props} />
-      </StyledContainer>
-    </StyledOverlay>
-  ) : null;
+  return isOpen
+    ? ReactDOM.createPortal(
+        <StyledOverlay>
+          <StyledContainer role="dialog" aria-modal={true}>
+            <FocusTrap active={isOpen}>
+              {/* div is necessary as FocusTrap only accepts a single child */}
+              <div {...props} />
+            </FocusTrap>
+          </StyledContainer>
+        </StyledOverlay>,
+        document.body,
+      )
+    : null;
 }
 
 interface ModalContentsProps {

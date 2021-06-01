@@ -1,7 +1,10 @@
-/** @jsxImportSource @emotion/react */
-import { UnauthenticatedApp } from './app-unauthenticated';
-import { AuthenticatedApp } from './app-authenticated';
+import * as React from 'react';
 import { useAuth } from 'core/context/auth';
+import { FullPageSpinner } from 'components';
+const UnauthenticatedApp = React.lazy(() => import('./app-unauthenticated'));
+const AuthenticatedApp = React.lazy(
+  () => import(/* webpackPrefetch: true */ './app-authenticated'),
+);
 
 // ------------ DEBUGGER -------------
 // import Amplify from 'aws-amplify';
@@ -10,10 +13,10 @@ import { useAuth } from 'core/context/auth';
 function App() {
   const { user } = useAuth();
 
-  return user?.signInUserSession ? (
-    <AuthenticatedApp />
-  ) : (
-    <UnauthenticatedApp />
+  return (
+    <React.Suspense fallback={<FullPageSpinner />}>
+      {user?.signInUserSession ? <AuthenticatedApp /> : <UnauthenticatedApp />};
+    </React.Suspense>
   );
 }
 

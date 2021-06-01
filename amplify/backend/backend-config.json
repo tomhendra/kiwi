@@ -1,6 +1,6 @@
 {
   "auth": {
-    "buho470f8f09": {
+    "buho20eab65f": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
@@ -16,7 +16,7 @@
           "defaultAuthentication": {
             "authenticationType": "AMAZON_COGNITO_USER_POOLS",
             "userPoolConfig": {
-              "userPoolId": "authbuho470f8f09"
+              "userPoolId": "authbuho20eab65f"
             }
           },
           "additionalAuthenticationProviders": []

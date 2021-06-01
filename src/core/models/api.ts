@@ -64,14 +64,14 @@ export type ModelSizeInput = {
 
 export type Project = {
   __typename: "Project",
-  id?: string,
-  title?: string,
-  description?: string,
-  startAt?: string,
-  endAt?: string,
-  tasks?: ModelTaskConnection,
+  id: string,
+  title: string,
+  description: string,
+  startAt: string,
+  endAt: string,
+  tasks?: ModelTaskConnection | null,
   createdAt?: string | null,
-  updatedAt?: string,
+  updatedAt: string,
   owner?: string | null,
 };
 
@@ -83,13 +83,13 @@ export type ModelTaskConnection = {
 
 export type Task = {
   __typename: "Task",
-  id?: string,
-  title?: string,
+  id: string,
+  title: string,
   description?: string | null,
-  projectID?: string,
-  project?: Project,
+  projectID: string,
+  project?: Project | null,
   createdAt?: string | null,
-  updatedAt?: string,
+  updatedAt: string,
   owner?: string | null,
 };
 
@@ -103,7 +103,7 @@ export type UpdateProjectInput = {
 };
 
 export type DeleteProjectInput = {
-  id?: string | null,
+  id: string,
 };
 
 export type CreateTaskInput = {
@@ -149,7 +149,7 @@ export type UpdateTaskInput = {
 };
 
 export type DeleteTaskInput = {
-  id?: string | null,
+  id: string,
 };
 
 export type ModelProjectFilterInput = {
@@ -182,7 +182,7 @@ export type ModelTaskFilterInput = {
 };
 
 export type CreateProjectMutationVariables = {
-  input?: CreateProjectInput,
+  input: CreateProjectInput,
   condition?: ModelProjectConditionInput | null,
 };
 
@@ -215,7 +215,7 @@ export type CreateProjectMutation = {
 };
 
 export type UpdateProjectMutationVariables = {
-  input?: UpdateProjectInput,
+  input: UpdateProjectInput,
   condition?: ModelProjectConditionInput | null,
 };
 
@@ -248,7 +248,7 @@ export type UpdateProjectMutation = {
 };
 
 export type DeleteProjectMutationVariables = {
-  input?: DeleteProjectInput,
+  input: DeleteProjectInput,
   condition?: ModelProjectConditionInput | null,
 };
 
@@ -281,7 +281,7 @@ export type DeleteProjectMutation = {
 };
 
 export type CreateTaskMutationVariables = {
-  input?: CreateTaskInput,
+  input: CreateTaskInput,
   condition?: ModelTaskConditionInput | null,
 };
 
@@ -314,7 +314,7 @@ export type CreateTaskMutation = {
 };
 
 export type UpdateTaskMutationVariables = {
-  input?: UpdateTaskInput,
+  input: UpdateTaskInput,
   condition?: ModelTaskConditionInput | null,
 };
 
@@ -347,7 +347,7 @@ export type UpdateTaskMutation = {
 };
 
 export type DeleteTaskMutationVariables = {
-  input?: DeleteTaskInput,
+  input: DeleteTaskInput,
   condition?: ModelTaskConditionInput | null,
 };
 
@@ -380,7 +380,7 @@ export type DeleteTaskMutation = {
 };
 
 export type GetProjectQueryVariables = {
-  id?: string,
+  id: string,
 };
 
 export type GetProjectQuery = {
@@ -440,7 +440,7 @@ export type ListProjectsQuery = {
 };
 
 export type GetTaskQueryVariables = {
-  id?: string,
+  id: string,
 };
 
 export type GetTaskQuery = {
@@ -506,7 +506,7 @@ export type ListTasksQuery = {
 };
 
 export type OnCreateProjectSubscriptionVariables = {
-  owner?: string,
+  owner: string,
 };
 
 export type OnCreateProjectSubscription = {
@@ -538,7 +538,7 @@ export type OnCreateProjectSubscription = {
 };
 
 export type OnUpdateProjectSubscriptionVariables = {
-  owner?: string,
+  owner: string,
 };
 
 export type OnUpdateProjectSubscription = {
@@ -570,7 +570,7 @@ export type OnUpdateProjectSubscription = {
 };
 
 export type OnDeleteProjectSubscriptionVariables = {
-  owner?: string,
+  owner: string,
 };
 
 export type OnDeleteProjectSubscription = {
@@ -602,7 +602,7 @@ export type OnDeleteProjectSubscription = {
 };
 
 export type OnCreateTaskSubscriptionVariables = {
-  owner?: string,
+  owner: string,
 };
 
 export type OnCreateTaskSubscription = {
@@ -634,7 +634,7 @@ export type OnCreateTaskSubscription = {
 };
 
 export type OnUpdateTaskSubscriptionVariables = {
-  owner?: string,
+  owner: string,
 };
 
 export type OnUpdateTaskSubscription = {
@@ -666,7 +666,7 @@ export type OnUpdateTaskSubscription = {
 };
 
 export type OnDeleteTaskSubscriptionVariables = {
-  owner?: string,
+  owner: string,
 };
 
 export type OnDeleteTaskSubscription = {

@@ -126,7 +126,12 @@ function AuthProvider(props: any) {
     },
     [queryCache, setUser],
   );
-  // memoize the value for context
+  // memoize the value for context to prevent the Provider
+  // any time Provider is passed a value that is creating during render, all
+  // consumers will re-render when the Provider is re-rendered because if the
+  // value changes between renders, all consumers will be re-rendered to get that
+  // changed value. Because we are inside the component body, any time it
+  // re-renders the Provider will also re-render and all consumers also!
   const value = React.useMemo(
     () => ({
       user,
