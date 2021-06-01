@@ -126,12 +126,14 @@ function AuthProvider(props: any) {
     },
     [queryCache, setUser],
   );
-  // memoize the value for context to prevent the Provider
-  // any time Provider is passed a value that is creating during render, all
-  // consumers will re-render when the Provider is re-rendered because if the
-  // value changes between renders, all consumers will be re-rendered to get that
-  // changed value. Because we are inside the component body, any time it
-  // re-renders the Provider will also re-render and all consumers also!
+  // the value is created during render inside the component body, so
+  // whenever the Provider is re-rendered, all consumers will re-render too.
+  // we memoize the value for context to prevent this behaviour.
+  // but because the functions themselves are also created within the
+  // component body, they would trigger the value to update since they are
+  // dependencies, so all of them need to be memoized also with useCallback.
+  // Now a re-render will only happen when the user changes, since that is the
+  // only thing that can change between re-renders, being the only managed state.
   const value = React.useMemo(
     () => ({
       user,
