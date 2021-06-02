@@ -73,6 +73,13 @@ function AuthProvider(props: any) {
 
   React.useEffect(() => {
     // currentAuthenticatedUser resolves to CognitoUser (same as signIn)
+    // TODO: Move Auth.currentAuthenticatedUser() outside of useEffect
+    // so the req is made before the component mounts, calling the function at
+    // the same time that the AuthProvider is defined.
+    // ? project data can also be cached at the same time with React Query
+    // use staleTime to prevent React Query from updating the cache for 5 secs
+    // so the components have time to render without React Query assuming the
+    // data is stale and updating the cache automatically triggering another req.
     run(Auth.currentAuthenticatedUser());
   }, [run]);
   // signIn, signUp, confirmSignUp & signOut are 'run' where they are needed
