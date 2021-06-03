@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { theme } from 'core/theme';
 import { Button } from 'components';
 import { useDeleteProject } from 'core/hooks';
-import { UpdateProject } from 'containers/update-project';
+import { UpdateProject } from 'components';
 import styled from '@emotion/styled';
 
 const StyledWrapper = styled.div({

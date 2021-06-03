@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { ModeToggle, CreateProject } from 'containers';
+import { ModeToggle, CreateProject } from 'components';
 import { NavLink, Button } from 'components';
 import { theme } from 'core/theme';
 import styled from '@emotion/styled';

@@ -1,5 +1,5 @@
 import { ErrorMessage, Button, Spinner } from 'components';
-import { Modal, ModalOpenButton, ModalContents, TaskForm } from 'containers';
+import { Modal, ModalOpenButton, ModalContents, TaskForm } from 'components';
 import { useCreateTask } from 'core/hooks';
 
 function CreateTask() {

@@ -1,5 +1,5 @@
 import { ErrorMessage, Button, Spinner } from 'components';
-import { Modal, ModalOpenButton, ModalContents, ProjectForm } from 'containers';
+import { Modal, ModalOpenButton, ModalContents, ProjectForm } from 'components';
 import { useCreateProject } from 'core/hooks';
 
 function CreateProject() {
