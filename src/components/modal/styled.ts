@@ -10,10 +10,12 @@ const StyledOverlay = styled.aside`
   background-color: ${theme.colors.overlay};
   z-index: ${theme.zIndices[40]};
   transform: translateZ(0);
+  display: 'flex';
+  justify-content: 'center';
+  align-items: 'center';
 `;
 
 const StyledContainer = styled.div`
-  position: relative;
   outline: 0;
   background: ${theme.colors.background};
   z-index: ${theme.zIndices[50]};
