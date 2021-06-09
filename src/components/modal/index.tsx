@@ -34,7 +34,7 @@ import {
  *  </ModalContents>
  * </Modal>
  */
-
+// TODO: sort out types
 type ContextState = [
   isOpen: boolean,
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
@@ -61,42 +61,44 @@ function ModalOpenButton({ children: child }: { children: ReactElement }) {
     onClick: callAll(() => setIsOpen(true), child.props.onClick),
   });
 }
-// the base modal that will be used throughout the app with styles for
-// border / color / padding / position / transitions applied to the container.
-// implemented close on escape & focus trap without dependencies (a11y).
+// the base modal that will be used throughout the app.
+// close on escape & focus trap implemented without dependencies to conform to
+// WAI-ARIA: https://www.w3.org/TR/wai-aria-practices/#dialog_modal
 function ModalContentsBase(props: any) {
   const [isOpen, setIsOpen] = React.useContext(ModalContext);
   const modalContentsRef: any = React.createRef();
-  const previouslyFocused =
-    typeof document !== 'undefined' && document.activeElement;
 
   React.useEffect(() => {
-    // credit for handleKeydown: https://svelte.dev/examples#modal
+    const previouslyFocused = document?.activeElement;
+    const nodes = modalContentsRef?.current?.querySelectorAll('*');
+
+    const focusable =
+      nodes && Array.from(nodes).filter((n: any) => n.tabIndex >= 0);
+
+    if (focusable) focusable[1].focus();
+    // focusing on the second focusable child works in this app because
+    // the modal will always contain a close button as its first child.
+    // Consider whether it would be better to always place the close button
+    // at the modal footer (as the WAI-ARIA examples demonstrate), or extract
+    // logic to a component and use prop / compound component pattern to
+    // specify which element should receive focus when modal is opened.
     function handleKeydown(e: KeyboardEvent) {
+      // credit for handleKeydown: https://svelte.dev/examples#modal
       if (e.key === 'Escape') {
         setIsOpen(false);
         return;
       }
 
-      if (e.key === 'Tab') {
+      if (e.key === 'Tab' && focusable) {
         // trap focus
-        const nodes = modalContentsRef?.current?.querySelectorAll('*');
-        console.log({ nodes });
+        let index = focusable.indexOf(document.activeElement);
+        if (index === -1 && e.shiftKey) index = 0;
 
-        if (nodes) {
-          const tabbable: any[] = Array.from(nodes).filter(
-            (n: any) => n.tabIndex >= 0,
-          );
+        index += focusable.length + (e.shiftKey ? -1 : 1);
+        index %= focusable.length;
 
-          let index = tabbable.indexOf(document.activeElement);
-          if (index === -1 && e.shiftKey) index = 0;
-
-          index += tabbable.length + (e.shiftKey ? -1 : 1);
-          index %= tabbable.length;
-
-          tabbable[index].focus();
-          e.preventDefault();
-        }
+        focusable[index].focus();
+        e.preventDefault();
       }
     }
 
@@ -104,14 +106,20 @@ function ModalContentsBase(props: any) {
 
     return () => {
       document.removeEventListener('keydown', handleKeydown);
-      previouslyFocused && (previouslyFocused as HTMLElement).focus();
+      // focus previously focused element on modal close
+      if (previouslyFocused) (previouslyFocused as HTMLElement).focus();
     };
   });
 
   return isOpen
     ? ReactDOM.createPortal(
-        <StyledOverlay role="dialog" aria-modal="true">
-          <StyledContainer ref={modalContentsRef} tabIndex={-1} {...props} />
+        <StyledOverlay>
+          <StyledContainer
+            role="dialog"
+            aria-modal="true"
+            ref={modalContentsRef}
+            {...props}
+          />
         </StyledOverlay>,
         document.body,
       )
@@ -121,8 +129,8 @@ function ModalContentsBase(props: any) {
 interface ModalContentsProps {
   title: string;
   children: Children;
-  // TODO: refactor onClose? does this need to be passed as a prop?
-  onClose?: () => void; // prop exposed to pass reset fn from react-query
+  // TODO: refactor onClose: does reset fn from react-query need to be a prop?
+  onClose?: () => void;
   props?: any;
 }
 // layout variations can be composed for all of our required use cases!
