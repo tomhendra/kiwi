@@ -83,22 +83,25 @@ function ModalContentsBase(props: any) {
         const nodes = modalContentsRef?.current?.querySelectorAll('*');
         console.log({ nodes });
 
-        const tabbable: any[] = Array.from(nodes).filter(
-          (n: any) => n.tabIndex >= 0,
-        );
+        if (nodes) {
+          const tabbable: any[] = Array.from(nodes).filter(
+            (n: any) => n.tabIndex >= 0,
+          );
 
-        let index = tabbable.indexOf(document.activeElement);
-        if (index === -1 && e.shiftKey) index = 0;
+          let index = tabbable.indexOf(document.activeElement);
+          if (index === -1 && e.shiftKey) index = 0;
 
-        index += tabbable.length + (e.shiftKey ? -1 : 1);
-        index %= tabbable.length;
+          index += tabbable.length + (e.shiftKey ? -1 : 1);
+          index %= tabbable.length;
 
-        tabbable[index].focus();
-        e.preventDefault();
+          tabbable[index].focus();
+          e.preventDefault();
+        }
       }
     }
 
     document.addEventListener('keydown', handleKeydown);
+
     return () => {
       document.removeEventListener('keydown', handleKeydown);
       previouslyFocused && (previouslyFocused as HTMLElement).focus();
