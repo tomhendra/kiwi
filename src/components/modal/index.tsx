@@ -75,7 +75,9 @@ function ModalContentsBase(props: any) {
     const focusable =
       nodes && Array.from(nodes).filter((n: any) => n.tabIndex >= 0);
 
-    if (focusable) focusable[1].focus();
+    if (focusable && focusable[1]) {
+      focusable[1].focus();
+    }
     // focusing on the second focusable child works in this app because
     // the modal will always contain a close button as its first child.
     // Consider whether it would be better to always place the close button
@@ -83,14 +85,13 @@ function ModalContentsBase(props: any) {
     // logic to a component and use prop / compound component pattern to
     // specify which element should receive focus when modal is opened.
     function handleKeydown(e: KeyboardEvent) {
-      // credit for handleKeydown: https://svelte.dev/examples#modal
       if (e.key === 'Escape') {
         setIsOpen(false);
         return;
       }
 
       if (e.key === 'Tab' && focusable) {
-        // trap focus
+        // credit for focus trap logic: https://svelte.dev/examples#modal
         let index = focusable.indexOf(document.activeElement);
         if (index === -1 && e.shiftKey) index = 0;
 
@@ -107,7 +108,9 @@ function ModalContentsBase(props: any) {
     return () => {
       document.removeEventListener('keydown', handleKeydown);
       // focus previously focused element on modal close
-      if (previouslyFocused) (previouslyFocused as HTMLElement).focus();
+      if (previouslyFocused) {
+        (previouslyFocused as HTMLElement).focus();
+      }
     };
   });
 
@@ -129,7 +132,7 @@ function ModalContentsBase(props: any) {
 interface ModalContentsProps {
   title: string;
   children: Children;
-  // TODO: refactor onClose: does reset fn from react-query need to be a prop?
+  // TODO: refactor onClose: can reset fn from react-query be called elsewhere?
   onClose?: () => void;
   props?: any;
 }
