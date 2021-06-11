@@ -63,6 +63,8 @@ function AuthProvider(props: any) {
     run,
   } = useAsync();
 
+  // ? refactor as reusable hook if queryCache is required anywhere else.
+  // it doesn't feel like it belongs in auth!
   const queryCache = React.useMemo(
     () =>
       new QueryCache({
