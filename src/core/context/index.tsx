@@ -4,6 +4,7 @@ import { Global } from 'components/global';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { Children } from 'core/models';
 import { AuthProvider } from './auth';
+import { ToastProvider } from './toast';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,7 +28,9 @@ function AppProviders({ children }: { children: Children }) {
     <QueryClientProvider client={queryClient}>
       <Global />
       <Router>
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          <ToastProvider>{children}</ToastProvider>
+        </AuthProvider>
       </Router>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
