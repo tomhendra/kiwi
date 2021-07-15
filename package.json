@@ -43,7 +43,7 @@
     "envfile": "^6.14.0",
     "husky": "^7.0.1",
     "ini": "^2.0.0",
-    "inquirer": "^8.1.1",
+    "inquirer": "^8.1.2",
     "lint-staged": "^11.0.1",
     "prettier": "^2.3.2",
     "serve": "^12.0.0",
